@@ -2,12 +2,15 @@
 .DS_store
 PluginSim1/.metadata
 PluginSim1/PluginSim1/.settings
-PluginSim1/PluginSim1/bin
 PluginUI/.metadata
 PluginUI/PluginUI/.settings
 PluginUI/PluginUI/bin
 runtime-EclipseApplication/.metadata
 
 # java class files
-*.class
+
+PluginSim1/PluginSim1/lib/*.class
+PluginUI/*.class
+runtime-EclipseApplication/*.class
+
 

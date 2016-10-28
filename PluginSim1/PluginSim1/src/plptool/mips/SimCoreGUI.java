@@ -786,23 +786,31 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
         updateCPUVisualizer();
     }
     
+    /**
+     * This function will send the cpu snapshot information to the CPU Visualizer GUI module.
+     * It uses SimCore's CPUSnapShot JSON object.
+     * Once all the JSON object has all the necessary value, it will be passed using RabbitIQ connection
+     * component
+     * @param - 
+     * @return -
+     * @see SimCore
+     */
     public void updateCPUVisualizer()
     {
     	try
     	{
-	    	JSONObject obj = new JSONObject();
-	    	obj.put("pc", "1010");
-    		obj.put("instruction", "1011");
+	    	JSONObject obj = ((SimCore)sim).cpuSnapShot;
+	    	
     		
 	    	if(Config.simFunctional)
 	    	{
-	    		//Pipeline Enabled
+	    		//pipeline is disabled
+	    		obj.put(PLPCPUSnapshot_keys.PIPELINE, "False");	    		
 	    	}
 	    	else
 	    	{
-	    		//Pipeline Disabled
-	    		
-	    		
+	    		//pipeline is enabled
+	    		obj.put(PLPCPUSnapshot_keys.PIPELINE, "True");	    		
 	    		
 	    	}
 	    	

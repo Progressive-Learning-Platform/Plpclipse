@@ -17,5 +17,7 @@
 	<classpathentry kind="lib" path="lib/swing-app-framework/swing-worker-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/RXTXcomm.jar"/>
 	<classpathentry kind="lib" path="lib/swingx-0.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/amqp-client-3.6.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

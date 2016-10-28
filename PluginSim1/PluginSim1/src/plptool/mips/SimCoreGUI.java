@@ -33,6 +33,12 @@ import javax.swing.text.html.*;
 import java.awt.event.FocusListener;
 import java.awt.event.FocusEvent;
 import java.util.ArrayList;
+import org.json.simple.JSONObject;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.Connection;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
+import com.rabbitmq.client.Channel;
 import plptool.PLPToolbox;
 import plptool.mips.visualizer.*;
 import plptool.Config;
@@ -776,6 +782,49 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
             cpuVisualizer.update();
 
         updateProgramMemoryTablePC();
+        
+        updateCPUVisualizer();
+    }
+    
+    public void updateCPUVisualizer()
+    {
+    	try
+    	{
+	    	JSONObject obj = new JSONObject();
+	    	obj.put("pc", "1010");
+    		obj.put("instruction", "1011");
+    		
+	    	if(Config.simFunctional)
+	    	{
+	    		//Pipeline Enabled
+	    	}
+	    	else
+	    	{
+	    		//Pipeline Disabled
+	    		
+	    		
+	    		
+	    	}
+	    	
+	    	ConnectionFactory factory = new ConnectionFactory();
+		    factory.setHost("localhost");
+		    Connection connection = factory.newConnection();
+			Channel channel = connection.createChannel();			
+			channel.queueDeclare("Tunnel", false, false, false, null);
+			channel.basicPublish("", "Tunnel", null, obj.toJSONString().getBytes());
+			channel.close();
+			connection.close();
+    	}
+    	catch(Exception exp)
+    	{
+    		
+    	}
+    	finally
+    	{
+    		
+    	}
+    	
+    	
     }
 
     /**

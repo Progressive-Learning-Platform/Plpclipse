@@ -25,6 +25,7 @@ import plptool.Constants;
 import plptool.PLPSimBus;
 import plptool.PLPSimCore;
 import plptool.PLPSimRegModule;
+import org.json.simple.JSONObject;
 
 /**
  * mips.SimCore is the PLP CPU Architecture Simulator. This class
@@ -145,6 +146,8 @@ public class SimCore extends PLPSimCore {
     public static final long PLP_SIM_MEM_STALL_SET               = 0x00000800;
     public static final long PLP_SIM_IRQ                         = 0x10000000;
     public static final long PLP_SIM_IRQ_SERVICED                = 0x20000000;
+    
+    public JSONObject cpuSnapShot;
 
     /**
      * Simulator plp constructor.
@@ -172,8 +175,137 @@ public class SimCore extends PLPSimCore {
         mem_stage = new mem(wb_stage, bus);
         ex_stage = new ex(mem_stage, new alu());
         id_stage = new id(ex_stage, regfile);
+        
+        cpuSnapShot = new JSONObject();
 
         regfile.enable();
+    }
+    
+    private void initializeCPUSnapShot()
+    {
+    	/**************** Non Pipelined *********************/
+    	//PC
+    	cpuSnapShot.put("pc", "-");
+    	//NextInstruction
+    	cpuSnapShot.put("next_instruction", "-");
+    	cpuSnapShot.put("currentInstruction", "-");
+    	cpuSnapShot.put("currentInstruction_address", "-");
+    	//ALU
+    	cpuSnapShot.put("aluResult", "-");
+    	cpuSnapShot.put("aluSource1", "-");
+    	cpuSnapShot.put("aluSource2", "-");
+    	//Registers
+    	cpuSnapShot.put("$0", "-");
+    	cpuSnapShot.put("$1", "-");
+    	cpuSnapShot.put("$2", "-");
+    	cpuSnapShot.put("$3", "-");
+    	cpuSnapShot.put("$4", "-");
+    	cpuSnapShot.put("$5", "-");
+    	cpuSnapShot.put("$6", "-");
+    	cpuSnapShot.put("$7", "-");
+    	cpuSnapShot.put("$8", "-");
+    	cpuSnapShot.put("$9", "-");
+    	cpuSnapShot.put("$10", "-");
+    	cpuSnapShot.put("$11", "-");
+    	cpuSnapShot.put("$12", "-");
+    	cpuSnapShot.put("$13", "-");
+    	cpuSnapShot.put("$14", "-");
+    	cpuSnapShot.put("$15", "-");
+    	cpuSnapShot.put("$16", "-");
+    	cpuSnapShot.put("$17", "-");
+    	cpuSnapShot.put("$18", "-");
+    	cpuSnapShot.put("$19", "-");
+    	cpuSnapShot.put("$20", "-");
+    	cpuSnapShot.put("$21", "-");
+    	cpuSnapShot.put("$22", "-");
+    	cpuSnapShot.put("$23", "-");
+    	cpuSnapShot.put("$24", "-");
+    	cpuSnapShot.put("$25", "-");
+    	cpuSnapShot.put("$26", "-");
+    	cpuSnapShot.put("$27", "-");
+    	cpuSnapShot.put("$28", "-");
+    	cpuSnapShot.put("$29", "-");
+    	cpuSnapShot.put("$30", "-");
+    	cpuSnapShot.put("$31", "-");
+    	//Control Signal
+    	cpuSnapShot.put("activeControlSignal_1", "-");
+    	//Data Memory
+    	cpuSnapShot.put("data_memory_1_address", "-");
+    	cpuSnapShot.put("data_memory_1_value", "-");
+    	//SignExtension
+    	cpuSnapShot.put("sign_extension", "-");
+    	//ALUControl
+    	cpuSnapShot.put("alu_control", "-");
+    	//Reg_MUX
+    	cpuSnapShot.put("reg_mux", "-");
+    	//ALU_MUX
+    	cpuSnapShot.put("alu_mux", "-");
+    	//Memory_MUX
+    	cpuSnapShot.put("mem_mux", "-");
+    	//Add_PC
+    	cpuSnapShot.put("add_pc_source1", "-");
+    	cpuSnapShot.put("add_pc_source2", "-");
+    	cpuSnapShot.put("add_pc_result", "-");
+    	//Shift_Left_PC
+    	cpuSnapShot.put("shilf_left_pc", "-");
+    	//ADD_JUMP
+    	cpuSnapShot.put("add_branch_source1", "-");
+    	cpuSnapShot.put("add_branch_source2", "-");
+    	cpuSnapShot.put("add_branch_result", "-");
+    	//Shift_Left_PC
+    	
+    	//Branch_MUX_1
+    	cpuSnapShot.put("branch_mux_1", "-");
+    	//Branch_MUX_2
+    	cpuSnapShot.put("branch_mux_2", "-");
+    	
+    	/**************************Pipelined************************/
+    	//PC
+    	//NextInstruction
+    	//Instruction Memory
+    	cpuSnapShot.put("ID_Instruction", "-");
+    	cpuSnapShot.put("ID_Instruction_Address", "-");
+    	cpuSnapShot.put("EX_Instruction", "-");
+    	cpuSnapShot.put("Ex_Instruction_Address", "-");
+    	cpuSnapShot.put("MeM_Instruction", "-");
+    	cpuSnapShot.put("MeM_Instruction_Address", "-");
+    	cpuSnapShot.put("WB_Instruction", "-");
+    	cpuSnapShot.put("WB_Instruction_Address", "-");
+    	//Data Memory
+    	cpuSnapShot.put("data_memory_2_address", "-");
+    	cpuSnapShot.put("data_memory_2_value", "-");
+    	cpuSnapShot.put("data_memory_3_address", "-");
+    	cpuSnapShot.put("data_memory_3_value", "-");
+    	cpuSnapShot.put("data_memory_4_address", "-");
+    	cpuSnapShot.put("data_memory_4_value", "-");
+    	cpuSnapShot.put("data_memory_5_address", "-");
+    	cpuSnapShot.put("data_memory_5_value", "-");
+    	//Control
+    	cpuSnapShot.put("activeControlSignal_2", "-");
+    	cpuSnapShot.put("activeControlSignal_3", "-");
+    	cpuSnapShot.put("activeControlSignal_4", "-");
+    	cpuSnapShot.put("activeControlSignal_5", "-");
+    	//Register File
+    	// Sign Exen
+    	// ADD_PC
+    	// Forwarding Unit
+    	// ALU
+    	// ALU Control
+    	// Add_Jump
+    	// IF-ID intermediate buffer
+    	cpuSnapShot.put("IF_ID_Intermediate", "-");
+    	// ID-Ex intermediate buffer
+    	cpuSnapShot.put("ID_EX_Intermediate", "-");
+    	// Ex-Mem intermediate buffer
+    	cpuSnapShot.put("Ex_Mem_Intermediate", "-");
+    	// Mem - Wb intermediate buffer
+    	cpuSnapShot.put("Mem_WB_Intermediate", "-");
+    	// IF Stage Info - Instruction & Instruction Address, Register
+    	// ID Stage Info - Instruction & Instruction Address, Register
+    	// Ex Stage Info - Instruction & Instruction Address, Register
+    	//Mem Stage Info - Instruction & Instruction Address, Register
+    	//WB Stage Info - Instruction & Instruction Address, Register
+    	// Stall Info
     }
 
     /**
@@ -214,6 +346,7 @@ public class SimCore extends PLPSimCore {
         wb_stage.count = 0;
         branch = false;
         flushpipeline();
+        cpuSnapShot.clear();
 
         Msg.P("core: reset");
 
@@ -233,6 +366,7 @@ public class SimCore extends PLPSimCore {
         ex_continue = false;
         ex_stall = false;
         if_stall = false;
+        cpuSnapShot.clear();
 
         Msg.P("core: soft reset");
 
@@ -633,6 +767,7 @@ public class SimCore extends PLPSimCore {
             alu_result &= 0xffffffffL;
             regfile.write(rt, alu_result, false);
         }
+        
 
         // Evaluate modules attached to the bus
         ret += bus.eval();
@@ -645,6 +780,9 @@ public class SimCore extends PLPSimCore {
         if(int_state == 3) {
             IRQAck = 1;
         }
+        
+        cpuSnapShot.put("pc", pc.input());
+        
 
         return ret;
     }

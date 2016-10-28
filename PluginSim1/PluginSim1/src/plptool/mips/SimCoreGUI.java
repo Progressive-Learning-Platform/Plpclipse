@@ -801,6 +801,40 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
     	{
 	    	JSONObject obj = ((SimCore)sim).cpuSnapShot;
 	    	
+	    	//Read the registers
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_0, ((SimCore)sim).regfile.read(0));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_1, ((SimCore)sim).regfile.read(1));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_2, ((SimCore)sim).regfile.read(2));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_3, ((SimCore)sim).regfile.read(3));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_4, ((SimCore)sim).regfile.read(4));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_5, ((SimCore)sim).regfile.read(5));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_6, ((SimCore)sim).regfile.read(6));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_7, ((SimCore)sim).regfile.read(7));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_8, ((SimCore)sim).regfile.read(8));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_9, ((SimCore)sim).regfile.read(9));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_10, ((SimCore)sim).regfile.read(10));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_11, ((SimCore)sim).regfile.read(11));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_12, ((SimCore)sim).regfile.read(12));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_13, ((SimCore)sim).regfile.read(13));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_14, ((SimCore)sim).regfile.read(14));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_15, ((SimCore)sim).regfile.read(15));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_16, ((SimCore)sim).regfile.read(16));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_17, ((SimCore)sim).regfile.read(17));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_18, ((SimCore)sim).regfile.read(18));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_19, ((SimCore)sim).regfile.read(19));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_20, ((SimCore)sim).regfile.read(20));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_21, ((SimCore)sim).regfile.read(21));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_22, ((SimCore)sim).regfile.read(22));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_23, ((SimCore)sim).regfile.read(23));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_24, ((SimCore)sim).regfile.read(24));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_25, ((SimCore)sim).regfile.read(25));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_26, ((SimCore)sim).regfile.read(26));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_27, ((SimCore)sim).regfile.read(27));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_28, ((SimCore)sim).regfile.read(28));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_29, ((SimCore)sim).regfile.read(29));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_30, ((SimCore)sim).regfile.read(30));
+	    	obj.put(PLPCPUSnapshot_keys.REGISTER_31, ((SimCore)sim).regfile.read(31));
+	    	
     		
 	    	if(Config.simFunctional)
 	    	{
@@ -813,6 +847,8 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
 	    		obj.put(PLPCPUSnapshot_keys.PIPELINE, "True");	    		
 	    		
 	    	}
+	    	
+	    	obj.put(PLPCPUSnapshot_keys.NEXT_INSTRUCTION, ((SimCore)sim).bus.read((long)obj.get(PLPCPUSnapshot_keys.PC)));
 	    	
 	    	ConnectionFactory factory = new ConnectionFactory();
 		    factory.setHost("localhost");

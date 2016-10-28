@@ -674,6 +674,7 @@ public class SimCore extends PLPSimCore {
         ret += fetch(); // get the instruction
         
         long instr = id_stage.i_instruction;
+        long instr_address = id_stage.i_instrAddr;
 
         // fill a nop for our interrupt's jalr branch delay slot
         if(int_state == 1) {
@@ -720,7 +721,7 @@ public class SimCore extends PLPSimCore {
         long s = regfile.read(rs);
         long t = regfile.read(rt);
         long s_imm =  (short) imm & 0xffffffffL;
-        long alu_result;
+        long alu_result = 0;
 
         // execute
         if(opcode == 0) {            
@@ -792,6 +793,12 @@ public class SimCore extends PLPSimCore {
         }
         
         cpuSnapShot.put(PLPCPUSnapshot_keys.PC, pc.input());
+        cpuSnapShot.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION, instr);
+        cpuSnapShot.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION_ADDRESS, instr_address);
+        cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_SOURCE_1, s);
+        cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_SOURCE_2, t);
+        cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_RESULT, alu_result);
+        //cpuSnapShot.put(PLPCPUSnapshot_keys., value)
         
 
         return ret;

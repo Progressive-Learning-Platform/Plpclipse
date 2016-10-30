@@ -25,6 +25,10 @@ import plptool.Constants;
 import plptool.PLPSimBus;
 import plptool.PLPSimCore;
 import plptool.PLPSimRegModule;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.json.simple.JSONObject;
 
 /**
@@ -148,6 +152,7 @@ public class SimCore extends PLPSimCore {
     public static final long PLP_SIM_IRQ_SERVICED                = 0x20000000;
     
     public JSONObject cpuSnapShot;
+    Map<String, String> cpuSnapShotmap;
 
     /**
      * Simulator plp constructor.
@@ -177,6 +182,8 @@ public class SimCore extends PLPSimCore {
         id_stage = new id(ex_stage, regfile);
         
         cpuSnapShot = new JSONObject();
+        cpuSnapShotmap = new HashMap<String, String>();
+        initializeCPUSnapShot();
 
         regfile.enable();
     }
@@ -190,6 +197,7 @@ public class SimCore extends PLPSimCore {
     private void initializeCPUSnapShot()
     {
     	cpuSnapShot.put(PLPCPUSnapshot_keys.PIPELINE, "-");
+    	//cpuSnapShotmap.put()
     	
     	/**************** Non Pipelined *********************/
     	//PC
@@ -792,12 +800,13 @@ public class SimCore extends PLPSimCore {
             IRQAck = 1;
         }
         
-        cpuSnapShot.put(PLPCPUSnapshot_keys.PC, pc.input());
-        cpuSnapShot.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION, instr);
-        cpuSnapShot.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION_ADDRESS, instr_address);
-        cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_SOURCE_1, s);
-        cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_SOURCE_2, t);
-        cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_RESULT, alu_result);
+        cpuSnapShot.put(PLPCPUSnapshot_keys.PC, String.valueOf(pc.input()));
+        cpuSnapShot.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION, String.valueOf(instr));
+        cpuSnapShot.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION_ADDRESS, String.valueOf(instr_address));
+        cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_SOURCE_1, String.valueOf(s));
+        cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_SOURCE_2, String.valueOf(t));
+        cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_RESULT, String.valueOf(alu_result));
+        
         //cpuSnapShot.put(PLPCPUSnapshot_keys., value)
         
 

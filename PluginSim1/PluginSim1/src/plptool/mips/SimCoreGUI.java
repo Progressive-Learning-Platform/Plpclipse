@@ -33,6 +33,8 @@ import javax.swing.text.html.*;
 import java.awt.event.FocusListener;
 import java.awt.event.FocusEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.json.simple.JSONObject;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
@@ -799,68 +801,73 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
     {
     	try
     	{
+    		JSONObject obj = new JSONObject();
     		
 	    	//JSONObject obj = new JSONObject(((SimCore)sim).cpuSnapShot, JSONObject.getNames(((SimCore)sim).cpuSnapShot));
     		
-    		String objString = ((SimCore)sim).cpuSnapShot.toJSONString();
+    		//String objString = ((SimCore)sim).cpuSnapShot.toJSONString();
+    		
+    		
     		
 	    	
 	    	//Read the registers
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_0, String.valueOf(((SimCore)sim).regfile.read(0)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_1, String.valueOf(((SimCore)sim).regfile.read(1)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_2, String.valueOf(((SimCore)sim).regfile.read(2)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_3, String.valueOf(((SimCore)sim).regfile.read(3)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_4, String.valueOf(((SimCore)sim).regfile.read(4)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_5, String.valueOf(((SimCore)sim).regfile.read(5)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_6, String.valueOf(((SimCore)sim).regfile.read(6)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_7, String.valueOf(((SimCore)sim).regfile.read(7)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_8, String.valueOf(((SimCore)sim).regfile.read(8)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_9, String.valueOf(((SimCore)sim).regfile.read(9)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_10, String.valueOf(((SimCore)sim).regfile.read(10)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_11, String.valueOf(((SimCore)sim).regfile.read(11)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_12, String.valueOf(((SimCore)sim).regfile.read(12)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_13, String.valueOf(((SimCore)sim).regfile.read(13)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_14, String.valueOf(((SimCore)sim).regfile.read(14)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_15, String.valueOf(((SimCore)sim).regfile.read(15)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_16, String.valueOf(((SimCore)sim).regfile.read(16)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_17, String.valueOf(((SimCore)sim).regfile.read(17)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_18, String.valueOf(((SimCore)sim).regfile.read(18)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_19, String.valueOf(((SimCore)sim).regfile.read(19)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_20, String.valueOf(((SimCore)sim).regfile.read(20)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_21, String.valueOf(((SimCore)sim).regfile.read(21)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_22, String.valueOf(((SimCore)sim).regfile.read(22)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_23, String.valueOf(((SimCore)sim).regfile.read(23)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_24, String.valueOf(((SimCore)sim).regfile.read(24)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_25, String.valueOf(((SimCore)sim).regfile.read(25)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_26, String.valueOf(((SimCore)sim).regfile.read(26)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_27, String.valueOf(((SimCore)sim).regfile.read(27)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_28, String.valueOf(((SimCore)sim).regfile.read(28)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_29, String.valueOf(((SimCore)sim).regfile.read(29)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_30, String.valueOf(((SimCore)sim).regfile.read(30)));
-	    	((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_31, String.valueOf(((SimCore)sim).regfile.read(31)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_0, String.valueOf(((SimCore)sim).regfile.read(0)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_1, String.valueOf(((SimCore)sim).regfile.read(1)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_2, String.valueOf(((SimCore)sim).regfile.read(2)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_3, String.valueOf(((SimCore)sim).regfile.read(3)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_4, String.valueOf(((SimCore)sim).regfile.read(4)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_5, String.valueOf(((SimCore)sim).regfile.read(5)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_6, String.valueOf(((SimCore)sim).regfile.read(6)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_7, String.valueOf(((SimCore)sim).regfile.read(7)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_8, String.valueOf(((SimCore)sim).regfile.read(8)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_9, String.valueOf(((SimCore)sim).regfile.read(9)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_10, String.valueOf(((SimCore)sim).regfile.read(10)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_11, String.valueOf(((SimCore)sim).regfile.read(11)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_12, String.valueOf(((SimCore)sim).regfile.read(12)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_13, String.valueOf(((SimCore)sim).regfile.read(13)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_14, String.valueOf(((SimCore)sim).regfile.read(14)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_15, String.valueOf(((SimCore)sim).regfile.read(15)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_16, String.valueOf(((SimCore)sim).regfile.read(16)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_17, String.valueOf(((SimCore)sim).regfile.read(17)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_18, String.valueOf(((SimCore)sim).regfile.read(18)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_19, String.valueOf(((SimCore)sim).regfile.read(19)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_20, String.valueOf(((SimCore)sim).regfile.read(20)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_21, String.valueOf(((SimCore)sim).regfile.read(21)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_22, String.valueOf(((SimCore)sim).regfile.read(22)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_23, String.valueOf(((SimCore)sim).regfile.read(23)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_24, String.valueOf(((SimCore)sim).regfile.read(24)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_25, String.valueOf(((SimCore)sim).regfile.read(25)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_26, String.valueOf(((SimCore)sim).regfile.read(26)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_27, String.valueOf(((SimCore)sim).regfile.read(27)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_28, String.valueOf(((SimCore)sim).regfile.read(28)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_29, String.valueOf(((SimCore)sim).regfile.read(29)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_30, String.valueOf(((SimCore)sim).regfile.read(30)));
+	    	((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_31, String.valueOf(((SimCore)sim).regfile.read(31)));
 	    	
     		//We can remove it -- Harsha
 	    	if(Config.simFunctional)
 	    	{
 	    		//pipeline is disabled
-	    		((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.PIPELINE, "False");	    		
+	    		((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.PIPELINE, "False");	    		
 	    	}
 	    	else
 	    	{
 	    		//pipeline is enabled
-	    		((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.PIPELINE, "True");	    		
+	    		((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.PIPELINE, "True");	    		
 	    		
 	    	}
 	    	
-	    	if((String)((SimCore)sim).cpuSnapShot.get(PLPCPUSnapshot_keys.PC) != "-")
-	    		((SimCore)sim).cpuSnapShot.put(PLPCPUSnapshot_keys.NEXT_INSTRUCTION, ((SimCore)sim).bus.read((long)Long.parseLong((String)((SimCore)sim).cpuSnapShot.get(PLPCPUSnapshot_keys.PC))));
+	    	if((String)((SimCore)sim).cpuSnapShotmap.get(PLPCPUSnapshot_keys.PC) != "-")
+	    		((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.NEXT_INSTRUCTION, String.valueOf(((SimCore)sim).bus.read((long)Long.parseLong((String)((SimCore)sim).cpuSnapShotmap.get(PLPCPUSnapshot_keys.PC)))));
+	    	
+	    	obj = ((SimCore)sim).cpuSnapShotmap;
 	    	
 	    	ConnectionFactory factory = new ConnectionFactory();
 		    factory.setHost("localhost");
 		    Connection connection = factory.newConnection();
 			Channel channel = connection.createChannel();			
 			channel.queueDeclare("Tunnel", false, false, false, null);
-			channel.basicPublish("", "Tunnel", null, ((SimCore)sim).cpuSnapShot.toJSONString().getBytes());
+			channel.basicPublish("", "Tunnel", null, obj.toJSONString().getBytes());
 			channel.close();
 			connection.close();
     	}

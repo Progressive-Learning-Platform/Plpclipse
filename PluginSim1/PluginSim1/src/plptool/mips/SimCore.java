@@ -29,7 +29,9 @@ import plptool.PLPSimRegModule;
 import java.util.HashMap;
 import java.util.Map;
 
+
 import org.json.simple.JSONObject;
+
 
 /**
  * mips.SimCore is the PLP CPU Architecture Simulator. This class
@@ -151,8 +153,8 @@ public class SimCore extends PLPSimCore {
     public static final long PLP_SIM_IRQ                         = 0x10000000;
     public static final long PLP_SIM_IRQ_SERVICED                = 0x20000000;
     
-    public JSONObject cpuSnapShot;
-    Map<String, String> cpuSnapShotmap;
+    public JSONObject cpuSnapShotmap;
+    //public Map<String, String> cpuSnapShotmap;
 
     /**
      * Simulator plp constructor.
@@ -181,8 +183,8 @@ public class SimCore extends PLPSimCore {
         ex_stage = new ex(mem_stage, new alu());
         id_stage = new id(ex_stage, regfile);
         
-        cpuSnapShot = new JSONObject();
-        cpuSnapShotmap = new HashMap<String, String>();
+        cpuSnapShotmap = new JSONObject();
+        //cpuSnapShotmap = new HashMap<String, String>();
         initializeCPUSnapShot();
 
         regfile.enable();
@@ -196,113 +198,115 @@ public class SimCore extends PLPSimCore {
      */
     private void initializeCPUSnapShot()
     {
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.PIPELINE, "-");
+    	//cpuSnapShotmap.put(new Pair<String, String>(PLPCPUSnapshot_keys.PIPELINE, "-"));
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.PIPELINE, "-");
+    	
     	//cpuSnapShotmap.put()
     	
     	/**************** Non Pipelined *********************/
     	//PC
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.PC, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.PC, "-");
     	//NextInstruction
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.NEXT_INSTRUCTION, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION_ADDRESS, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.NEXT_INSTRUCTION, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION_ADDRESS, "-");
     	//ALU
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_RESULT, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_SOURCE_1, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_SOURCE_2, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_RESULT, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_SOURCE_1, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_SOURCE_2, "-");
     	//Registers
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_0, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_1, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_2, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_3, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_4, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_5, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_6, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_7, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_8, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_9, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_10, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_11, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_12, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_13, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_14, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_15, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_16, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_17, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_18, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_19, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_20, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_21, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_22, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_23, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_24, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_25, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_26, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_27, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_28, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_29, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_30, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_31, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_0, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_1, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_2, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_3, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_4, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_5, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_6, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_7, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_8, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_9, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_10, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_11, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_12, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_13, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_14, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_15, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_16, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_17, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_18, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_19, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_20, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_21, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_22, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_23, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_24, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_25, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_26, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_27, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_28, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_29, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_30, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_31, "-");
     	//Control Signal
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ACTIVE_CONTROL_SIGNAL_1, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ACTIVE_CONTROL_SIGNAL_1, "-");
     	//Data Memory
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.DATA_MEMORY_1_ADDRESS, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.DATA_MEMORY_1_VALUE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_1_ADDRESS, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_1_VALUE, "-");
     	//SignExtension
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.SIGN_EXTENSION_INPUT, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.SIGN_EXTENSION_OUTPUT, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SIGN_EXTENSION_INPUT, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SIGN_EXTENSION_OUTPUT, "-");
     	//ALUControl
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_CONTROL, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_CONTROL, "-");
     	//Reg_MUX
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.REGISTER_MUX, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_MUX, "-");
     	//ALU_MUX
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_MUX, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_MUX, "-");
     	//Memory_MUX
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.MEM_MUX, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MEM_MUX, "-");
     	//Add_PC
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ADD_PC_SOURCE_1, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ADD_PC_SOURCE_2, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ADD_PC_RESULT, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_PC_SOURCE_1, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_PC_SOURCE_2, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_PC_RESULT, "-");
     	//Shift_Left_PC
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_INPUT, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_OUTPUT, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_INPUT, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_OUTPUT, "-");
     	//ADD_JUMP
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ADD_BRANCH_SOURCE_2, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ADD_BRANCH_SOURCE_2, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ADD_PC_RESULT, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_BRANCH_SOURCE_2, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_BRANCH_SOURCE_2, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_PC_RESULT, "-");
     	//Shift_Left_PC
     	
     	//Branch_MUX_1
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.BRANCH_MUX_1, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.BRANCH_MUX_1, "-");
     	//Branch_MUX_2
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.BRANCH_MUX_2, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.BRANCH_MUX_2, "-");
     	
     	/**************************Pipelined************************/
     	//PC
     	//NextInstruction
     	//Instruction Memory
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ID_INSTRUCTION, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ID_INSTRUCTION_ADDRESS, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.EX_INSTRUCTION, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.EX_INSTRUCTION_ADDRESS, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.MEM_INSTRUCTION, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.MEM_INSTRUCTION_ADDRESS, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.WB_INSTRUCTION, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.WB_INSTRUCTION_ADDRESS, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ID_INSTRUCTION, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ID_INSTRUCTION_ADDRESS, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.EX_INSTRUCTION, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.EX_INSTRUCTION_ADDRESS, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MEM_INSTRUCTION, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MEM_INSTRUCTION_ADDRESS, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.WB_INSTRUCTION, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.WB_INSTRUCTION_ADDRESS, "-");
     	//Data Memory
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.DATA_MEMORY_2_ADDRESS, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.DATA_MEMORY_2_VALUE, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.DATA_MEMORY_3_ADDRESS, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.DATA_MEMORY_3_VALUE, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.DATA_MEMORY_4_ADDRESS, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.DATA_MEMORY_4_VALUE, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.DATA_MEMORY_5_ADDRESS, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.DATA_MEMORY_5_VALUE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_2_ADDRESS, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_2_VALUE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_3_ADDRESS, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_3_VALUE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_4_ADDRESS, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_4_VALUE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_5_ADDRESS, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_5_VALUE, "-");
     	//Control
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ACTIVE_CONTROL_SIGNAL_2, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ACTIVE_CONTROL_SIGNAL_3, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ACTIVE_CONTROL_SIGNAL_4, "-");
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ACTIVE_CONTROL_SIGNAL_5, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ACTIVE_CONTROL_SIGNAL_2, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ACTIVE_CONTROL_SIGNAL_3, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ACTIVE_CONTROL_SIGNAL_4, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ACTIVE_CONTROL_SIGNAL_5, "-");
     	//Register File
     	// Sign Exen
     	// ADD_PC
@@ -311,19 +315,24 @@ public class SimCore extends PLPSimCore {
     	// ALU Control
     	// Add_Jump
     	// IF-ID intermediate buffer
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.IF_ID_INTERMEDIATE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.IF_ID_INTERMEDIATE, "-");
     	// ID-Ex intermediate buffer
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.ID_EX_INTERMEDIATE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ID_EX_INTERMEDIATE, "-");
     	// Ex-Mem intermediate buffer
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.EX_MEM_INTERMEDIATE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.EX_MEM_INTERMEDIATE, "-");
     	// Mem - Wb intermediate buffer
-    	cpuSnapShot.put(PLPCPUSnapshot_keys.MEM_WB_INTRMEDIATE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MEM_WB_INTRMEDIATE, "-");
     	// IF Stage Info - Instruction & Instruction Address, Register
     	// ID Stage Info - Instruction & Instruction Address, Register
     	// Ex Stage Info - Instruction & Instruction Address, Register
     	//Mem Stage Info - Instruction & Instruction Address, Register
     	//WB Stage Info - Instruction & Instruction Address, Register
     	// Stall Info
+    }
+    
+    public JSONObject getCPUSnapshot()
+    {
+    	return cpuSnapShotmap;
     }
 
     /**
@@ -364,7 +373,7 @@ public class SimCore extends PLPSimCore {
         wb_stage.count = 0;
         branch = false;
         flushpipeline();
-        cpuSnapShot.clear();
+        initializeCPUSnapShot();
 
         Msg.P("core: reset");
 
@@ -384,7 +393,8 @@ public class SimCore extends PLPSimCore {
         ex_continue = false;
         ex_stall = false;
         if_stall = false;
-        cpuSnapShot.clear();
+        //cpuSnapShotmap.clear();
+        initializeCPUSnapShot();
 
         Msg.P("core: soft reset");
 
@@ -800,12 +810,12 @@ public class SimCore extends PLPSimCore {
             IRQAck = 1;
         }
         
-        cpuSnapShot.put(PLPCPUSnapshot_keys.PC, String.valueOf(pc.input()));
-        cpuSnapShot.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION, String.valueOf(instr));
-        cpuSnapShot.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION_ADDRESS, String.valueOf(instr_address));
-        cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_SOURCE_1, String.valueOf(s));
-        cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_SOURCE_2, String.valueOf(t));
-        cpuSnapShot.put(PLPCPUSnapshot_keys.ALU_RESULT, String.valueOf(alu_result));
+        cpuSnapShotmap.put(PLPCPUSnapshot_keys.PC, String.valueOf(pc.input()));
+        cpuSnapShotmap.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION, String.valueOf(instr));
+        cpuSnapShotmap.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION_ADDRESS, String.valueOf(instr_address));
+        cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_SOURCE_1, String.valueOf(s));
+        cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_SOURCE_2, String.valueOf(t));
+        cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_RESULT, String.valueOf(alu_result));
         
         //cpuSnapShot.put(PLPCPUSnapshot_keys., value)
         

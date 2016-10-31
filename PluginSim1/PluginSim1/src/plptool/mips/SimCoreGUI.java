@@ -864,6 +864,7 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
 	    	
 	    	ConnectionFactory factory = new ConnectionFactory();
 		    factory.setHost("localhost");
+		    //factory.
 		    Connection connection = factory.newConnection();
 			Channel channel = connection.createChannel();			
 			channel.queueDeclare("Tunnel", false, false, false, null);

@@ -1,5 +1,12 @@
 package plptool.mips;
 
+import java.io.FileReader;
+
+import org.json.simple.*;
+import org.json.simple.parser.JSONParser;
+
+import plptool.Config;
+
 /**
  * This class will have all the key's of the CPU_SNAPSHOT which will be passed to the Visualizer code
  * This is the single place where you can modify the key names if need be. Everywhere these variables are used
@@ -367,5 +374,26 @@ public class PLPCPUSnapshot_keys
 	 * This key's value will give the content of the intermediate pipeline buffer for MEM and WB Stage
 	 */
 	public static String MEM_WB_INTRMEDIATE = "mem_wb_intermediate";
+	
+	public static void initializeKeysFromFile()
+	{
+		JSONParser parser = new JSONParser();
+		try
+		{
+			Object obj = parser.parse(new FileReader(Config.blueprintJSONFile));
+			JSONObject jsonObject = (JSONObject)obj;
+			
+			
+		}
+		catch(Exception exp)
+		{
+			
+		}
+		finally
+		{
+			
+		}
+		
+	}
 	
 }

@@ -182,6 +182,7 @@ public class SimCore extends PLPSimCore {
         mem_stage = new mem(wb_stage, bus);
         ex_stage = new ex(mem_stage, new alu());
         id_stage = new id(ex_stage, regfile);
+        PLPCPUSnapshot_keys.initializeKeysFromFile();
         
         cpuSnapShotmap = new JSONObject();
         //cpuSnapShotmap = new HashMap<String, String>();

@@ -1,0 +1,207 @@
+{
+	"vertices": {
+		"pc": {
+			"name": "PC",
+			"id": "pc",
+			"pos_x": 40,
+			"pos_y": 280,
+			"width": 20,
+			"height": 60
+		},
+		“Pc_buffer”: {
+			“Name”: “PC_BUFFER”,
+			“Id”: “pc_buff”,
+			“Pos_x”: 60,
+			“Pos_y”: 300,
+			“Width”: 20,
+			“Height” 180
+},
+		"add1": {
+			"name": "Add",
+			"id": "add1",
+			"pos_x": 120,
+			"pos_y": 20,
+			"width": 60,
+			"height": 80
+		},
+		"instruction_memory": {
+			"name": "Instruction\nMemory",
+			"id": "instruction_memory",
+			"pos_x": 120,
+			"pos_y": 300,
+			"width": 60,
+			"height": 80
+		},
+		"shift1": {
+			"name": "Shift left 2",
+			"id": "shift1",
+			"pos_x": 260,
+			"pos_y": 40,
+			"width": 20,
+			"height": 40
+		},
+		"control": {
+			"name": "Control",
+			"id": "control",
+			"pos_x": 280,
+			"pos_y": 140,
+			"width": 60,
+			"height": 120
+		},
+		"mux1": {
+			"name": "Mux",
+			"id": "mux1",
+			"pos_x": 290,
+			"pos_y": 300,
+			"width": 20,
+			"height": 40
+		},
+		"sign_extend": {
+			"name": "Sign-extend",
+			"id": "sign_extend",
+			"pos_x": 320,
+			"pos_y": 420,
+			"width": 40,
+			"height": 60
+		},
+		"registers": {
+			"name": "Registers",
+			"id": "registers",
+			"pos_x": 340,
+			"pos_y": 280,
+			"width": 80,
+			"height": 120
+		},
+		"shift2": {
+			"name": "Shift left 2",
+			"id": "shift2",
+			"pos_x": 480,
+			"pos_y": 130,
+			"width": 20,
+			"height": 40
+		},
+		"mux2": {
+			"name": "Mux",
+			"id": "mux2",
+			"pos_x": 480,
+			"pos_y": 340,
+			"width": 20,
+			"height": 40
+		},
+		"alu_control": {
+			"name": "ALU Control",
+			"id": "alu_control",
+			"pos_x": 500,
+			"pos_y": 480,
+			"width": 40,
+			"height": 60
+		},
+		"add2": {
+			"name": "Add",
+			"id": "add2",
+			"pos_x": 520,
+			"pos_y": 90,
+			"width": 60,
+			"height": 80
+		},
+		"alu": {
+			"name": "ALU",
+			"id": "alu",
+			"pos_x": 520,
+			"pos_y": 300,
+			"width": 60,
+			"height": 80
+		},
+		"mux3": {
+			"name": "Mux",
+			"id": "mux3",
+			"pos_x": 620,
+			"pos_y": 70,
+			"width": 20,
+			"height": 40
+		},
+		"mux4": {
+			"name": "Mux",
+			"id": "mux4",
+			"pos_x": 660,
+			"pos_y": 40,
+			"width": 20,
+			"height": 40
+		},
+		"and_gate": {
+			"name": "",
+			"id": "and_gate",
+			"pos_x": 600,
+			"pos_y": 170,
+			"width": 20,
+			"height": 20
+		},
+		"data_memory": {
+			"name": "Data\nmemory",
+			"id": "data_memory",
+			"pos_x": 600,
+			"pos_y": 340,
+			"width": 60,
+			"height": 90
+		},
+		"mux5": {
+			"name": "Mux",
+			"id": "mux5",
+			"pos_x": 680,
+			"pos_y": 320,
+			"width": 20,
+			"height": 40
+		}
+	},
+	"edges": {
+		"pc_add1": {
+			"name": "",
+			"id": "pc_add1",
+			"vertex_id_from": "pc",
+			"vertex_id_to": "add1",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.3;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
+		},
+		"pc_im": {
+			"name": "",
+			"id": "pc_im",
+			"vertex_id_from": "pc",
+			"vertex_id_to": "instruction_memory",
+			"style": "orthogonal=0;exitX=1;exitY=0.7;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
+		},
+		"add1_add2": {
+			"name": "",
+			"id": "add1_add2",
+			"vertex_id_from": "add1",
+			"vertex_id_to": "add2",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.8;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
+		},
+		"im_shift1": {
+			"name": "",
+			"id": "im_shift1",
+			"vertex_id_from": "instruction_memory",
+			"vertex_id_to": "shift1",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
+		},
+		"im_control": {
+			"name": "",
+			"id": "im_control",
+			"vertex_id_from": "instruction_memory",
+			"vertex_id_to": "control",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
+		},
+		"im_mux1_upper": {
+			"name": "",
+			"id": "im_mux1_upper",
+			"vertex_id_from": "instruction_memory",
+			"vertex_id_to": "mux1",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.3;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
+		},
+		"im_mux1_lower": {
+			"name": "",
+			"id": "im_mux1_lower",
+			"vertex_id_from": "instruction_memory",
+			"vertex_id_to": "mux1",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.4;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
+		}
+	}
+}

@@ -34,13 +34,16 @@ import java.awt.event.FocusListener;
 import java.awt.event.FocusEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import javax.jms.Connection;
+import javax.jms.DeliveryMode;
+import javax.jms.Destination;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import org.apache.activemq.ActiveMQConnectionFactory;
 import org.json.simple.JSONObject;
-//import com.rabbitmq.client.ConnectionFactory;
-//import com.rabbitmq.client.Connection;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
-//import com.rabbitmq.client.Channel;
 import plptool.PLPToolbox;
 import plptool.mips.visualizer.*;
 import plptool.Config;
@@ -801,10 +804,6 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
     {
     	try
     	{
-    		
-    		
-    		
-	    	
     		//We can remove it -- Harsha
 	    	if(Config.simFunctional)
 	    	{
@@ -854,15 +853,24 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
 	    	
 	    	JSONObject obj = ((SimCore)sim).cpuSnapShotmap;
 	    	
-	    	/*ConnectionFactory factory = new ConnectionFactory();
-		    factory.setHost("localhost");
-		    //factory.
-		    Connection connection = factory.newConnection();
-			Channel channel = connection.createChannel();			
-			channel.queueDeclare("Tunnel", false, false, false, null);
-			channel.basicPublish("", "Tunnel", null, obj.toJSONString().getBytes());
-			channel.close();
-			connection.close();*/
+	    	try {
+			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
+			Connection connection = connectionFactory.createConnection();
+			connection.start();
+			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+			//SAME QUEUE NAME IN FRONTEND CONSUMER AND THIS BACKEND PRODUCER
+			Destination destination = session.createQueue("SNAPSHOT");
+			MessageProducer producer = session.createProducer(destination);
+			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+			TextMessage message = session.createTextMessage(obj.toJSONString());
+			producer.send(message);
+			session.close();
+			connection.close();
+        	}
+		catch (Exception e) {
+			System.out.println("Caught: " + e);
+			e.printStackTrace();
+		}
     	}
     	catch(Exception exp)
     	{

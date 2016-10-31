@@ -1,9 +1,13 @@
 package plptool.mips;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
 
-import org.json.simple.*;
-import org.json.simple.parser.JSONParser;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import plptool.Config;
 
@@ -18,41 +22,116 @@ public class PLPCPUSnapshot_keys
 	 * This is the key for program counter
 	 */
 	public static String PC = "pc";
+	public static String PC_ADDRESS = "address";
+	
+	
+	/**
+	 * this will give the values of the instructions which is in CPU
+	 */
+	public static String INSTRUCTION_MEMORY = "instruction_memory";
+	public static String INST_MEM_IF = "if_instruction";
+	public static String INST_MEM_IF_ADDR = "if_instruction_address";
+	public static String INST_MEM_ID = "id_instruction";
+	public static String INST_MEM_ID_ADDR = "id_instruction_address";
+	public static String INST_MEM_EX = "ex_instruction";
+	public static String INST_MEM_EX_ADDR = "ex_instruction_address";
+	public static String INST_MEM_MEM = "mem_instruction";
+	public static String INST_MEM_MEM_ADDR = "mem_instruction_address";
+	public static String INST_MEM_WB = "wb_instruction";
+	public static String INST_MEM_WB_ADDR = "wb_instruction_address";
+	
+	public static String SHIFT_LEFT_PC = "shift1";
+	public static String SHIFT_LEFT_PC_INPUT = "input";
+	public static String SHIFT_LEFT_PC_OUTPUT = "output";
+	
+	public static String CONTROL = "control";
+	public static String CONTROL_REGDST = "regdst";
+	public static String CONTROL_JUMP = "jump";
+	public static String CONTROL_MEMREAD = "memread";
+	public static String CONTROL_MEMTOREG = "memtoreg";
+	public static String CONTROL_ALUOP = "aluop";
+	public static String CONTROL_MEMWRITE = "memwrite";
+	public static String CONTROL_ALUSRC = "alusrc";
+	public static String CONTROL_REGWRITE = "regwrite";
+	
+	/**
+	 * This key's value will indicate the value of the mux which chooses registers
+	 */
+	public static String REGISTER_MUX = "reg_mux";
+	public static String REGISTER_MUX_VALUE = "value";
+		
+	public static String SIGN_EXTEND = "sign_extend";
+	public static String SIGN_EXTEND_INPUT = "input";
+	public static String SIGN_EXTEND_OUTPUT = "output";
+	
+	public static String REGISTERS = "registers";
+	
+	public static String SHIFT_BRANCH = "shift2";
+	public static String SHIFT_BRANCH_INPUT = "input";
+	public static String SHIFT_BRANCH_OUTPUT = "output";
+	
+	public static String ADD_PC = "add1";
+	public static String ADD_PC_INPUT1 = "old_pc";
+	public static String ADD_PC_INPUT2 = "4";
+	public static String ADD_PC_OUTPUT = "new_pc";
+	
+	public static String ADD_BRANCH = "add2";
+	public static String ADD_BRANCH_INPUT1 = "pc_input";
+	public static String ADD_BRANCH_INPUT2 = "shift_left_input";
+	public static String ADD_BRANCH_OUTPUT = "output";
+	
+	public static String ALU = "alu";
+	public static String ALU_INPUT1 = "register_input";
+	public static String ALU_INPUT2 = "register_or_immediate_input";
+	public static String ALU_RESULT = "alu_result";
+	
+	public static String MUX_BRANCH_1 = "mux_branch_1";
+	public static String MUX_BRANCH_1_VALUE = "value";
+	
+	public static String MUX_BRANCH_2 = "mux_branch_2";
+	public static String MUX_BRANCH_2_VALUE = "value";
+	
+	public static String AND_GATE = "and_gate";
+	public static String AND_GATE_INPUT1 = "input1";
+	public static String AND_GATE_INPUT2 = "input2";
+	public static String AND_GATE_RESULT = "output";
+		
+	public static String DATA_MEMORY = "data_memory";
+	public static String ADDRESS_1 = "address_1";
+	public static String ADDRESS_1_VALUE = "address_1_VALUE";
+	public static String ADDRESS_2 = "address_2";
+	public static String ADDRESS_2_VALUE = "address_2_VALUE";
+	public static String ADDRESS_3 = "address_3";
+	public static String ADDRESS_3_VALUE = "address_3_VALUE";
+	public static String ADDRESS_4 = "address_4";
+	public static String ADDRESS_4_VALUE = "address_4_VALUE";
+	public static String ADDRESS_5 = "address_5";
+	public static String ADDRESS_5_VALUE = "address_5_VALUE";
+	
+	/**
+	 * This key's value is the alu operations indicator.
+	 */
+	public static String ALU_CONTROL = "alu_control";
+	public static String ALU_CONTROL_INPUT = "input";
+	
+	/**
+	 * This key's value will indicate which input is used for ALU
+	 */
+	public static String ALU_MUX = "alu_mux";
+	public static String ALU_MUX_VALUE = "value";
+	
+	/**
+	 * This key's value will indicate which memory unit is used read or write
+	 */
+	public static String MEM_MUX = "mem_mux";
+	public static String MEM_MUX_VALUE = "value";
 	
 	/**
 	 * This is the key whose value says whether pipeline is enable or disabled
 	 */
 	public static String PIPELINE = "pipeline";
 	
-	/**
-	 * This key's value tells which is the next instruction
-	 */
-	public static String NEXT_INSTRUCTION = "next_instruction";
 	
-	/**
-	 * This key's value tells the current instruction which is being executed
-	 */
-	public static String CURRENT_INSTRUCTION = "current_instruction";
-	
-	/**
-	 * This key's value tells the current instruction address
-	 */
-	public static String CURRENT_INSTRUCTION_ADDRESS = "current_instruction_address";
-	
-	/**
-	 * This key's value tells the result after ALU operation
-	 */
-	public static String ALU_RESULT = "alu_result";
-	
-	/**
-	 * This key's value tells the first input for the ALU
-	 */
-	public static String ALU_SOURCE_1 = "alu_source_1";
-	
-	/**
-	 * This key's value tells the second input for the ALU
-	 */
-	public static String ALU_SOURCE_2 = "alu_source_2"; 
 	
 	/**
 	 * This key's value gives the value stored in register 0
@@ -183,180 +262,7 @@ public class PLPCPUSnapshot_keys
 	 */
 	public static String REGISTER_31 = "$31";
 	
-	/**
-	 * This key's value gives the info regarding current active signals
-	 */
-	public static String ACTIVE_CONTROL_SIGNAL_1 = "active_control_signal_1";
 	
-	/**
-	 * This key's value gives the address of the data which is being used now
-	 */
-	public static String DATA_MEMORY_1_ADDRESS = "data_memory_1_address";
-	/**
-	 * This key's value gives the value of the data in memory which is used now
-	 */
-	public static String DATA_MEMORY_1_VALUE = "data_memory_1_value";
-	
-	/**
-	 * This key's value is the input to the sign extension unit used in case immediate values
-	 */
-	public static String SIGN_EXTENSION_INPUT = "sign_extension_input";
-	
-	/**
-	 * This key's value is the output of the sign extension unit used in case of immediate values
-	 */
-	public static String SIGN_EXTENSION_OUTPUT = "sign_extension_output";
-	
-	/**
-	 * This key's value is the alu operations indicator.
-	 */
-	public static String ALU_CONTROL = "alu_control";
-	
-	/**
-	 * This key's value will indicate the value of the mux which chooses registers
-	 */
-	public static String REGISTER_MUX = "reg_mux";
-	
-	/**
-	 * This key's value will indicate which input is used for ALU
-	 */
-	public static String ALU_MUX = "alu_mux";
-	
-	/**
-	 * This key's value will indicate which memory unit is used read or write
-	 */
-	public static String MEM_MUX = "mem_mux";
-	
-	/**
-	 * This key's value will give the first input to the Adder which calculates the PC
-	 */
-	public static String ADD_PC_SOURCE_1 = "add_pc_source_1";
-	
-	/**
-	 * This key's value will give the second input to the Adder which calculates the PC
-	 */
-	public static String ADD_PC_SOURCE_2 = "add_pc_source_2";
-	
-	/**
-	 * This key's value will give the result of PC after its adder operation
-	 */
-	public static String ADD_PC_RESULT = "add_pc_result";
-	
-	/**
-	 * This key's value will give the shift left operations input
-	 */
-	public static String SHIFT_LEFT_PC_INPUT = "shift_left_pc_input";
-	
-	/**
-	 * This key's value will give the shift left operations output
-	 */
-	public static String SHIFT_LEFT_PC_OUTPUT = "shift_left_pc_output";
-	
-	/**
-	 * This key's value will give the first input of the branch adder
-	 */
-	public static String ADD_BRANCH_SOURCE_1 = "add_branch_source_1";
-	/**
-	 * This key's value will give the second input of the branch adder
-	 */
-	public static String ADD_BRANCH_SOURCE_2 = "add_branch_source_2";
-	/**
-	 * This key's value will give the result of the branch adder
-	 */
-	public static String ADD_BRANCH_RESULT = "add_branch_result";
-	
-	/**
-	 * This key's value will give the first mux value of branch
-	 */
-	public static String BRANCH_MUX_1 = "branch_mux_1";
-	/**
-	 * This key's value will give the second mux value of branch
-	 */
-	public static String BRANCH_MUX_2 = "branch_mux_2";
-	
-	/**
-	 * This key's value will give the instruction which is getting executed in id stage
-	 */
-	public static String ID_INSTRUCTION = "id_instruction";
-	
-	/**
-	 * This key's value will give the instruction address which is getting executed in id-stage
-	 */
-	public static String ID_INSTRUCTION_ADDRESS = "id_instruction_address";
-	/**
-	 * This key's value will give the instruction which is getting executed in ex stage
-	 */
-	public static String EX_INSTRUCTION = "ex_instruction";
-	/**
-	 * This key's value will give the instruction address which is getting executed in ex stage
-	 */
-	public static String EX_INSTRUCTION_ADDRESS = "ex_instruction_address";
-	/**
-	 * This key's value will give the instruction which is getting executed in mem stage
-	 */
-	public static String MEM_INSTRUCTION = "mem_instruction";
-	/**
-	 * This key's value will give the instruction address which is getting executed in mem stage
-	 */
-	public static String MEM_INSTRUCTION_ADDRESS = "mem_instruction_address";
-	/**
-	 * This key's value will give the instruction address which is getting executed in wb stage
-	 */
-	public static String WB_INSTRUCTION_ADDRESS = "wb_instruction_address";
-	/**
-	 * This key's value will give the instruction which is getting executed in wb stage
-	 */
-	public static String WB_INSTRUCTION = "wb_instruction";
-	
-	/**
-	 * this key's value will give the 2nd data memory address
-	 */
-	public static String DATA_MEMORY_2_ADDRESS = "data_memory_2_address";
-	/**
-	 * this key's value will give the 2nd data memory value
-	 */
-	public static String DATA_MEMORY_2_VALUE = "data_memory_2_value";
-	/**
-	 * this key's value will give the 3rd data memory address
-	 */
-	public static String DATA_MEMORY_3_ADDRESS = "data_memory_3_address";
-	/**
-	 * This key's value will give the 3rd data memory value
-	 */
-	public static String DATA_MEMORY_3_VALUE = "data_memory_3_value";
-	/**
-	 * This key's value will give 4th data memory address
-	 */
-	public static String DATA_MEMORY_4_ADDRESS = "data_memory_4_address";
-	/**
-	 * This key's value will give 4th data memory value
-	 */
-	public static String DATA_MEMORY_4_VALUE = "data_memory_4_value";
-	/**
-	 * This key's value will give 5th data memory address
-	 */
-	public static String DATA_MEMORY_5_ADDRESS = "data_memory_5_address";
-	/**
-	 * This key's value will give 5th data memory value
-	 */
-	public static String DATA_MEMORY_5_VALUE = "data_memory_5_value";
-	
-	/**
-	 * This key's value will give one of the control signal which is active now
-	 */
-	public static String ACTIVE_CONTROL_SIGNAL_2 = "active_control_signal_2";
-	/**
-	 * This key's value will give one of the control signal which is active now
-	 */
-	public static String ACTIVE_CONTROL_SIGNAL_3 = "active_control_signal_3";
-	/**
-	 * This key's value will give one of the control signal which is active now
-	 */
-	public static String ACTIVE_CONTROL_SIGNAL_4 = "active_control_signal_4";
-	/**
-	 * This key's value will give one of the control signal which is active now
-	 */
-	public static String ACTIVE_CONTROL_SIGNAL_5 = "active_control_signal_5";
 	
 	/**
 	 * This key's value will give the content of the intermediate pipeline buffer for IF and ID Stage
@@ -377,22 +283,129 @@ public class PLPCPUSnapshot_keys
 	
 	public static void initializeKeysFromFile()
 	{
-		JSONParser parser = new JSONParser();
-		try
-		{
-			Object obj = parser.parse(new FileReader(Config.blueprintJSONFile));
-			JSONObject jsonObject = (JSONObject)obj;
-			
-			
+		BufferedReader reader;
+		String line = null;
+		String jsonString = "";
+		try {
+			reader = new BufferedReader(new FileReader (Config.blueprintJSONFile));
+			while((line = reader.readLine()) != null) {
+				jsonString += line;
+			}
+			reader.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		catch(Exception exp)
+		JSONObject conf = new JSONObject(jsonString);
+		
+		JSONObject vertices = conf.getJSONObject("vertices");
+		Iterator<?> json_keys = vertices.keys();
+		
+		while( json_keys.hasNext() )
 		{
+			String json_key = (String)json_keys.next();
+			JSONObject node = vertices.getJSONObject(json_key);
+			String id = node.getString("id");
 			
+			switch(json_key)
+			{
+			case "pc":
+			{
+				PLPCPUSnapshot_keys.PC = id;
+				break;
+			}
+			case "add1":
+			{
+				PLPCPUSnapshot_keys.ADD_PC = id;
+				break;
+			}
+			case "instruction_memory":
+			{
+				PLPCPUSnapshot_keys.INSTRUCTION_MEMORY = id;
+				break;
+			}
+			case "shift1":
+			{
+				PLPCPUSnapshot_keys.SHIFT_LEFT_PC = id;
+				break;
+			}
+			case "control":
+			{
+				PLPCPUSnapshot_keys.CONTROL = id;
+				break;
+			}
+			case "mux1":
+			{
+				PLPCPUSnapshot_keys.REGISTER_MUX = id;
+				break;
+			}
+			case "sign_extend":
+			{
+				PLPCPUSnapshot_keys.SIGN_EXTEND = id;
+				break;
+			}
+			case "registers":
+			{
+				PLPCPUSnapshot_keys.REGISTERS = id;
+				break;
+			}
+			case "shift2":
+			{
+				PLPCPUSnapshot_keys.SHIFT_BRANCH = id;
+				break;
+			}
+			case "mux2":
+			{
+				PLPCPUSnapshot_keys.ALU_MUX = id;
+				break;
+			}
+			case "alu_control":
+			{
+				PLPCPUSnapshot_keys.ALU_CONTROL = id;
+				break;
+			}
+			case "add2":
+			{
+				PLPCPUSnapshot_keys.ADD_BRANCH = id;
+				break;
+			}
+			case "alu":
+			{
+				PLPCPUSnapshot_keys.ALU = id;
+				break;
+			}
+			case "mux3":
+			{
+				PLPCPUSnapshot_keys.MEM_MUX = id;
+				break;
+			}
+			case "mux4":
+			{
+				PLPCPUSnapshot_keys.MUX_BRANCH_1 = id;
+				break;
+			}
+			case "mux5":
+			{
+				PLPCPUSnapshot_keys.MUX_BRANCH_2 = id;
+				break;
+			}
+			case "and_gate":
+			{
+				PLPCPUSnapshot_keys.AND_GATE = id;
+				break;
+			}
+			case "data_memory":
+			{
+				PLPCPUSnapshot_keys.DATA_MEMORY = id;
+				break;
+			}
+			}
+			System.out.println(node.getString("name"));
 		}
-		finally
-		{
-			
-		}
+		
 		
 	}
 	

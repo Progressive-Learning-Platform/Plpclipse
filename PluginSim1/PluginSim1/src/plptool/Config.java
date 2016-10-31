@@ -90,7 +90,7 @@ public class Config {
     public static int     serialTerminalBufferSize         = 64;
     public static boolean serialTerminalAutoDetectPorts    = true;
     
-    public static String blueprintJSONFile				   = "C:\\D_Drive\\Coding\\Plpclipse\\PluginSim1\\PluginSim1\\bin\\Blue_Print.json";
+    public static String blueprintJSONFile				   = "config/graph_blue_print.json";
    
     public static void resetConfig() {
         cfgInstrPretty                   = true;

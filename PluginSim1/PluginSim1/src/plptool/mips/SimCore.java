@@ -31,6 +31,7 @@ import java.util.Map;
 
 
 import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 
 
 /**
@@ -199,136 +200,177 @@ public class SimCore extends PLPSimCore {
      */
     private void initializeCPUSnapShot()
     {
+    	JSONObject obj;
     	//cpuSnapShotmap.put(new Pair<String, String>(PLPCPUSnapshot_keys.PIPELINE, "-"));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.PIPELINE, "-");
     	
+    	//pc
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.PC, new JSONObject());
+    	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.PC);
+    	obj.put("id", PLPCPUSnapshot_keys.PC);
+    	obj.put(PLPCPUSnapshot_keys.PC_ADDRESS, "-");
+    	
+    	//PC_add
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_PC, new JSONObject());
+    	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.ADD_PC);
+    	obj.put("id", PLPCPUSnapshot_keys.ADD_PC);
+    	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT1, "-");
+    	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT2, "-");
+    	obj.put(PLPCPUSnapshot_keys.ADD_PC_OUTPUT, "-");
+    	
+    	//Instruction Memory
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.INSTRUCTION_MEMORY);
+    	obj.put(PLPCPUSnapshot_keys.INST_MEM_IF, "-");
+    	obj.put(PLPCPUSnapshot_keys.INST_MEM_IF_ADDR, "-");
+    	obj.put(PLPCPUSnapshot_keys.INST_MEM_ID, "-");
+    	obj.put(PLPCPUSnapshot_keys.INST_MEM_ID_ADDR, "-");
+    	obj.put(PLPCPUSnapshot_keys.INST_MEM_EX, "-");
+    	obj.put(PLPCPUSnapshot_keys.INST_MEM_EX_ADDR, "-");
+    	obj.put(PLPCPUSnapshot_keys.INST_MEM_MEM, "-");
+    	obj.put(PLPCPUSnapshot_keys.INST_MEM_MEM_ADDR, "-");
+    	obj.put(PLPCPUSnapshot_keys.INST_MEM_WB, "-");
+    	obj.put(PLPCPUSnapshot_keys.INST_MEM_WB_ADDR, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.INSTRUCTION_MEMORY, obj);
+    	
+    	//Shift_pc
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.SHIFT_LEFT_PC);
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_INPUT, "-");
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_OUTPUT, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC, obj);
+    	
+    	//control
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.CONTROL);
+    	obj.put(PLPCPUSnapshot_keys.CONTROL_ALUOP, "-");
+    	obj.put(PLPCPUSnapshot_keys.CONTROL_ALUSRC, "-");
+    	obj.put(PLPCPUSnapshot_keys.CONTROL_JUMP, "-");
+    	obj.put(PLPCPUSnapshot_keys.CONTROL_MEMREAD, "-");
+    	obj.put(PLPCPUSnapshot_keys.CONTROL_MEMTOREG, "-");
+    	obj.put(PLPCPUSnapshot_keys.CONTROL_MEMWRITE, "-");
+    	obj.put(PLPCPUSnapshot_keys.CONTROL_REGDST, "-");
+    	obj.put(PLPCPUSnapshot_keys.CONTROL_REGWRITE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.CONTROL, obj);
+    	
+    	//Register Mux
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.REGISTER_MUX);
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_VALUE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_MUX, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.MEM_MUX);
+    	obj.put(PLPCPUSnapshot_keys.MEM_MUX_VALUE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MEM_MUX, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.ALU_MUX);
+    	obj.put(PLPCPUSnapshot_keys.ALU_MUX_VALUE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_MUX, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.MUX_BRANCH_1);
+    	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_1_VALUE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MUX_BRANCH_1, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.MUX_BRANCH_2);
+    	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_VALUE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MUX_BRANCH_2, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id",PLPCPUSnapshot_keys.SIGN_EXTEND);
+    	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_INPUT, "-");
+    	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_OUTPUT, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SIGN_EXTEND, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id",PLPCPUSnapshot_keys.REGISTERS);
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_0, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_1, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_2, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_3, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_4, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_5, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_6, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_7, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_8, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_9, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_10, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_11, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_12, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_13, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_14, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_15, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_16, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_17, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_18, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_19, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_20, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_21, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_22, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_23, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_24, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_25, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_26, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_27, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_28, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_29, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_30, "-");
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_31, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTERS, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.SHIFT_BRANCH);
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_BRANCH_INPUT, "-");
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_BRANCH_OUTPUT, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_BRANCH, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.ALU_CONTROL);
+    	obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_INPUT, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_CONTROL, obj);
+    	
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_BRANCH, new JSONObject());
+    	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.ADD_BRANCH);
+    	obj.put("id", PLPCPUSnapshot_keys.ADD_PC);
+    	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_INPUT1, "-");
+    	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_INPUT2, "-");
+    	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_OUTPUT, "-");
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.ALU);
+    	obj.put(PLPCPUSnapshot_keys.ALU_INPUT1, "-");
+    	obj.put(PLPCPUSnapshot_keys.ALU_INPUT2, "-");
+    	obj.put(PLPCPUSnapshot_keys.ALU_RESULT, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.AND_GATE);
+    	obj.put(PLPCPUSnapshot_keys.AND_GATE_INPUT1, "-");
+    	obj.put(PLPCPUSnapshot_keys.AND_GATE_INPUT2, "-");
+    	obj.put(PLPCPUSnapshot_keys.AND_GATE_RESULT, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.AND_GATE, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.DATA_MEMORY);
+    	obj.put(PLPCPUSnapshot_keys.ADDRESS_1, "-");
+    	obj.put(PLPCPUSnapshot_keys.ADDRESS_1_VALUE, "-");
+    	obj.put(PLPCPUSnapshot_keys.ADDRESS_2, "-");
+    	obj.put(PLPCPUSnapshot_keys.ADDRESS_2_VALUE, "-");
+    	obj.put(PLPCPUSnapshot_keys.ADDRESS_3, "-");
+    	obj.put(PLPCPUSnapshot_keys.ADDRESS_3_VALUE, "-");
+    	obj.put(PLPCPUSnapshot_keys.ADDRESS_4, "-");
+    	obj.put(PLPCPUSnapshot_keys.ADDRESS_4_VALUE, "-");
+    	obj.put(PLPCPUSnapshot_keys.ADDRESS_5, "-");
+    	obj.put(PLPCPUSnapshot_keys.ADDRESS_5_VALUE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY, obj);
+    	
+    	
     	//cpuSnapShotmap.put()
     	
-    	/**************** Non Pipelined *********************/
-    	//PC
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.PC, "-");
-    	//NextInstruction
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.NEXT_INSTRUCTION, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION_ADDRESS, "-");
-    	//ALU
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_RESULT, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_SOURCE_1, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_SOURCE_2, "-");
-    	//Registers
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_0, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_1, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_2, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_3, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_4, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_5, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_6, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_7, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_8, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_9, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_10, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_11, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_12, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_13, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_14, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_15, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_16, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_17, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_18, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_19, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_20, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_21, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_22, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_23, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_24, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_25, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_26, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_27, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_28, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_29, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_30, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_31, "-");
-    	//Control Signal
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ACTIVE_CONTROL_SIGNAL_1, "-");
-    	//Data Memory
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_1_ADDRESS, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_1_VALUE, "-");
-    	//SignExtension
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SIGN_EXTENSION_INPUT, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SIGN_EXTENSION_OUTPUT, "-");
-    	//ALUControl
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_CONTROL, "-");
-    	//Reg_MUX
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_MUX, "-");
-    	//ALU_MUX
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_MUX, "-");
-    	//Memory_MUX
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MEM_MUX, "-");
-    	//Add_PC
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_PC_SOURCE_1, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_PC_SOURCE_2, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_PC_RESULT, "-");
-    	//Shift_Left_PC
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_INPUT, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_OUTPUT, "-");
-    	//ADD_JUMP
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_BRANCH_SOURCE_2, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_BRANCH_SOURCE_2, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_PC_RESULT, "-");
-    	//Shift_Left_PC
     	
-    	//Branch_MUX_1
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.BRANCH_MUX_1, "-");
-    	//Branch_MUX_2
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.BRANCH_MUX_2, "-");
-    	
-    	/**************************Pipelined************************/
-    	//PC
-    	//NextInstruction
-    	//Instruction Memory
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ID_INSTRUCTION, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ID_INSTRUCTION_ADDRESS, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.EX_INSTRUCTION, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.EX_INSTRUCTION_ADDRESS, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MEM_INSTRUCTION, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MEM_INSTRUCTION_ADDRESS, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.WB_INSTRUCTION, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.WB_INSTRUCTION_ADDRESS, "-");
-    	//Data Memory
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_2_ADDRESS, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_2_VALUE, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_3_ADDRESS, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_3_VALUE, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_4_ADDRESS, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_4_VALUE, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_5_ADDRESS, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY_5_VALUE, "-");
-    	//Control
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ACTIVE_CONTROL_SIGNAL_2, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ACTIVE_CONTROL_SIGNAL_3, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ACTIVE_CONTROL_SIGNAL_4, "-");
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ACTIVE_CONTROL_SIGNAL_5, "-");
-    	//Register File
-    	// Sign Exen
-    	// ADD_PC
-    	// Forwarding Unit
-    	// ALU
-    	// ALU Control
-    	// Add_Jump
-    	// IF-ID intermediate buffer
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.IF_ID_INTERMEDIATE, "-");
-    	// ID-Ex intermediate buffer
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ID_EX_INTERMEDIATE, "-");
-    	// Ex-Mem intermediate buffer
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.EX_MEM_INTERMEDIATE, "-");
-    	// Mem - Wb intermediate buffer
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MEM_WB_INTRMEDIATE, "-");
-    	// IF Stage Info - Instruction & Instruction Address, Register
-    	// ID Stage Info - Instruction & Instruction Address, Register
-    	// Ex Stage Info - Instruction & Instruction Address, Register
-    	//Mem Stage Info - Instruction & Instruction Address, Register
-    	//WB Stage Info - Instruction & Instruction Address, Register
-    	// Stall Info
     }
     
     public JSONObject getCPUSnapshot()
@@ -811,12 +853,7 @@ public class SimCore extends PLPSimCore {
             IRQAck = 1;
         }
         
-        cpuSnapShotmap.put(PLPCPUSnapshot_keys.PC, String.valueOf(pc.input()));
-        cpuSnapShotmap.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION, String.valueOf(instr));
-        cpuSnapShotmap.put(PLPCPUSnapshot_keys.CURRENT_INSTRUCTION_ADDRESS, String.valueOf(instr_address));
-        cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_SOURCE_1, String.valueOf(s));
-        cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_SOURCE_2, String.valueOf(t));
-        cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_RESULT, String.valueOf(alu_result));
+        
         
         //cpuSnapShot.put(PLPCPUSnapshot_keys., value)
         

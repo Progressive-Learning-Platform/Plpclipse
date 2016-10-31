@@ -16,7 +16,7 @@ public class JsonReader {
 		String line = null;
 		String jsonString = "";
 		try {
-			reader = new BufferedReader(new FileReader (conf_file));
+			reader = new BufferedReader(new FileReader (Config.blueprintJSONFile));
 			while((line = reader.readLine()) != null) {
 				jsonString += line;
 			}

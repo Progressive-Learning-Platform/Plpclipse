@@ -804,18 +804,6 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
     {
     	try
     	{
-    		//We can remove it -- Harsha
-	    	if(Config.simFunctional)
-	    	{
-	    		//pipeline is disabled
-	    		((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.PIPELINE, "False");	    		
-	    	}
-	    	else
-	    	{
-	    		//pipeline is enabled
-	    		((SimCore)sim).cpuSnapShotmap.put(PLPCPUSnapshot_keys.PIPELINE, "True");	    		
-	    		
-	    	}
 	    	
 	    	JSONObject regObj = (JSONObject)((SimCore)sim).cpuSnapShotmap.get(PLPCPUSnapshot_keys.REGISTERS);
 	    	regObj.put(PLPCPUSnapshot_keys.REGISTER_0, String.valueOf(((SimCore)sim).regfile.read(0)));
@@ -853,46 +841,46 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
 	    	
 	    	
 	    	JSONObject edgeObj = new JSONObject();
-	    	edgeObj.put(PLPCPUSnapshot_keys.PC_ADD_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.PC_IMM_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.ADD_PC_2_ADD_BRANCH_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.SHIFT_PC_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.IM_MUX1_UPPER_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.IM_MUX1_LOWER_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.IM_SIGN_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.IM_ALUC_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_MUX1_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_REGISTERS_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_MUX4_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_ANDGATE_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_MUX5_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_DATAMEMORY_LEFT_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_DATAMEMORY_RIGHT_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_MUX2_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_ALU_CONTROL_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.ALU_CONTROL_ALU_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.MUX1_REGISTERS_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.REGISTERS_ALU_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.REGISTERS_MUX2_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.REGISTERS_DATA_MEMORY_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.MUX3_MUX4_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_SHIFT2_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_MUX2_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.MUX2_ALU_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.ADD1_MUX3_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.ADD1_MUX4_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.SHIFT1_MUX4_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.SHIFT2_ADD2_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.ADD2_MUX3_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.ALU_AND_GATE_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.ALU_DATA_MEMORY_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.ALU_MUX5_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.DATA_MEMORY_MUX5_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.AND_GATE_MUX3_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.MUX5_REGISTERS_EDGE, 0);
-	    	edgeObj.put(PLPCPUSnapshot_keys.MUX4_PC_EDGE, 0);
-	    	
+//	    	edgeObj.put(PLPCPUSnapshot_keys.PC_ADD_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.PC_IMM_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.ADD_PC_2_ADD_BRANCH_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.SHIFT_PC_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.IM_MUX1_UPPER_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.IM_MUX1_LOWER_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.IM_SIGN_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.IM_ALUC_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_MUX1_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_REGISTERS_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_MUX4_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_ANDGATE_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_MUX5_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_DATAMEMORY_LEFT_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_DATAMEMORY_RIGHT_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_MUX2_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_ALU_CONTROL_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.ALU_CONTROL_ALU_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.MUX1_REGISTERS_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.REGISTERS_ALU_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.REGISTERS_MUX2_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.REGISTERS_DATA_MEMORY_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.MUX3_MUX4_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_SHIFT2_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_MUX2_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.MUX2_ALU_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.ADD1_MUX3_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.ADD1_MUX4_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.SHIFT1_MUX4_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.SHIFT2_ADD2_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.ADD2_MUX3_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.ALU_AND_GATE_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.ALU_DATA_MEMORY_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.ALU_MUX5_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.DATA_MEMORY_MUX5_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.AND_GATE_MUX3_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.MUX5_REGISTERS_EDGE, 0);
+//	    	edgeObj.put(PLPCPUSnapshot_keys.MUX4_PC_EDGE, 0);
+//	    	
 	    	
 	    	JSONObject obj = ((SimCore)sim).cpuSnapShotmap;
 	    	

@@ -202,7 +202,7 @@ public class SimCore extends PLPSimCore {
     {
     	JSONObject obj;
     	//cpuSnapShotmap.put(new Pair<String, String>(PLPCPUSnapshot_keys.PIPELINE, "-"));
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.PIPELINE, "-");
+    	//cpuSnapShotmap.put(PLPCPUSnapshot_keys.PIPELINE, "-");
     	
     	//pc
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.PC, new JSONObject());

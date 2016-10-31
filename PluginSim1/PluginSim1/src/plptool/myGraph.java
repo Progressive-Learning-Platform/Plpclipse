@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 import java.util.Iterator;
 import java.util.List;
 
+import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.util.mxPoint;
 import com.mxgraph.view.mxCellState;
@@ -18,6 +19,7 @@ public class myGraph extends mxGraph{
 		String tip = "<html>";
 		mxGeometry geo = getModel().getGeometry(cell);
 		mxCellState state = getView().getState(cell);
+		mxCell mycell = (mxCell)cell;
 
 		if (getModel().isEdge(cell))
 		{
@@ -86,14 +88,15 @@ public class myGraph extends mxGraph{
 						+ numberFormat.format(state.getHeight());
 			}
 
-			tip += "]";
+			tip += "]<br>";
+			tip += mycell.getValue().toString().replaceAll(",", "<br>");
 		}
 
-		mxPoint trans = getView().getTranslate();
+		/*mxPoint trans = getView().getTranslate();
 
 		tip += "<br>scale=" + numberFormat.format(getView().getScale())
 				+ ", translate=[x=" + numberFormat.format(trans.getX())
-				+ ",y=" + numberFormat.format(trans.getY()) + "]";
+				+ ",y=" + numberFormat.format(trans.getY()) + "]";*/
 		tip += "</html>";
 
 		return tip;

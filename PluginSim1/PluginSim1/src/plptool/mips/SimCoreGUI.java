@@ -851,7 +851,55 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
 	    	regObj.put(PLPCPUSnapshot_keys.REGISTER_30, String.valueOf(((SimCore)sim).regfile.read(30)));
 	    	regObj.put(PLPCPUSnapshot_keys.REGISTER_31, String.valueOf(((SimCore)sim).regfile.read(31)));
 	    	
+	    	
+	    	JSONObject edgeObj = new JSONObject();
+	    	edgeObj.put(PLPCPUSnapshot_keys.PC_ADD_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.PC_IMM_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.ADD_PC_2_ADD_BRANCH_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.SHIFT_PC_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.IM_MUX1_UPPER_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.IM_MUX1_LOWER_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.IM_SIGN_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.IM_ALUC_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_MUX1_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_REGISTERS_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_MUX4_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_ANDGATE_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_MUX5_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_DATAMEMORY_LEFT_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_DATAMEMORY_RIGHT_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_MUX2_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.CONTROL_ALU_CONTROL_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.ALU_CONTROL_ALU_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.MUX1_REGISTERS_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.REGISTERS_ALU_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.REGISTERS_MUX2_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.REGISTERS_DATA_MEMORY_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.MUX3_MUX4_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_SHIFT2_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_MUX2_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.MUX2_ALU_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.ADD1_MUX3_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.ADD1_MUX4_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.SHIFT1_MUX4_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.SHIFT2_ADD2_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.ADD2_MUX3_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.ALU_AND_GATE_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.ALU_DATA_MEMORY_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.ALU_MUX5_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.DATA_MEMORY_MUX5_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.AND_GATE_MUX3_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.MUX5_REGISTERS_EDGE, 0);
+	    	edgeObj.put(PLPCPUSnapshot_keys.MUX4_PC_EDGE, 0);
+	    	
+	    	
 	    	JSONObject obj = ((SimCore)sim).cpuSnapShotmap;
+	    	
+	    	JSONObject main = new JSONObject();
+	    	main.put("vertices_values", obj);
+	    	main.put("enabled_edges", edgeObj);
+	    	
 	    	
 	    	try {
 			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
@@ -862,7 +910,7 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
 			Destination destination = session.createQueue("SNAPSHOT");
 			MessageProducer producer = session.createProducer(destination);
 			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-			TextMessage message = session.createTextMessage(obj.toString());
+			TextMessage message = session.createTextMessage(main.toString());
 			producer.send(message);
 			session.close();
 			connection.close();

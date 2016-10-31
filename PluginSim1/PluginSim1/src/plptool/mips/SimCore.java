@@ -367,7 +367,7 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.ADDRESS_5_VALUE, "-");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY, obj);
     	
-    	
+    	    	
     	//cpuSnapShotmap.put()
     	
     	

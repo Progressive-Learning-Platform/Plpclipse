@@ -281,6 +281,47 @@ public class PLPCPUSnapshot_keys
 	 */
 	public static String MEM_WB_INTRMEDIATE = "mem_wb_intermediate";
 	
+	public static String PC_ADD_EDGE = "pc_add1";
+	public static String PC_IMM_EDGE = "pc_im";
+	public static String ADD_PC_2_ADD_BRANCH_EDGE = "add1_add2";
+	public static String SHIFT_PC_EDGE = "im_shift1";
+	public static String CONTROL_EDGE = "im_control";
+	public static String IM_MUX1_LOWER_EDGE = "im_mux1_lower";
+	public static String IM_MUX1_UPPER_EDGE = "im_mux1_upper";
+	public static String IM_SIGN_EDGE = "im_sign";
+	public static String IM_ALUC_EDGE = "im_aluc";
+	public static String CONTROL_MUX1_EDGE = "control_mux1";
+	public static String CONTROL_REGISTERS_EDGE = "control_registers";
+	public static String CONTROL_MUX4_EDGE = "control_mux4";
+	public static String CONTROL_ANDGATE_EDGE = "control_andgate";
+	public static String CONTROL_MUX5_EDGE = "control_mux5";
+	public static String CONTROL_DATAMEMORY_LEFT_EDGE = "control_datamemory_left";
+	public static String CONTROL_DATAMEMORY_RIGHT_EDGE = "control_datamemory_right";
+	public static String CONTROL_MUX2_EDGE = "control_mux2";
+	public static String CONTROL_ALU_CONTROL_EDGE = "control_alu_control";
+	public static String ALU_CONTROL_ALU_EDGE = "alu_control_alu";
+	public static String MUX1_REGISTERS_EDGE = "mux1_registers";
+	public static String REGISTERS_ALU_EDGE = "registers_alu";
+	public static String REGISTERS_MUX2_EDGE = "registers_mux2_edge";
+	public static String REGISTERS_DATA_MEMORY_EDGE = "registers_data_memory_edge";
+	public static String MUX3_MUX4_EDGE = "mux3_mux4";
+	public static String SIGN_EXTEND_SHIFT2_EDGE = "sign_extend_shift2";
+	public static String SIGN_EXTEND_MUX2_EDGE = "sign_extend_mux2";
+	public static String MUX2_ALU_EDGE = "mux2_alu";
+	public static String ADD1_MUX3_EDGE = "add1_mux3";
+	public static String ADD1_MUX4_EDGE = "add1_mux4";
+	public static String SHIFT1_MUX4_EDGE = "shift1_mux4";
+	public static String SHIFT2_ADD2_EDGE = "shift2_add2";
+	public static String ADD2_MUX3_EDGE = "add2_mux3";
+	public static String ALU_AND_GATE_EDGE = "alu_and_gate";
+	public static String ALU_DATA_MEMORY_EDGE = "alu_data_memory";
+	public static String ALU_MUX5_EDGE = "alu_mux5";
+	public static String DATA_MEMORY_MUX5_EDGE = "data_memory_mux5";
+	public static String AND_GATE_MUX3_EDGE = "and_gate_mux3";
+	public static String MUX5_REGISTERS_EDGE = "mux5_registers";
+	public static String MUX4_PC_EDGE = "mux4_pc";
+	
+	
 	public static void initializeKeysFromFile()
 	{
 		BufferedReader reader;

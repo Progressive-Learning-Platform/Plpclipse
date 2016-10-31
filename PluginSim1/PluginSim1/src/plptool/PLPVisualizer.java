@@ -30,12 +30,22 @@ public class PLPVisualizer extends JFrame
 	 * 
 	 */
 	private static final long serialVersionUID = -2707712944901661771L;
-
+    private static PLPVisualizer frame = null;
 	/** 
 	 * Default Constructor
 	 * @throws JSONException 
 	 */
-	public PLPVisualizer() throws JSONException
+	
+	 public static PLPVisualizer getInstance()
+	    {
+	    	if(frame == null)
+	    	{
+	    		frame = new PLPVisualizer();
+	    	}
+	    	return frame;
+	    }
+	 
+	protected PLPVisualizer() throws JSONException
 	{
 		super("PLP Visualizer");
 

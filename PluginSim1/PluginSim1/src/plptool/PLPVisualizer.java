@@ -42,7 +42,7 @@ public class PLPVisualizer extends JFrame
 		final myGraph graph = new myGraph();
 		Object parent = graph.getDefaultParent();
 
-		String conf_file = "src/plptool/graph_blue_print.json";
+		String conf_file = "config/graph_blue_print.json";
 		BufferedReader reader;
 		String line = null;
 		String jsonString = "";

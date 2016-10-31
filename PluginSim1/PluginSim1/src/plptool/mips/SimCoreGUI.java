@@ -41,7 +41,7 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 import plptool.PLPToolbox;
@@ -862,7 +862,7 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
 			Destination destination = session.createQueue("SNAPSHOT");
 			MessageProducer producer = session.createProducer(destination);
 			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-			TextMessage message = session.createTextMessage(obj.toJSONString());
+			TextMessage message = session.createTextMessage(obj.toString());
 			producer.send(message);
 			session.close();
 			connection.close();

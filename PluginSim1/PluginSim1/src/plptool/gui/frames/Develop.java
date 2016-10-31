@@ -38,6 +38,7 @@ import plptool.Config;
 import plptool.PLPSimBusModule;
 import plptool.dmf.DynamicModuleFramework;
 import plptool.PLPToolbox;
+import plptool.PLPVisualizer;
 import plptool.Text;
 import plptool.mods.*;
 import plptool.dmf.CallbackRegistry;
@@ -45,6 +46,7 @@ import plptool.gui.PLPToolApp;
 import plptool.gui.ProjectDriver;
 import plptool.gui.ProjectEvent;
 import plptool.gui.SerialTerminal;
+import plptool.mips.Architecture;
 import plptool.gui.NumberConverter;
 
 /**
@@ -3021,7 +3023,9 @@ public final class Develop extends javax.swing.JFrame {
     }//GEN-LAST:event_menuSetMainProgramActionPerformed
 
     private void btnAssembleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssembleActionPerformed
-        assemble();
+    	PLPVisualizer frame = PLPVisualizer.getInstance();
+    	frame.dispose();
+    	assemble();
     }//GEN-LAST:event_btnAssembleActionPerformed
 
     private void menuExportASMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExportASMActionPerformed
@@ -3377,6 +3381,8 @@ public final class Develop extends javax.swing.JFrame {
         if(btnSimulate.isSelected()) {
             simBegin();
         } else {
+        	PLPVisualizer frame = PLPVisualizer.getInstance();
+        	frame.dispose();
             simEnd();
             //plp.refreshProjectView(false);
             safeRefresh(false);

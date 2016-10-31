@@ -1,5 +1,5 @@
 /*
-    Copyright 2011-2014 David Fritz, Brian Gordon, Wira Mulia
+   Copyright 2011-2014 David Fritz, Brian Gordon, Wira Mulia
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -45,7 +45,6 @@ public class Architecture extends PLPArchitecture {
     private SyntaxHighlightSupport syntaxHighlightSupport;
     private javax.swing.JMenuItem menuExportVerilogHex;
     private javax.swing.JCheckBoxMenuItem menuNexysBoard;
-    
     public Architecture(int archID, ProjectDriver plp) {
         super(archID, "plpmips", plp);
         hasAssembler = true;
@@ -182,17 +181,17 @@ public class Architecture extends PLPArchitecture {
             plpVisualizer.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent e) {
                     try {
-                    	PLPVisualizer frame = new PLPVisualizer();
-                		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                		frame.setSize(800, 600);
-                		frame.setVisible(true);
-					} catch (JSONException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+                    	PLPVisualizer frame = PLPVisualizer.getInstance();
+                	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                	frame.setSize(800, 600);
+                	frame.setVisible(true);
+		    } catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			}
                 }
             });
-            
+        
             final javax.swing.JMenuItem menuForgetMemoryVisualizer = new javax.swing.JMenuItem();
             menuForgetMemoryVisualizer.setText("Remove Memor Visualizers from Project");
             menuForgetMemoryVisualizer.addActionListener(new java.awt.event.ActionListener() {

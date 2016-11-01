@@ -195,7 +195,7 @@ public class Architecture extends PLPArchitecture {
             });
         
             final javax.swing.JMenuItem menuForgetMemoryVisualizer = new javax.swing.JMenuItem();
-            menuForgetMemoryVisualizer.setText("Remove Memor Visualizers from Project");
+            menuForgetMemoryVisualizer.setText("Remove Memory Visualizers from Project");
             menuForgetMemoryVisualizer.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent e) {
                     ((plptool.mips.SimCoreGUI) plp.g_sim).disposeMemoryVisualizers();

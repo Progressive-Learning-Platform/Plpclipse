@@ -824,7 +824,7 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
 	    	regObj.put(PLPCPUSnapshot_keys.REGISTER_15, String.valueOf(((SimCore)sim).regfile.read(15)));
 	    	regObj.put(PLPCPUSnapshot_keys.REGISTER_16, String.valueOf(((SimCore)sim).regfile.read(16)));
 	    	regObj.put(PLPCPUSnapshot_keys.REGISTER_17, String.valueOf(((SimCore)sim).regfile.read(17)));
-	    	regObj.put(PLPCPUSnapshot_keys.REGISTER_8, String.valueOf(((SimCore)sim).regfile.read(18)));
+	    	regObj.put(PLPCPUSnapshot_keys.REGISTER_18, String.valueOf(((SimCore)sim).regfile.read(18)));
 	    	regObj.put(PLPCPUSnapshot_keys.REGISTER_19, String.valueOf(((SimCore)sim).regfile.read(19)));
 	    	regObj.put(PLPCPUSnapshot_keys.REGISTER_20, String.valueOf(((SimCore)sim).regfile.read(20)));
 	    	regObj.put(PLPCPUSnapshot_keys.REGISTER_21, String.valueOf(((SimCore)sim).regfile.read(21)));

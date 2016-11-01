@@ -28,6 +28,8 @@ import org.json.JSONException;
 
 import plptool.*;
 import plptool.gui.ProjectDriver;
+import plptool.visualizer.PLPVisualizer;
+
 import java.io.File;
 
 /**

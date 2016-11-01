@@ -14,3 +14,7 @@ PluginUI/*.class
 runtime-EclipseApplication/*.class
 
 
+
+PluginSim1/PluginSim1/activemq-data
+
+PluginSim1/PluginSim1/bin

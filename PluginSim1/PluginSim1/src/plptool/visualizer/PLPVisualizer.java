@@ -56,6 +56,8 @@ public class PLPVisualizer extends JFrame
 
 		final mxGraphComponent graphComponent = new mxGraphComponent(graph);
 		getContentPane().add(graphComponent);
+		graph.setCellsLocked(true);
+		graphComponent.setConnectable(false);
 		graphComponent.setToolTips(true);
 		graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
 		{

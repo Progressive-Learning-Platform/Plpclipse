@@ -417,7 +417,8 @@
 			"id": "mux4_pc",
 			"vertex_id_from": "mux4",
 			"vertex_id_to": "pc",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=0.5;exitY=0;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=0.5;exitY=0;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;",
+			"way_points": [[670,10],[50,10]]
 		}
 	}
 }

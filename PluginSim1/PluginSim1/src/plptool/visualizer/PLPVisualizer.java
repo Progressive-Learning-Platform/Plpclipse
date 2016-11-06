@@ -8,9 +8,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JFrame;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import plptool.visualizer.communication.BackendProducer;
@@ -19,9 +21,11 @@ import plptool.visualizer.event.SnapshotEventHandler;
 import plptool.visualizer.graphs.plpGraph;
 
 import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxConstants;
+import com.mxgraph.util.mxPoint;
 
 public class PLPVisualizer extends JFrame
 {
@@ -170,10 +174,27 @@ public class PLPVisualizer extends JFrame
 											node.getString("vertex_id_from"));
 				Object second_node = ((mxGraphModel)graph.getModel()).getCell(
 											node.getString("vertex_id_to"));
-				graph.insertEdge(parent, node.getString("id"),
+				Object edge = graph.insertEdge(parent, node.getString("id"),
 										(Object)node.getString("name"),
 										first_node, second_node,
 										node.getString("style"));
+				// customize way points
+				/**
+				 * Some edges may overlap the vertex, so we using "way points" 
+				 * to specified an edge's route.
+				 */
+				if (node.has("way_points")) {
+					JSONArray way_points = node.getJSONArray("way_points");
+					Iterator<?> array_iterator = way_points.iterator();
+					mxGeometry geo = graph.getModel().getGeometry(edge);
+					List<mxPoint> waypoint = new ArrayList<mxPoint>();
+					while(array_iterator.hasNext()) {
+						JSONArray point = (JSONArray)array_iterator.next();
+						waypoint.add(new mxPoint(point.getInt(0),
+												point.getInt(1)));
+					}
+					geo.setPoints(waypoint);
+				}
 			}
 		}
 		finally
@@ -184,7 +205,7 @@ public class PLPVisualizer extends JFrame
 
 	public static void main(String[] args)
 	{
-		PLPVisualizer frame = PLPVisualizer.getInstance(true);
+		PLPVisualizer frame = PLPVisualizer.getInstance(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(800, 600);
 		frame.setVisible(true);

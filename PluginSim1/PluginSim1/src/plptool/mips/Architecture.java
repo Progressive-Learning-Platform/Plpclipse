@@ -183,8 +183,8 @@ public class Architecture extends PLPArchitecture {
             plpVisualizer.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent e) {
                     try {
-                    	PLPVisualizer frame = PLPVisualizer.getInstance();
-                	frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    	PLPVisualizer frame = PLPVisualizer.getInstance(Config.simFunctional);
+                	frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 	frame.setSize(800, 600);
                 	frame.setVisible(true);
 		    } catch (JSONException e1) {

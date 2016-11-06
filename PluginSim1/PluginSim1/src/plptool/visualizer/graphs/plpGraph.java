@@ -1,4 +1,4 @@
-package plptool.visualizer;
+package plptool.visualizer.graphs;
 
 import java.text.NumberFormat;
 import java.util.Iterator;
@@ -10,7 +10,7 @@ import com.mxgraph.util.mxPoint;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 
-public class myGraph extends mxGraph{
+public class plpGraph extends mxGraph{
 	
 	public static final NumberFormat numberFormat = NumberFormat.getInstance();
 	

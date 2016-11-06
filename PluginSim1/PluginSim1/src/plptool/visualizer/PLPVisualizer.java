@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import plptool.visualizer.communication.BackendProducer;
 import plptool.visualizer.communication.FrontendConsumer;
 import plptool.visualizer.event.SnapshotEventHandler;
+import plptool.visualizer.graphs.plpGraph;
 
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
@@ -29,16 +30,21 @@ public class PLPVisualizer extends JFrame
 	 */
 	private static final long serialVersionUID = -2707712944901661771L;
 	private static PLPVisualizer instance = null;
+	private final plpGraph graph;
+
 	/** 
 	 * Default Constructor
 	 */
-	
-	public static PLPVisualizer getInstance()
+	public static PLPVisualizer getInstance(boolean pipelined)
 	{
 		if(instance == null)
 		{
 			instance = new PLPVisualizer();
 		}
+		if (pipelined)
+			instance.drawGraph("config/graph_pipelined.json");
+		else
+			instance.drawGraph("config/graph_blue_print.json");
 		return instance;
 	}
 	
@@ -46,67 +52,7 @@ public class PLPVisualizer extends JFrame
 	{
 		super("PLP Visualizer");
 
-		final myGraph graph = new myGraph();
-		Object parent = graph.getDefaultParent();
-
-		String conf_file = "config/graph_blue_print.json";
-		BufferedReader reader;
-		String line = null;
-		String jsonString = "";
-		try {
-			reader = new BufferedReader(new FileReader (conf_file));
-			while((line = reader.readLine()) != null) {
-				jsonString += line;
-			}
-			reader.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		JSONObject conf = new JSONObject(jsonString);
-		JSONObject vertices = conf.getJSONObject("vertices");
-		JSONObject edges = conf.getJSONObject("edges");
-
-		graph.getModel().beginUpdate();
-		try
-		{
-			// create nodex
-			Iterator<?> json_keys = vertices.keys();
-			
-			while( json_keys.hasNext() ){
-				String json_key = (String)json_keys.next();
-				JSONObject node = vertices.getJSONObject(json_key);
-				graph.insertVertex(parent, node.getString("id"),
-									(Object)node.getString("name"),
-											node.getDouble("pos_x"),
-											node.getDouble("pos_y"),
-											node.getDouble("width"),
-											node.getDouble("height"));
-			}
-
-			// create edges
-			json_keys = edges.keys();
-			
-			while( json_keys.hasNext() ){
-				String json_key = (String)json_keys.next();
-				JSONObject node = edges.getJSONObject(json_key);
-				Object first_node = ((mxGraphModel)graph.getModel()).getCell(
-											node.getString("vertex_id_from"));
-				Object second_node = ((mxGraphModel)graph.getModel()).getCell(
-											node.getString("vertex_id_to"));
-				graph.insertEdge(parent, node.getString("id"),
-										(Object)node.getString("name"),
-										first_node, second_node,
-										node.getString("style"));
-			}
-		}
-		finally
-		{
-			graph.getModel().endUpdate();
-		}
+		graph = new plpGraph();
 
 		final mxGraphComponent graphComponent = new mxGraphComponent(graph);
 		getContentPane().add(graphComponent);
@@ -169,10 +115,74 @@ public class PLPVisualizer extends JFrame
 		});
 		thread(frontend, false);
 	}
+	
+	public void drawGraph(String conf_file)
+	{
+		Object parent = graph.getDefaultParent();
+		this.graph.removeCells(graph.getChildVertices(parent));
+
+		BufferedReader reader;
+		String line = null;
+		String jsonString = "";
+		try {
+			reader = new BufferedReader(new FileReader (conf_file));
+			while((line = reader.readLine()) != null) {
+				jsonString += line;
+			}
+			reader.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		JSONObject conf = new JSONObject(jsonString);
+		JSONObject vertices = conf.getJSONObject("vertices");
+		JSONObject edges = conf.getJSONObject("edges");
+
+		graph.getModel().beginUpdate();
+		try
+		{
+			// create nodex
+			Iterator<?> json_keys = vertices.keys();
+			
+			while( json_keys.hasNext() ){
+				String json_key = (String)json_keys.next();
+				JSONObject node = vertices.getJSONObject(json_key);
+				graph.insertVertex(parent, node.getString("id"),
+									(Object)node.getString("name"),
+											node.getDouble("pos_x"),
+											node.getDouble("pos_y"),
+											node.getDouble("width"),
+											node.getDouble("height"));
+			}
+
+			// create edges
+			json_keys = edges.keys();
+			
+			while( json_keys.hasNext() ){
+				String json_key = (String)json_keys.next();
+				JSONObject node = edges.getJSONObject(json_key);
+				Object first_node = ((mxGraphModel)graph.getModel()).getCell(
+											node.getString("vertex_id_from"));
+				Object second_node = ((mxGraphModel)graph.getModel()).getCell(
+											node.getString("vertex_id_to"));
+				graph.insertEdge(parent, node.getString("id"),
+										(Object)node.getString("name"),
+										first_node, second_node,
+										node.getString("style"));
+			}
+		}
+		finally
+		{
+			graph.getModel().endUpdate();
+		}
+	}
 
 	public static void main(String[] args)
 	{
-		PLPVisualizer frame = PLPVisualizer.getInstance();
+		PLPVisualizer frame = PLPVisualizer.getInstance(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(800, 600);
 		frame.setVisible(true);

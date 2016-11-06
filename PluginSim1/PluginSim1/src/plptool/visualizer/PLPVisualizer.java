@@ -44,7 +44,7 @@ public class PLPVisualizer extends JFrame
 		if (pipelined)
 			instance.drawGraph("config/graph_pipelined.json");
 		else
-			instance.drawGraph("config/graph_blue_print.json");
+			instance.drawGraph("config/graph_non_pipelined.json");
 		return instance;
 	}
 	

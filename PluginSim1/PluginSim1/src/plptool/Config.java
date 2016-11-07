@@ -90,7 +90,8 @@ public class Config {
     public static int     serialTerminalBufferSize         = 64;
     public static boolean serialTerminalAutoDetectPorts    = true;
     
-    public static String blueprintJSONFile				   = "config/graph_blue_print.json";
+    public static String nonPipelinedBlueprint				   = "config/graph_non_pipelined.json";
+    public static String pipeLinedBlueprint 				= "config/graph_pipelined.json";
    
     public static void resetConfig() {
         cfgInstrPretty                   = true;

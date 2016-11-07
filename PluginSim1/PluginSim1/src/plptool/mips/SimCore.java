@@ -367,6 +367,40 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.ADDRESS_5_VALUE, "-");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY, obj);
     	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.IF_ID_INTERMEDIATE);
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.IF_ID_INTERMEDIATE, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.ID_EX_INTERMEDIATE);
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ID_EX_INTERMEDIATE, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.EX_MEM_INTERMEDIATE);
+    	obj.put(PLPCPUSnapshot_keys.EX_DATA_RS, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_DATA_RT, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_DATA_X, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_DATA_Y, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_IF_STALL_SET, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_ALU_RESULT, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_DEST_REG_ADDR, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_JAL, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_LINKADDRESS, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_MEMREAD, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_MEMTOREG, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_MEMWRITE, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_REGWRITE, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_INSTRUCTION, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_INSTRUCTION_ADDR, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_INSTRUCTION_BUBBLE, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_MEMWRITEDATA, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_RS_FORWARDED, "-");
+    	obj.put(PLPCPUSnapshot_keys.EX_RT_FORWARDED, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.EX_MEM_INTERMEDIATE, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.MEM_WB_INTRMEDIATE);
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MEM_WB_INTRMEDIATE, obj);
     	    	
     	//cpuSnapShotmap.put()
     	
@@ -470,6 +504,31 @@ public class SimCore extends PLPSimCore {
 
         return ret;
     }
+    
+    private void updateCPUSnapshot()
+    {
+    	JSONObject obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.EX_MEM_INTERMEDIATE);
+    	
+    	obj.put(PLPCPUSnapshot_keys.EX_DATA_RS, String.valueOf(ex_stage.data_rs));
+    	obj.put(PLPCPUSnapshot_keys.EX_DATA_RT, String.valueOf(ex_stage.data_rt));
+    	obj.put(PLPCPUSnapshot_keys.EX_DATA_X, String.valueOf(ex_stage.data_x));
+    	obj.put(PLPCPUSnapshot_keys.EX_DATA_Y, String.valueOf(ex_stage.data_y));
+    	obj.put(PLPCPUSnapshot_keys.EX_IF_STALL_SET, String.valueOf(ex_stage.if_stalled));
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_ALU_RESULT, String.valueOf(ex_stage.internal_alu_out));
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_DEST_REG_ADDR, String.valueOf(mem_stage.i_fwd_ctl_dest_reg_addr));
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_JAL, String.valueOf(ex_stage.fwd_ctl_jal));
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_LINKADDRESS, String.valueOf(ex_stage.fwd_ctl_linkaddr));
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_MEMREAD, String.valueOf(ex_stage.fwd_ctl_memread));
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_MEMTOREG, String.valueOf(ex_stage.fwd_ctl_memtoreg));
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_MEMWRITE, String.valueOf(ex_stage.fwd_ctl_memwrite));
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_REGWRITE, String.valueOf(ex_stage.fwd_ctl_regwrite));
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_INSTRUCTION, String.valueOf(ex_stage.instruction));
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_INSTRUCTION_ADDR, String.valueOf(ex_stage.instrAddr));
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_INSTRUCTION_BUBBLE, String.valueOf(ex_stage.bubble));
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_MEMWRITEDATA, String.valueOf(ex_stage.data_eff_y));
+    	obj.put(PLPCPUSnapshot_keys.EX_RS_FORWARDED, String.valueOf(ex_stage.rs_forwarded_from));
+    	obj.put(PLPCPUSnapshot_keys.EX_RT_FORWARDED, String.valueOf(ex_stage.rt_forwarded_from));
+    }
 
     /**
      * Advance the simulation by one cycle.
@@ -521,6 +580,9 @@ public class SimCore extends PLPSimCore {
             } else if (!if_stall) {
                 pc.write(pc.eval() + 4);
             }
+            
+            //Update the CPUSnapshot
+            updateCPUSnapshot();
 
             // Evaluate modules attached to the bus
             ret += bus.eval();
@@ -1297,6 +1359,12 @@ public class SimCore extends PLPSimCore {
         public long i_data_imm_signExtended;
         public long i_ctl_rt_addr;
         public long i_ctl_rd_addr;
+        
+        public String rt_forwarded_from;
+        public String rs_forwarded_from;
+        
+        public boolean if_stalled;       
+        
 
         long internal_alu_out;
 
@@ -1412,6 +1480,24 @@ public class SimCore extends PLPSimCore {
             ctl_forwardX = (ex_ex && mem_ctl_regwrite && mem_stage.fwd_ctl_dest_reg_addr == ex_rs && ex_rs != 0) ? 1 :
                            (mem_ex && wb_ctl_regwrite && wb_stage.ctl_dest_reg_addr == ex_rs && ex_rs != 0)      ? 2 :
                            0;
+            
+            switch((int)ctl_forwardX)
+            {
+            case 0:
+            {
+            	rs_forwarded_from = "None";
+            	break;
+            }
+            case 1:
+            {
+            	rs_forwarded_from = "EX->EX";
+            	break;
+            }
+            case 2:
+            {
+            	rs_forwarded_from = "MEM->EX";
+            }
+            }
 
             sim_flags |= ((ctl_forwardX == 1) ? PLP_SIM_FWD_EX_EX_RS :
                           (ctl_forwardX == 2) ? PLP_SIM_FWD_MEM_EX_RS : 0);
@@ -1420,6 +1506,24 @@ public class SimCore extends PLPSimCore {
             ctl_forwardY = (ex_ex && mem_ctl_regwrite && mem_stage.fwd_ctl_dest_reg_addr == ex_rt && ex_rt != 0) ? 1 :
                            (mem_ex && wb_ctl_regwrite && wb_stage.ctl_dest_reg_addr == ex_rt && ex_rt != 0)      ? 2 :
                            0;
+            
+            switch((int)ctl_forwardY)
+            {
+            case 0:
+            {
+            	rt_forwarded_from = "None";
+            	break;
+            }
+            case 1:
+            {
+            	rt_forwarded_from = "EX->EX";
+            	break;
+            }
+            case 2:
+            {
+            	rt_forwarded_from = "MEM->EX";
+            }
+            }
 
             sim_flags |= ((ctl_forwardY == 1) ? PLP_SIM_FWD_EX_EX_RT :
                           (ctl_forwardY == 2) ? PLP_SIM_FWD_MEM_EX_RT : 0);
@@ -1461,11 +1565,14 @@ public class SimCore extends PLPSimCore {
             ctl_jumptarget = (jtype == 7) ? (instrAddr & 0xF0000000) |
                                             (MIPSInstr.jaddr(instruction) << 2)
                                             : data_rs;
+                                            
+            if_stalled = false;
 
             // Jump / branch taken, clear next IF stage / create a bubble
             if(ctl_jump == 1 || ctl_pcsrc == 1 && !ex_stall) {
                 if_stall = true;
                 sim_flags |= PLP_SIM_IF_STALL_SET;
+                if_stalled = true;
             }
 
             return Constants.PLP_OK;

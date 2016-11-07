@@ -267,19 +267,42 @@ public class PLPCPUSnapshot_keys
 	/**
 	 * This key's value will give the content of the intermediate pipeline buffer for IF and ID Stage
 	 */
-	public static String IF_ID_INTERMEDIATE = "if_id_intermediate";
+	public static String IF_ID_INTERMEDIATE = "if_id_buffer";
 	/**
 	 * This key's value will give the content of the intermediate pipeline buffer for ID and EX Stage
 	 */
-	public static String ID_EX_INTERMEDIATE = "id-ex_intermediate";
+	public static String ID_EX_INTERMEDIATE = "id_ex_buffer";
 	/**
 	 * This key's value will give the content of the intermediate pipeline buffer for EX and MEM Stage
 	 */
-	public static String EX_MEM_INTERMEDIATE = "ex_mem_intermediate";
+	public static String EX_MEM_INTERMEDIATE = "ex_mem_buffer";
+	
+	public static String EX_MEM_INSTRUCTION = "ex_mem_instruction";
+	public static String EX_MEM_INSTRUCTION_ADDR = "ex_mem_instruction_addr";
+	public static String EX_MEM_INSTRUCTION_BUBBLE = "ex_mem_instruction_addr";
+	public static String EX_MEM_ALU_RESULT = "ex_mem_alu_result";
+	public static String EX_RT_FORWARDED = "ex_rt_forwarded";
+	public static String EX_RS_FORWARDED = "ex_rs_forwarded";
+	public static String EX_DATA_X = "ex_data_x";
+	public static String EX_DATA_Y = "ex_data_y";
+	public static String EX_DATA_RS = "ex_data_rs";
+	public static String EX_DATA_RT = "ex_data_rt";
+	public static String EX_MEM_CTL_MEMTOREG = "ex_mem_ctl_memtoreg";
+	public static String EX_MEM_CTL_REGWRITE = "ex_mem_ctl_regwrite";
+	public static String EX_MEM_CTL_DEST_REG_ADDR = "ex_mem_ctl_dest_reg_addr";
+	public static String EX_MEM_CTL_MEMWRITE = "ex_mem_ctl_memwrite";
+	public static String EX_MEM_CTL_MEMREAD = "ex_mem_ctl_memread";
+	public static String EX_MEM_CTL_LINKADDRESS = "ex_mem_ctl_linkaddress";
+	public static String EX_MEM_CTL_JAL = "ex_mem_ctl_jal";
+	public static String EX_MEM_MEMWRITEDATA = "ex_mem_memwritedata";
+	public static String EX_IF_STALL_SET = "ex_if_stall_set";
+	
+	
+	
 	/**
 	 * This key's value will give the content of the intermediate pipeline buffer for MEM and WB Stage
 	 */
-	public static String MEM_WB_INTRMEDIATE = "mem_wb_intermediate";
+	public static String MEM_WB_INTRMEDIATE = "mem_wb_buffer";
 	
 	public static String PC_ADD_EDGE = "pc_add1";
 	public static String PC_IMM_EDGE = "pc_im";
@@ -328,7 +351,10 @@ public class PLPCPUSnapshot_keys
 		String line = null;
 		String jsonString = "";
 		try {
-			reader = new BufferedReader(new FileReader (Config.blueprintJSONFile));
+			if(Config.simFunctional)
+				reader = new BufferedReader(new FileReader (Config.pipeLinedBlueprint));
+			else
+				reader = new BufferedReader(new FileReader (Config.nonPipelinedBlueprint));
 			while((line = reader.readLine()) != null) {
 				jsonString += line;
 			}
@@ -442,6 +468,22 @@ public class PLPCPUSnapshot_keys
 			{
 				PLPCPUSnapshot_keys.DATA_MEMORY = id;
 				break;
+			}
+			case "if_id_buffer":
+			{
+				PLPCPUSnapshot_keys.IF_ID_INTERMEDIATE = id;
+			}
+			case "id_ex_buffer":
+			{
+				PLPCPUSnapshot_keys.ID_EX_INTERMEDIATE = id;
+			}
+			case "ex_mem_buffer":
+			{
+				PLPCPUSnapshot_keys.EX_MEM_INTERMEDIATE = id;
+			}
+			case "mem_wb_buffer":
+			{
+				PLPCPUSnapshot_keys.MEM_WB_INTRMEDIATE = id;
 			}
 			}
 			System.out.println(node.getString("name"));

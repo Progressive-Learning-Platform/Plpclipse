@@ -543,8 +543,10 @@ public class SimCore extends PLPSimCore {
         visibleAddr = -1;
         int ret = 0;
         long old_pc = pc.eval();
+        
+        //Config.simFunctional = false;
 
-        if(Config.simFunctional)
+        if(!Config.simFunctional)
             return stepFunctional();
 
         else {

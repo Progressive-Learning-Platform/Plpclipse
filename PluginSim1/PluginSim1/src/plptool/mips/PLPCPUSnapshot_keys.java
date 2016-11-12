@@ -53,6 +53,7 @@ public class PLPCPUSnapshot_keys
 	public static String CONTROL_MEMWRITE = "memwrite";
 	public static String CONTROL_ALUSRC = "alusrc";
 	public static String CONTROL_REGWRITE = "regwrite";
+	public static String CONTROL_BRANCH = "branch";
 	
 	/**
 	 * This key's value will indicate the value of the mux which chooses registers

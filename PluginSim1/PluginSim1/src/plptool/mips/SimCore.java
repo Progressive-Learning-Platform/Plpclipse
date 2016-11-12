@@ -251,6 +251,7 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.CONTROL_MEMWRITE, "-");
     	obj.put(PLPCPUSnapshot_keys.CONTROL_REGDST, "-");
     	obj.put(PLPCPUSnapshot_keys.CONTROL_REGWRITE, "-");
+    	obj.put(PLPCPUSnapshot_keys.CONTROL_BRANCH, "-");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.CONTROL, obj);
     	
     	//Register Mux
@@ -794,7 +795,17 @@ public class SimCore extends PLPSimCore {
      */
     public int stepFunctional() {
         int ret = 0;
-
+        long pc_value = 0;
+        boolean bAluOp = false;
+        boolean bAluSrc = false;
+        boolean bJump = false;
+        boolean bMemRead = false;
+        boolean bMemWrite = false;
+        boolean bRegDst = false;
+        boolean bRegWrite = false;
+        boolean bBranch = false;
+        boolean bMemToReg = false;
+        
         pc.clock();
         ret += fetch(); // get the instruction
         
@@ -809,6 +820,7 @@ public class SimCore extends PLPSimCore {
         }
 
         long pcplus4 = pc.eval()+4;
+        pc_value = pcplus4;
 
         // control flow handler
 
@@ -831,6 +843,7 @@ public class SimCore extends PLPSimCore {
         else {
             Msg.D("DELAY SLOT - branching to = " + plptool.PLPToolbox.format32Hex(branch_destination), 4, this);
             pc.write(branch_destination);
+            pc_value = branch_destination;
             branch = false;
         }
 
@@ -853,48 +866,72 @@ public class SimCore extends PLPSimCore {
             if(funct == 0x08 || funct == 0x09) {        // jr
                 branch = true;
                 branch_destination = s;
+                bJump = true;
 
                 if(funct == 0x09) {                     // jalr
                     regfile.write(rd, pcplus4+4, false);
                 }
             } else {
+            	bAluOp = true;
+            	bAluSrc = true;
                 alu_result = ex_stage.exAlu.eval(s, t, instr);
                 alu_result &= 0xffffffffL;
                 regfile.write(rd, alu_result, false);
             }
         } else if (opcode == 0x04) {                    // beq
             if(s == t) {
+            	bBranch = true;
+            	bAluOp = true;
                 branch = true;
                 branch_destination = (pcplus4 + (s_imm<<2)) & 0xffffffffL;
             }
         } else if (opcode == 0x05) {                    // bne
             if(s != t) {
+            	bBranch = true;
+            	bAluOp = true;
                 branch = true;
                 branch_destination = (pcplus4 + (s_imm<<2)) & 0xffffffffL;
             }
         } else if (opcode == 0x23) {                    // lw
+        	bMemRead = true;
+        	bAluOp = true;
+        	bRegDst = true;
+        	bRegWrite = true;
+        	bMemToReg = true;
             Long data = (Long) bus.read(s + s_imm);
             if(data == null)
                 return Msg.E("Bus read error.", Constants.PLP_SIM_BUS_ERROR, this);
             regfile.write(rt, data, false);
 
         } else if (opcode == 0x2B) {                    // sw
+        	bMemWrite = true;
+        	bAluOp = true;
+        	
             ret = bus.write(s + s_imm, regfile.read(rt), false);
             if(ret > 0) {
                 return Msg.E("Bus write error.", Constants.PLP_SIM_BUS_ERROR, this);
             }
         } else if (opcode == 0x02 || opcode == 0x03) {  // j
             branch = true;
+            bJump = true;
             branch_destination = jaddr<<2 | (pcplus4 & 0xf0000000L);
 
             if (opcode == 0x03) {                       // jal
                 regfile.write(31, pcplus4+4, false);
             }
         } else if(opcode == 0x0C || opcode == 0x0D) {   // ori, andi
+        	bRegDst = true;
+        	bRegWrite = true;
+        	bAluOp = true;
+        	bAluSrc = true;
             alu_result = ex_stage.exAlu.eval(s, imm, instr) & 0xffffffffL;
             regfile.write(rt, alu_result, false);
 
         } else {                                        // other i-type
+        	bAluOp = true;
+        	bAluSrc = true;
+        	bRegWrite = true;
+        	bRegDst = true;
             alu_result = ex_stage.exAlu.eval(s, s_imm, instr);
             if(alu_result == -1) {
                 return Msg.E("Unhandled instruction: invalid op-code",
@@ -920,6 +957,46 @@ public class SimCore extends PLPSimCore {
         
         
         //cpuSnapShot.put(PLPCPUSnapshot_keys., value)
+        JSONObject obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.PC);
+        obj.put(PLPCPUSnapshot_keys.PC_ADDRESS, String.valueOf(pc_value));
+        
+        obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.CONTROL);
+        obj.put(PLPCPUSnapshot_keys.CONTROL_ALUOP, String.valueOf(bAluOp));
+        obj.put(PLPCPUSnapshot_keys.CONTROL_ALUSRC, String.valueOf(bAluSrc));
+        obj.put(PLPCPUSnapshot_keys.CONTROL_JUMP, String.valueOf(bJump));
+        obj.put(PLPCPUSnapshot_keys.CONTROL_MEMREAD, String.valueOf(bMemRead));
+        obj.put(PLPCPUSnapshot_keys.CONTROL_MEMTOREG, String.valueOf(bMemToReg));
+        obj.put(PLPCPUSnapshot_keys.CONTROL_REGDST, String.valueOf(bRegDst));
+        obj.put(PLPCPUSnapshot_keys.CONTROL_MEMWRITE, String.valueOf(bMemWrite));
+        obj.put(PLPCPUSnapshot_keys.CONTROL_REGWRITE, String.valueOf(bRegWrite));
+        obj.put(PLPCPUSnapshot_keys.CONTROL_BRANCH, String.valueOf(bBranch));
+             
+        obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.REGISTER_MUX);
+        if(bRegDst)
+        	obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_VALUE, "1");
+        else
+        	obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_VALUE, "0");
+        
+        obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.MEM_MUX);
+        if(bMemToReg)
+        	obj.put(PLPCPUSnapshot_keys.MEM_MUX_VALUE, "1");
+        else
+        	obj.put(PLPCPUSnapshot_keys.MEM_MUX_VALUE, "0");
+        
+        obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.ALU_MUX);
+        if(bAluSrc)
+        	obj.put(PLPCPUSnapshot_keys.ALU_MUX_VALUE, "1");
+        else
+        	obj.put(PLPCPUSnapshot_keys.ALU_MUX_VALUE, "0");
+        
+        obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.MUX_BRANCH_2);
+        if(bJump)
+        	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_VALUE, "1");
+        else
+        	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_VALUE, "0");
+        
+        
+        
         
 
         return ret;

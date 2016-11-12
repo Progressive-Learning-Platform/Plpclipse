@@ -890,23 +890,24 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
 	    	
 	    	
 	    	try {
-			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
-			Connection connection = connectionFactory.createConnection();
-			connection.start();
-			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			//SAME QUEUE NAME IN FRONTEND CONSUMER AND THIS BACKEND PRODUCER
-			Destination destination = session.createQueue("SNAPSHOT");
-			MessageProducer producer = session.createProducer(destination);
-			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-			TextMessage message = session.createTextMessage(main.toString());
-			producer.send(message);
-			session.close();
-			connection.close();
+				ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
+				Connection connection = connectionFactory.createConnection();
+				connection.start();
+				Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+				//SAME QUEUE NAME IN FRONTEND CONSUMER AND THIS BACKEND PRODUCER
+				Destination destination = session.createQueue("SNAPSHOT");
+				MessageProducer producer = session.createProducer(destination);
+				producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+				TextMessage message = session.createTextMessage(main.toString());
+				producer.send(message);
+				session.close();
+				connection.close();
         	}
-		catch (Exception e) {
-			System.out.println("Caught: " + e);
-			e.printStackTrace();
-		}
+	    	catch (Exception e) 
+	    	{
+				System.out.println("Caught: " + e);
+				e.printStackTrace();
+			}
     	}
     	catch(Exception exp)
     	{

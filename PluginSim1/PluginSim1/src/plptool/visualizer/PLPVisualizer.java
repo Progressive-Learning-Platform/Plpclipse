@@ -100,7 +100,8 @@ public class PLPVisualizer extends JFrame
 					String json_key = (String)json_keys.next();
 					JSONObject node = vertices.getJSONObject(json_key);
 					mxCell myCell = (mxCell) ((mxGraphModel)graph.getModel()).getCell(json_key);
-					myCell.setValue(node);
+					if (myCell != null)
+						myCell.setValue(node);
 				}
 				
 				JSONObject edges = snapshot.getJSONObject("enabled_edges");

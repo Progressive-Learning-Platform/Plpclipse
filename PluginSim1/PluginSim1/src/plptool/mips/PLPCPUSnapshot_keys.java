@@ -273,6 +273,7 @@ public class PLPCPUSnapshot_keys
 	 * This key's value will give the content of the intermediate pipeline buffer for ID and EX Stage
 	 */
 	public static String ID_EX_INTERMEDIATE = "id_ex_buffer";
+	
 	/**
 	 * This key's value will give the content of the intermediate pipeline buffer for EX and MEM Stage
 	 */
@@ -280,7 +281,7 @@ public class PLPCPUSnapshot_keys
 	
 	public static String EX_MEM_INSTRUCTION = "ex_mem_instruction";
 	public static String EX_MEM_INSTRUCTION_ADDR = "ex_mem_instruction_addr";
-	public static String EX_MEM_INSTRUCTION_BUBBLE = "ex_mem_instruction_addr";
+	public static String EX_MEM_INSTRUCTION_BUBBLE = "ex_mem_instruction_bubble";
 	public static String EX_MEM_ALU_RESULT = "ex_mem_alu_result";
 	public static String EX_RT_FORWARDED = "ex_rt_forwarded";
 	public static String EX_RS_FORWARDED = "ex_rs_forwarded";
@@ -304,6 +305,21 @@ public class PLPCPUSnapshot_keys
 	 * This key's value will give the content of the intermediate pipeline buffer for MEM and WB Stage
 	 */
 	public static String MEM_WB_INTRMEDIATE = "mem_wb_buffer";
+	public static String MEM_WB_INSTRUCTION = "mem_wb_instruction";
+	public static String MEM_WB_INSTRUCTION_ADDR = "mem_wb_instruction_addr";
+	public static String MEM_WB_BUBBLE = "mem_wb_bubble";
+	public static String MEM_CTRL_WRITE = "control_memory_write";
+	public static String MEM_CTRL_READ = "control_memory_read";
+	public static String MEM_DATA_LOAD = "data_loaded_mem_stage";
+	public static String MEM_DATA_STORE = "data_written_mem_stage";
+	public static String FWD_MEM_TO_MEM = "forwarding_mem_mem";
+	public static String MEM_WB_CTRL_MEMTOREG = "ctrl_memtoreg";
+	public static String MEM_WB_CTRL_REGWRITE = "ctrl_regwrite";
+	public static String WB_DST_REG_ADDR = "destination_reg_address";
+	public static String MEM_WB_CTRL_LINKADDR = "link_address";
+	public static String MEM_WB_ALU_RESULT = "alu_result";
+	public static String MEM_WB_CTRL_JAL = "ctrl_jal";
+	
 	
 	public static String PC_ADD_EDGE = "pc_add1";
 	public static String PC_IMM_EDGE = "pc_im";

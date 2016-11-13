@@ -401,6 +401,20 @@ public class SimCore extends PLPSimCore {
     	
     	obj = new JSONObject();
     	obj.put("id", PLPCPUSnapshot_keys.MEM_WB_INTRMEDIATE);
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_INSTRUCTION, "-");
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_INSTRUCTION_ADDR, "-");
+    	obj.put(PLPCPUSnapshot_keys.MEM_CTRL_WRITE, "-");
+    	obj.put(PLPCPUSnapshot_keys.MEM_CTRL_READ, "-");
+    	obj.put(PLPCPUSnapshot_keys.MEM_DATA_LOAD, "-");
+    	obj.put(PLPCPUSnapshot_keys.MEM_DATA_STORE, "-");
+    	obj.put(PLPCPUSnapshot_keys.FWD_MEM_TO_MEM, "-");
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_ALU_RESULT, "-");
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_CTRL_MEMTOREG, "-");
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_CTRL_REGWRITE, "-");
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_CTRL_JAL, "-");
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_CTRL_LINKADDR, "-");
+    	obj.put(PLPCPUSnapshot_keys.WB_DST_REG_ADDR, "-");
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_BUBBLE, "-");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MEM_WB_INTRMEDIATE, obj);
     	    	
     	//cpuSnapShotmap.put()
@@ -529,6 +543,23 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.EX_MEM_MEMWRITEDATA, String.valueOf(ex_stage.data_eff_y));
     	obj.put(PLPCPUSnapshot_keys.EX_RS_FORWARDED, String.valueOf(ex_stage.rs_forwarded_from));
     	obj.put(PLPCPUSnapshot_keys.EX_RT_FORWARDED, String.valueOf(ex_stage.rt_forwarded_from));
+    	
+    	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.MEM_WB_INTRMEDIATE);
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_INSTRUCTION, String.valueOf(mem_stage.instruction));
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_INSTRUCTION_ADDR, String.valueOf(mem_stage.instrAddr));
+    	obj.put(PLPCPUSnapshot_keys.MEM_CTRL_WRITE, String.valueOf(mem_stage.ctl_memwrite));
+    	obj.put(PLPCPUSnapshot_keys.MEM_CTRL_READ, String.valueOf(mem_stage.ctl_memread));
+    	obj.put(PLPCPUSnapshot_keys.MEM_DATA_LOAD, String.valueOf(mem_stage.data_mem_load));
+    	obj.put(PLPCPUSnapshot_keys.MEM_DATA_STORE, String.valueOf(mem_stage.data_mem_store));
+    	obj.put(PLPCPUSnapshot_keys.FWD_MEM_TO_MEM, String.valueOf(mem_stage.ctl_fwd_mem_mem));
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_ALU_RESULT, String.valueOf(mem_stage.fwd_data_alu_result));
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_CTRL_MEMTOREG, String.valueOf(mem_stage.fwd_ctl_memtoreg));
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_CTRL_REGWRITE, String.valueOf(mem_stage.fwd_ctl_regwrite));
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_CTRL_JAL, String.valueOf(mem_stage.fwd_ctl_jal));
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_CTRL_LINKADDR, String.valueOf(mem_stage.fwd_ctl_linkaddr));
+    	obj.put(PLPCPUSnapshot_keys.WB_DST_REG_ADDR, String.valueOf(mem_stage.fwd_ctl_dest_reg_addr));
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_BUBBLE, String.valueOf(mem_stage.bubble));
+    	
     }
 
     /**

@@ -273,6 +273,24 @@ public class PLPCPUSnapshot_keys
 	 * This key's value will give the content of the intermediate pipeline buffer for ID and EX Stage
 	 */
 	public static String ID_EX_INTERMEDIATE = "id_ex_buffer";
+	public static String ID_EX_INSTRUCTION = "id_ex_instruction";
+	public static String ID_EX_INSTRUCTION_ADDR = "id_ex_instruction_addr";
+	public static String ID_EX_INSTRUCTION_BUBBLE = "id_ex_bubble";
+	public static String ID_EX_REGSOURCE = "register_source";
+	public static String ID_EX_REGTRANS = "register_trans";
+	public static String ID_EX_IMMEDIATE = "immediate_value";
+	public static String ID_EX_REG_DEST = "register_destination";
+	public static String ID_EX_FWD_CTL_MEMTOREG = "ctl_memtoreg";
+	public static String ID_EX_FWD_CTL_REGWRITE = "ctl_regwrite";
+	public static String ID_EX_FWD_CTL_MEMWRITE = "ctl_memwrite";
+	public static String ID_EX_FWD_CTL_MEMREAD = "ctl_memread";
+	public static String ID_EX_FWD_CTL_JAL = "ctl_jal";
+	public static String ID_EX_CTL_REGDST = "ctl_regdst";
+	public static String ID_EX_CTL_JUMP = "ctl_jump";
+	public static String ID_EX_CTL_BRANCH = "ctl_branch";
+	public static String ID_EX_CTL_ALUSRC = "ctl_alusrc";
+	public static String ID_EX_CTL_ALUOP = "ctl_aluop";
+	public static String ID_EX_FWD_CTL_LINKADDR = "ctl_fwd_linkaddr";
 	
 	/**
 	 * This key's value will give the content of the intermediate pipeline buffer for EX and MEM Stage
@@ -494,14 +512,14 @@ public class PLPCPUSnapshot_keys
 			{
 				PLPCPUSnapshot_keys.ID_EX_INTERMEDIATE = id;
 			}
-			case "ex_mem_buffer":
+			/*case "ex_mem_buffer":
 			{
 				PLPCPUSnapshot_keys.EX_MEM_INTERMEDIATE = id;
 			}
 			case "mem_wb_buffer":
 			{
 				PLPCPUSnapshot_keys.MEM_WB_INTRMEDIATE = id;
-			}
+			}*/
 			}
 			System.out.println(node.getString("name"));
 		}

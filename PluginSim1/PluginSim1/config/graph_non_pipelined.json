@@ -207,7 +207,8 @@
 			"id": "im_aluc",
 			"vertex_id_from": "instruction_memory",
 			"vertex_id_to": "alu_control",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.9;exitPerimeter=1;entryX=0;entryY=0.4;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.9;exitPerimeter=1;entryX=0;entryY=0.4;entryPerimeter=1;",
+			"way_points": [[240,372],[240,504]]
 		},
 		"control_mux1": {
 			"name": "",
@@ -228,7 +229,8 @@
 			"id": "control_mux4",
 			"vertex_id_from": "control",
 			"vertex_id_to": "mux4",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.6;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.6;entryPerimeter=1;",
+			"way_points": [[380,152],[380,64]]
 		},
 		"control_andgate": {
 			"name": "",
@@ -242,35 +244,41 @@
 			"id": "control_mux5",
 			"vertex_id_from": "control",
 			"vertex_id_to": "mux5",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;",
+			"way_points": [[690,200]]
+			
 		},
 		"control_data_left": {
 			"name": "",
 			"id": "control_datamemory_left",
 			"vertex_id_from": "control",
 			"vertex_id_to": "data_memory",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.6;exitPerimeter=1;entryX=0.7;entryY=0;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.6;exitPerimeter=1;entryX=0.7;entryY=0;entryPerimeter=1;",
+			"way_points": [[620,212]]
 		},
 		"control_data_right": {
 			"name": "",
 			"id": "control_datamemory_right",
 			"vertex_id_from": "control",
 			"vertex_id_to": "data_memory",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.7;exitPerimeter=1;entryX=0.3;entryY=0;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.7;exitPerimeter=1;entryX=0.3;entryY=0;entryPerimeter=1;",
+			"way_points": [[640,240]]
 		},
 		"control_mux2" :{
 			"name": "",
 			"id": "control_mux2",
 			"vertex_id_from": "control",
 			"vertex_id_to": "mux2",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.8;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.8;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;",
+			"way_points": [[490,236]]
 		},
 		"control_alu_control" :{
 			"name": "",
 			"id": "control_alu_control",
 			"vertex_id_from": "control",
 			"vertex_id_to": "alu_control",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.9;exitPerimeter=1;entryX=0;entryY=0.1;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.9;exitPerimeter=1;entryX=0;entryY=0.1;entryPerimeter=1;",
+			"way_points": [[460,248],[460,486]]
 		},
 		"alu_control_alu" :{
 			"name": "",
@@ -319,14 +327,16 @@
 			"id": "sign_extend_shift2",
 			"vertex_id_from": "sign_extend",
 			"vertex_id_to": "shift2",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;",
+			"way_points": [[430,450],[430,150]]
 		},
 		"sign_extend_mux2" :{
 			"name": "",
 			"id": "sign_extend_mux2",
 			"vertex_id_from": "sign_extend",
 			"vertex_id_to": "mux2",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;",
+			"way_points": [[440,450],[440,368]]
 		},
 		"mux2_alu" :{
 			"name": "",
@@ -410,7 +420,8 @@
 			"id": "mux5_registers",
 			"vertex_id_from": "mux5",
 			"vertex_id_to": "registers",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=0.5;exitY=1;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=0.5;exitY=1;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;",
+			"way_points": [[690,440],[380,440]]
 		},
 		"mux4_pc" :{
 			"name": "",

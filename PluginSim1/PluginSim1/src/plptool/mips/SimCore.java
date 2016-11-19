@@ -1140,13 +1140,19 @@ public class SimCore extends PLPSimCore {
     	if(bMemToReg)
     		control_signals += "Memory to Register,";
     	if(bRegDst)
+    	{
     		control_signals += "Register Destination,";
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX1_EDGE, "Register Destination");
+    	}
     	if(bMemWrite)
     		control_signals += "Memory Write,";
     	if(bRegWrite)
     		control_signals += "Register Write,";
     	if(bBranch)
+    	{
     		control_signals += "Branch,";
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ANDGATE_EDGE, "BRANCH");
+    	}
     	
     	obj.put(PLPCPUSnapshot_keys.CONTROL_SIGNALS, control_signals);
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.CONTROL, obj);

@@ -207,20 +207,17 @@ public class SimCore extends PLPSimCore {
     	//pc
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.PC, new JSONObject());
     	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.PC);
-    	obj.put("id", PLPCPUSnapshot_keys.PC);
     	obj.put(PLPCPUSnapshot_keys.PC_ADDRESS, "-");
     	
     	//PC_add
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_PC, new JSONObject());
     	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.ADD_PC);
-    	obj.put("id", PLPCPUSnapshot_keys.ADD_PC);
     	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT1, "-");
     	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT2, "-");
     	obj.put(PLPCPUSnapshot_keys.ADD_PC_OUTPUT, "-");
     	
     	//Instruction Memory
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.INSTRUCTION_MEMORY);
     	obj.put(PLPCPUSnapshot_keys.INST_MEM_IF, "-");
     	obj.put(PLPCPUSnapshot_keys.INST_MEM_IF_ADDR, "-");
     	obj.put(PLPCPUSnapshot_keys.INST_MEM_ID, "-");
@@ -235,14 +232,12 @@ public class SimCore extends PLPSimCore {
     	
     	//Shift_pc
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.SHIFT_LEFT_PC);
     	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_INPUT, "-");
     	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_OUTPUT, "-");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC, obj);
     	
     	//control
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.CONTROL);
     	obj.put(PLPCPUSnapshot_keys.CONTROL_ALUOP, "-");
     	obj.put(PLPCPUSnapshot_keys.CONTROL_ALUSRC, "-");
     	obj.put(PLPCPUSnapshot_keys.CONTROL_JUMP, "-");
@@ -256,38 +251,31 @@ public class SimCore extends PLPSimCore {
     	
     	//Register Mux
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.REGISTER_MUX);
     	obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_VALUE, "-");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_MUX, obj);
     	
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.MEM_MUX);
     	obj.put(PLPCPUSnapshot_keys.MEM_MUX_VALUE, "-");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MEM_MUX, obj);
     	
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.ALU_MUX);
     	obj.put(PLPCPUSnapshot_keys.ALU_MUX_VALUE, "-");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_MUX, obj);
     	
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.MUX_BRANCH_1);
     	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_1_VALUE, "-");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MUX_BRANCH_1, obj);
     	
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.MUX_BRANCH_2);
     	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_VALUE, "-");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MUX_BRANCH_2, obj);
     	
     	obj = new JSONObject();
-    	obj.put("id",PLPCPUSnapshot_keys.SIGN_EXTEND);
     	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_INPUT, "-");
     	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_OUTPUT, "-");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SIGN_EXTEND, obj);
     	
     	obj = new JSONObject();
-    	obj.put("id",PLPCPUSnapshot_keys.REGISTERS);
     	obj.put(PLPCPUSnapshot_keys.REGISTER_0, "-");
     	obj.put(PLPCPUSnapshot_keys.REGISTER_1, "-");
     	obj.put(PLPCPUSnapshot_keys.REGISTER_2, "-");
@@ -323,39 +311,33 @@ public class SimCore extends PLPSimCore {
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTERS, obj);
     	
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.SHIFT_BRANCH);
     	obj.put(PLPCPUSnapshot_keys.SHIFT_BRANCH_INPUT, "-");
     	obj.put(PLPCPUSnapshot_keys.SHIFT_BRANCH_OUTPUT, "-");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_BRANCH, obj);
     	
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.ALU_CONTROL);
     	obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_INPUT, "-");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_CONTROL, obj);
     	
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_BRANCH, new JSONObject());
     	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.ADD_BRANCH);
-    	obj.put("id", PLPCPUSnapshot_keys.ADD_PC);
     	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_INPUT1, "-");
     	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_INPUT2, "-");
     	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_OUTPUT, "-");
     	
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.ALU);
     	obj.put(PLPCPUSnapshot_keys.ALU_INPUT1, "-");
     	obj.put(PLPCPUSnapshot_keys.ALU_INPUT2, "-");
     	obj.put(PLPCPUSnapshot_keys.ALU_RESULT, "-");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU, obj);
     	
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.AND_GATE);
     	obj.put(PLPCPUSnapshot_keys.AND_GATE_INPUT1, "-");
     	obj.put(PLPCPUSnapshot_keys.AND_GATE_INPUT2, "-");
     	obj.put(PLPCPUSnapshot_keys.AND_GATE_RESULT, "-");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.AND_GATE, obj);
     	
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.DATA_MEMORY);
     	obj.put(PLPCPUSnapshot_keys.ADDRESS_1, "-");
     	obj.put(PLPCPUSnapshot_keys.ADDRESS_1_VALUE, "-");
     	obj.put(PLPCPUSnapshot_keys.ADDRESS_2, "-");
@@ -369,11 +351,9 @@ public class SimCore extends PLPSimCore {
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY, obj);
     	
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.IF_ID_INTERMEDIATE);
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.IF_ID_INTERMEDIATE, obj);
     	
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.ID_EX_INTERMEDIATE);
     	obj.put(PLPCPUSnapshot_keys.ID_EX_INSTRUCTION, "-");
     	obj.put(PLPCPUSnapshot_keys.ID_EX_INSTRUCTION_ADDR, "-");
     	obj.put(PLPCPUSnapshot_keys.ID_EX_INSTRUCTION_BUBBLE, "-");
@@ -395,7 +375,6 @@ public class SimCore extends PLPSimCore {
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ID_EX_INTERMEDIATE, obj);
     	
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.EX_MEM_INTERMEDIATE);
     	obj.put(PLPCPUSnapshot_keys.EX_DATA_RS, "-");
     	obj.put(PLPCPUSnapshot_keys.EX_DATA_RT, "-");
     	obj.put(PLPCPUSnapshot_keys.EX_DATA_X, "-");
@@ -418,7 +397,6 @@ public class SimCore extends PLPSimCore {
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.EX_MEM_INTERMEDIATE, obj);
     	
     	obj = new JSONObject();
-    	obj.put("id", PLPCPUSnapshot_keys.MEM_WB_INTRMEDIATE);
     	obj.put(PLPCPUSnapshot_keys.MEM_WB_INSTRUCTION, "-");
     	obj.put(PLPCPUSnapshot_keys.MEM_WB_INSTRUCTION_ADDR, "-");
     	obj.put(PLPCPUSnapshot_keys.MEM_CTRL_WRITE, "-");
@@ -1144,7 +1122,6 @@ public class SimCore extends PLPSimCore {
     	//Control
     	obj = new JSONObject();
     	//obj.put("id", PLPCPUSnapshot_keys.CONTROL);
-    	
     	String control_signals = "";
     	if(bAluOp)
     		control_signals = "ALU Operation,";
@@ -1178,6 +1155,20 @@ public class SimCore extends PLPSimCore {
     	//ALU MUX
     	obj = new JSONObject();
     	//obj.put("id", PLPCPUSnapshot_keys.ALU_MUX);
+    	if(bRegDst)
+    		obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_VALUE, "1");
+    	else
+    		obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_VALUE, "0");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_MUX, obj);
+        
+        obj = new JSONObject();
+    	if(bMemToReg)
+    		obj.put(PLPCPUSnapshot_keys.MEM_MUX_VALUE, "1");
+    	else
+    		obj.put(PLPCPUSnapshot_keys.MEM_MUX_VALUE, "0");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MEM_MUX, obj);
+    	
+    	obj = new JSONObject();
     	if(bAluSrc)
     		obj.put(PLPCPUSnapshot_keys.ALU_MUX_VALUE, "1");
     	else
@@ -1190,6 +1181,26 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.SHIFT_BRANCH_INPUT, String.valueOf(s_imm));
     	obj.put(PLPCPUSnapshot_keys.SHIFT_BRANCH_OUTPUT, String.valueOf(s_imm<<2));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_BRANCH, obj);
+    	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_1_VALUE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MUX_BRANCH_1, obj);
+    	
+    	obj = new JSONObject();
+    	if(bJump)
+    		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_VALUE, "1");
+    	else
+    		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_VALUE, "0");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MUX_BRANCH_2, obj);
+    	
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_PC, new JSONObject());
+    	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.ADD_PC);
+    	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT1, String.valueOf(instruction_address));
+    	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT2, "4");
+    	obj.put(PLPCPUSnapshot_keys.ADD_PC_OUTPUT, String.valueOf(instruction_address+4));
+    	
+    	obj = new JSONObject();
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_INPUT, String.valueOf(jaddr));
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_OUTPUT, String.valueOf(jaddr<<2 ));
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC, obj);
     	
     	//ALU Control
     	obj = new JSONObject();
@@ -1200,7 +1211,21 @@ public class SimCore extends PLPSimCore {
     	else
     		obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_OUTPUT, String.valueOf(funct));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_CONTROL, obj);
+    	obj.put(PLPCPUSnapshot_keys.REGISTER1, String.valueOf(rs));
+    	obj.put(PLPCPUSnapshot_keys.REGISTER2, String.valueOf(rt));
+    	if(bRegDst)
+    		obj.put(PLPCPUSnapshot_keys.REGISTER_WRITE, String.valueOf(rd));
+    	else
+    		obj.put(PLPCPUSnapshot_keys.REGISTER_WRITE, String.valueOf(rt));
+    	obj.put(PLPCPUSnapshot_keys.REGISTER1_READ, String.valueOf(s));
+    	obj.put(PLPCPUSnapshot_keys.REGISTER2_READ, String.valueOf(t));
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_WRITE_DATA, w_r);
     	
+    	obj = new JSONObject();
+    	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_INPUT, String.valueOf(imm));
+    	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_OUTPUT, String.valueOf(s_imm));
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SIGN_EXTEND, obj);
+
     	//ALU
     	obj = new JSONObject();
     	//obj.put("id", PLPCPUSnapshot_keys.ALU);
@@ -1230,6 +1255,9 @@ public class SimCore extends PLPSimCore {
     	//obj.put("id", PLPCPUSnapshot_keys.AND_GATE);
     	if(bBranch)
     		obj.put(PLPCPUSnapshot_keys.AND_GATE_INPUT1, "1");
+    	obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_INPUT, String.valueOf(funct));
+    	if(bAluOp)
+    		obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_OUTPUT, String.valueOf(funct));
     	else
     		obj.put(PLPCPUSnapshot_keys.AND_GATE_INPUT1, "0");
     	if(branch_taken)
@@ -1281,6 +1309,9 @@ public class SimCore extends PLPSimCore {
     	else
     		obj.put(PLPCPUSnapshot_keys.MEM_MUX_VALUE, "0");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MEM_MUX, obj);
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_BRANCH_INPUT, String.valueOf(s_imm));
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_BRANCH_OUTPUT, String.valueOf(s_imm<<2));
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_BRANCH, obj);
     	
     	
     	

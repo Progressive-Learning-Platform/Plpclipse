@@ -806,7 +806,7 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
         try
         {
             
-            JSONObject regObj = (JSONObject)((SimCore)sim).cpuSnapShotmap.get(PLPCPUSnapshot_keys.REGISTERS);
+            /*JSONObject regObj = (JSONObject)((SimCore)sim).cpuSnapShotmap.get(PLPCPUSnapshot_keys.REGISTERS);
             regObj.put(PLPCPUSnapshot_keys.REGISTER_0, String.valueOf(((SimCore)sim).regfile.read(0)));
             regObj.put(PLPCPUSnapshot_keys.REGISTER_1, String.valueOf(((SimCore)sim).regfile.read(1)));
             regObj.put(PLPCPUSnapshot_keys.REGISTER_2, String.valueOf(((SimCore)sim).regfile.read(2)));
@@ -838,7 +838,7 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
             regObj.put(PLPCPUSnapshot_keys.REGISTER_28, String.valueOf(((SimCore)sim).regfile.read(28)));
             regObj.put(PLPCPUSnapshot_keys.REGISTER_29, String.valueOf(((SimCore)sim).regfile.read(29)));
             regObj.put(PLPCPUSnapshot_keys.REGISTER_30, String.valueOf(((SimCore)sim).regfile.read(30)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_31, String.valueOf(((SimCore)sim).regfile.read(31)));
+            regObj.put(PLPCPUSnapshot_keys.REGISTER_31, String.valueOf(((SimCore)sim).regfile.read(31)));*/
             
             
             JSONObject edgeObj = new JSONObject();

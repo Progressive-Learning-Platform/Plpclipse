@@ -113,6 +113,9 @@ public class PLPCPUSnapshot_keys
 	public static String ADDRESS_4_VALUE = "address_4_VALUE";
 	public static String ADDRESS_5 = "address_5";
 	public static String ADDRESS_5_VALUE = "address_5_VALUE";
+	public static String DATA_MEM_ADDRESS = "address";
+	public static String DATA_MEM_WRITE = "write data";
+	public static String DATA_MEM_READ = "read data";
 	
 	/**
 	 * This key's value is the alu operations indicator.

@@ -12,7 +12,7 @@ import com.mxgraph.view.mxGraph;
 public class plpGraph extends mxGraph{
 	
 	public static final NumberFormat numberFormat = NumberFormat.getInstance();
-	
+	public static final String DEBUG = System.getProperty("debug");
 	public String getToolTipForCell(Object cell)
 	{
 		String tip = "<html>";
@@ -22,7 +22,7 @@ public class plpGraph extends mxGraph{
 
 		if (getModel().isEdge(cell))
 		{
-			if(DEBUG)
+			if(DEBUG != null && DEBUG.equalsIgnoreCase("true"))
 			{
 				tip += "points={";
 	
@@ -65,65 +65,42 @@ public class plpGraph extends mxGraph{
 	
 				tip += "}<br>";
 			}
-<<<<<<< HEAD
-
-			tip += "}<br>";
-			tip += "absPoints={";
-
-			if (state != null)
-			{
-
-				for (int i = 0; i < state.getAbsolutePointCount(); i++)
-				{
-					mxPoint point = state.getAbsolutePoint(i);
-					tip += "[x=" + numberFormat.format(point.getX())
-							+ ",y=" + numberFormat.format(point.getY())
-							+ "],";
-				}
-
-				tip = tip.substring(0, tip.length() - 1);
-			}
-
-			tip += "}<br>";
-=======
->>>>>>> origin/PLPVisualizer
 			tip += mycell.getValue().toString().replaceAll(",", "<br>");
 		}
 		else
 		{
-			tip += "geo=[";
-
-			if (geo != null)
+			if(DEBUG != null && DEBUG.equalsIgnoreCase("true"))
 			{
-				tip += "x=" + numberFormat.format(geo.getX()) + ",y="
-						+ numberFormat.format(geo.getY()) + ",width="
-						+ numberFormat.format(geo.getWidth()) + ",height="
-						+ numberFormat.format(geo.getHeight());
+				tip += "geo=[";
+				if (geo != null)
+				{
+					tip += "x=" + numberFormat.format(geo.getX()) + ",y="
+							+ numberFormat.format(geo.getY()) + ",width="
+							+ numberFormat.format(geo.getWidth()) + ",height="
+							+ numberFormat.format(geo.getHeight());
+				}	
+					
+				tip += "]<br>";
+				tip += "state=[";
+				
+				if (state != null)
+				{
+					tip += "x=" + numberFormat.format(state.getX()) + ",y="
+							+ numberFormat.format(state.getY()) + ",width="
+							+ numberFormat.format(state.getWidth())
+							+ ",height="
+							+ numberFormat.format(state.getHeight());
+				}
+				tip += "]<br>";
 			}
-
-			tip += "]<br>";
-			tip += "state=[";
-
-			if (state != null)
-			{
-				tip += "x=" + numberFormat.format(state.getX()) + ",y="
-						+ numberFormat.format(state.getY()) + ",width="
-						+ numberFormat.format(state.getWidth())
-						+ ",height="
-						+ numberFormat.format(state.getHeight());
-			}
-
-			tip += "]<br>";
 			tip += mycell.getValue().toString().replaceAll(",", "<br>");
 		}
 
 		/*mxPoint trans = getView().getTranslate();
-
 		tip += "<br>scale=" + numberFormat.format(getView().getScale())
 				+ ", translate=[x=" + numberFormat.format(trans.getX())
 				+ ",y=" + numberFormat.format(trans.getY()) + "]";*/
 		tip += "</html>";
-
 		return tip;
 	}
 }

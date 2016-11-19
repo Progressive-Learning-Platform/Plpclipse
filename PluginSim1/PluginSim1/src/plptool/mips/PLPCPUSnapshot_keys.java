@@ -396,6 +396,7 @@ public class PLPCPUSnapshot_keys
 	public static String MUX5_REGISTERS_EDGE = "mux5_registers";
 	public static String MUX4_PC_EDGE = "mux4_pc";
 	
+	public static String EDGE_ENABLE = "enabled_edges";
 	
 	public static void initializeKeysFromFile()
 	{

@@ -1130,24 +1130,45 @@ public class SimCore extends PLPSimCore {
     	
     	String control_signals = "";
     	if(bAluOp)
+    	{
     		control_signals = "ALU Operation,";
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ALU_CONTROL_EDGE, "ALU Operation");
+    	}
     	if(bAluSrc)
+    	{
     		control_signals += "ALU Source,";
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX2_EDGE, "ALU Source");
+    	}
     	if(bJump)
+    	{
     		control_signals += "Jump,";
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX4_EDGE, "Jump");
+    	}
     	if(bMemRead)
+    	{
     		control_signals += "Memory Read,";
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_DATAMEMORY_RIGHT_EDGE, "Memory Read");
+    	}
     	if(bMemToReg)
+    	{
     		control_signals += "Memory to Register,";
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX5_EDGE, "Memory to Register");
+    	}
     	if(bRegDst)
     	{
     		control_signals += "Register Destination,";
     		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX1_EDGE, "Register Destination");
     	}
     	if(bMemWrite)
+    	{
     		control_signals += "Memory Write,";
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_DATAMEMORY_LEFT_EDGE, "Memory Write");
+    	}
     	if(bRegWrite)
+    	{
     		control_signals += "Register Write,";
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_REGISTERS_EDGE, "Register Write");
+    	}
     	if(bBranch)
     	{
     		control_signals += "Branch,";

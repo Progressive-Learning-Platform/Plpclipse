@@ -13,7 +13,7 @@ import com.mxgraph.view.mxGraph;
 public class plpGraph extends mxGraph{
 	
 	public static final NumberFormat numberFormat = NumberFormat.getInstance();
-	
+	public static final boolean DEBUG = false;
 	public String getToolTipForCell(Object cell)
 	{
 		String tip = "<html>";
@@ -21,7 +21,7 @@ public class plpGraph extends mxGraph{
 		mxCellState state = getView().getState(cell);
 		mxCell mycell = (mxCell)cell;
 
-		if (getModel().isEdge(cell))
+		if (getModel().isEdge(cell) && DEBUG)
 		{
 			tip += "points={";
 
@@ -48,7 +48,7 @@ public class plpGraph extends mxGraph{
 			tip += "}<br>";
 			tip += "absPoints={";
 
-			if (state != null)
+			if (state != null && DEBUG)
 			{
 
 				for (int i = 0; i < state.getAbsolutePointCount(); i++)
@@ -67,29 +67,30 @@ public class plpGraph extends mxGraph{
 		}
 		else
 		{
-			tip += "geo=[";
-
-			if (geo != null)
+			if(DEBUG)
 			{
-				tip += "x=" + numberFormat.format(geo.getX()) + ",y="
-						+ numberFormat.format(geo.getY()) + ",width="
-						+ numberFormat.format(geo.getWidth()) + ",height="
-						+ numberFormat.format(geo.getHeight());
+				tip += "geo=[";
+				if (geo != null)
+				{
+					tip += "x=" + numberFormat.format(geo.getX()) + ",y="
+							+ numberFormat.format(geo.getY()) + ",width="
+							+ numberFormat.format(geo.getWidth()) + ",height="
+							+ numberFormat.format(geo.getHeight());
+				}	
+					
+				tip += "]<br>";
+				tip += "state=[";
+				
+				if (state != null)
+				{
+					tip += "x=" + numberFormat.format(state.getX()) + ",y="
+							+ numberFormat.format(state.getY()) + ",width="
+							+ numberFormat.format(state.getWidth())
+							+ ",height="
+							+ numberFormat.format(state.getHeight());
+				}
+				tip += "]<br>";
 			}
-
-			tip += "]<br>";
-			tip += "state=[";
-
-			if (state != null)
-			{
-				tip += "x=" + numberFormat.format(state.getX()) + ",y="
-						+ numberFormat.format(state.getY()) + ",width="
-						+ numberFormat.format(state.getWidth())
-						+ ",height="
-						+ numberFormat.format(state.getHeight());
-			}
-
-			tip += "]<br>";
 			tip += mycell.getValue().toString().replaceAll(",", "<br>");
 		}
 
@@ -99,7 +100,6 @@ public class plpGraph extends mxGraph{
 				+ ", translate=[x=" + numberFormat.format(trans.getX())
 				+ ",y=" + numberFormat.format(trans.getY()) + "]";*/
 		tip += "</html>";
-
 		return tip;
 	}
 }

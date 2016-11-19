@@ -37,6 +37,7 @@ public class BackendProducer implements Runnable {
 				// Create a MessageProducer from the Session to the Topic or Queue
 				MessageProducer producer = session.createProducer(destination);
 				producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+				producer.setTimeToLive(10);
 
 				// Create a messages
 				String conf_file = "test_data/fake" + String.valueOf(test_number) + ".json";

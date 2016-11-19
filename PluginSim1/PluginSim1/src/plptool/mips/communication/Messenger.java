@@ -40,6 +40,7 @@ public class Messenger {
             destination = session.createQueue("SNAPSHOT");
             producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+            producer.setTimeToLive(10);
         }
         catch (Exception e) 
         {

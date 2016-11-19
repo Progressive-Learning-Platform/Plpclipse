@@ -62,7 +62,8 @@ public class plpGraph extends mxGraph{
 				tip = tip.substring(0, tip.length() - 1);
 			}
 
-			tip += "}";
+			tip += "}<br>";
+			tip += mycell.getValue().toString().replaceAll(",", "<br>");
 		}
 		else
 		{

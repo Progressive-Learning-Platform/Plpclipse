@@ -88,36 +88,39 @@ public class PLPVisualizer extends JFrame
 		});
 		FrontendConsumer frontend = new FrontendConsumer();
 		frontend.addListener(new SnapshotEventHandler(){
+			ArrayList<Object> enabled_list = null;
 			public void receiveSnapshot(String jsonString)
 			{
 				JSONObject snapshot = new JSONObject(jsonString);
 				JSONObject vertices = snapshot.getJSONObject("vertices_values");
 				Iterator<?> json_keys = vertices.keys();
-				ArrayList<Object> enabled_list = new ArrayList<Object>();
-				ArrayList<Object> disabled_list = new ArrayList<Object>();
+				if (enabled_list == null)
+					enabled_list = new ArrayList<Object>();
 				
 				while( json_keys.hasNext() ){
 					String json_key = (String)json_keys.next();
-					JSONObject node = vertices.getJSONObject(json_key);
+					JSONObject data = vertices.getJSONObject(json_key);
 					mxCell myCell = (mxCell) ((mxGraphModel)graph.getModel()).getCell(json_key);
 					if (myCell != null)
-						myCell.setValue(node);
+						myCell.setValue(data);
 				}
 				
 				JSONObject edges = snapshot.getJSONObject("enabled_edges");
 				json_keys = edges.keys();
-				
+				// Set previous enabled edges to disabled.
+				graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "green", enabled_list.toArray());
+				// Then clear whole list to store new enabled edges.
+				enabled_list.clear();
 				while( json_keys.hasNext() ){
 					String json_key = (String)json_keys.next();
-					int enabled = edges.getInt(json_key);
-					Object myCell = ((mxGraphModel)graph.getModel()).getCell(json_key);
-					if (enabled == 1)
+					JSONObject data = edges.getJSONObject(json_key);
+					mxCell myCell = (mxCell)((mxGraphModel)graph.getModel()).getCell(json_key);
+					if (myCell != null) {
 						enabled_list.add(myCell);
-					else
-						disabled_list.add(myCell);
+						myCell.setValue(data);
+					}
 				}
 				graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "red", enabled_list.toArray());
-				graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "green", disabled_list.toArray());
 			}
 		});
 		thread(frontend, false);
@@ -178,7 +181,7 @@ public class PLPVisualizer extends JFrame
 				Object edge = graph.insertEdge(parent, node.getString("id"),
 										(Object)node.getString("name"),
 										first_node, second_node,
-										node.getString("style"));
+										node.getString("style")+"noLabel=1;");
 				// customize way points
 				/**
 				 * Some edges may overlap the vertex, so we using "way points" 
@@ -204,6 +207,10 @@ public class PLPVisualizer extends JFrame
 		}
 	}
 
+	/**
+	 * Test function, you can run front end separately to test it.
+	 * @param args no arguments required.
+	 */
 	public static void main(String[] args)
 	{
 		PLPVisualizer frame = PLPVisualizer.getInstance(false);

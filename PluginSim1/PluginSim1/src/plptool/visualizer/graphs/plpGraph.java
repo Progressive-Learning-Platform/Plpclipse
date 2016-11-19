@@ -9,7 +9,6 @@ import com.mxgraph.model.mxGeometry;
 import com.mxgraph.util.mxPoint;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
-
 public class plpGraph extends mxGraph{
 	
 	public static final NumberFormat numberFormat = NumberFormat.getInstance();
@@ -21,48 +20,51 @@ public class plpGraph extends mxGraph{
 		mxCellState state = getView().getState(cell);
 		mxCell mycell = (mxCell)cell;
 
-		if (getModel().isEdge(cell) && DEBUG)
+		if (getModel().isEdge(cell))
 		{
-			tip += "points={";
-
-			if (geo != null)
+			if(DEBUG)
 			{
-				List<mxPoint> points = geo.getPoints();
-
-				if (points != null)
+				tip += "points={";
+	
+				if (geo != null)
 				{
-					Iterator<mxPoint> it = points.iterator();
-
-					while (it.hasNext())
+					List<mxPoint> points = geo.getPoints();
+	
+					if (points != null)
 					{
-						mxPoint point = it.next();
+						Iterator<mxPoint> it = points.iterator();
+	
+						while (it.hasNext())
+						{
+							mxPoint point = it.next();
+							tip += "[x=" + numberFormat.format(point.getX())
+									+ ",y=" + numberFormat.format(point.getY())
+									+ "],";
+						}
+	
+						tip = tip.substring(0, tip.length() - 1);
+					}
+				}
+	
+				tip += "}<br>";
+				tip += "absPoints={";
+	
+				if (state != null)
+				{
+	
+					for (int i = 0; i < state.getAbsolutePointCount(); i++)
+					{
+						mxPoint point = state.getAbsolutePoint(i);
 						tip += "[x=" + numberFormat.format(point.getX())
 								+ ",y=" + numberFormat.format(point.getY())
 								+ "],";
 					}
-
+	
 					tip = tip.substring(0, tip.length() - 1);
 				}
+	
+				tip += "}<br>";
 			}
-
-			tip += "}<br>";
-			tip += "absPoints={";
-
-			if (state != null && DEBUG)
-			{
-
-				for (int i = 0; i < state.getAbsolutePointCount(); i++)
-				{
-					mxPoint point = state.getAbsolutePoint(i);
-					tip += "[x=" + numberFormat.format(point.getX())
-							+ ",y=" + numberFormat.format(point.getY())
-							+ "],";
-				}
-
-				tip = tip.substring(0, tip.length() - 1);
-			}
-
-			tip += "}<br>";
 			tip += mycell.getValue().toString().replaceAll(",", "<br>");
 		}
 		else

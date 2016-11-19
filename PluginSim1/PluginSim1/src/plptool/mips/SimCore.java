@@ -483,7 +483,7 @@ public class SimCore extends PLPSimCore {
         wb_stage.count = 0;
         branch = false;
         flushpipeline();
-        initializeCPUSnapShot();
+        //initializeCPUSnapShot();
 
         Msg.P("core: reset");
 
@@ -929,6 +929,7 @@ public class SimCore extends PLPSimCore {
         long t = regfile.read(rt);
         long s_imm =  (short) imm & 0xffffffffL;
         long alu_result = 0;
+        long w_r = 0;
 
         // execute
         if(opcode == 0) {            
@@ -946,6 +947,7 @@ public class SimCore extends PLPSimCore {
                 alu_result = ex_stage.exAlu.eval(s, t, instr);
                 alu_result &= 0xffffffffL;
                 regfile.write(rd, alu_result, false);
+                w_r = alu_result;
             }
         } else if (opcode == 0x04) {                    // beq
             if(s == t) {
@@ -971,6 +973,7 @@ public class SimCore extends PLPSimCore {
             if(data == null)
                 return Msg.E("Bus read error.", Constants.PLP_SIM_BUS_ERROR, this);
             regfile.write(rt, data, false);
+            w_r = data;
 
         } else if (opcode == 0x2B) {                    // sw
         	bMemWrite = true;
@@ -995,6 +998,7 @@ public class SimCore extends PLPSimCore {
         	bAluSrc = true;
             alu_result = ex_stage.exAlu.eval(s, imm, instr) & 0xffffffffL;
             regfile.write(rt, alu_result, false);
+            w_r = alu_result;
 
         } else {                                        // other i-type
         	bAluOp = true;
@@ -1008,6 +1012,7 @@ public class SimCore extends PLPSimCore {
             }
             alu_result &= 0xffffffffL;
             regfile.write(rt, alu_result, false);
+            w_r = alu_result;
         }
         
 
@@ -1023,52 +1028,197 @@ public class SimCore extends PLPSimCore {
             IRQAck = 1;
         }
         
-        
-        
-        //cpuSnapShot.put(PLPCPUSnapshot_keys., value)
-        JSONObject obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.PC);
-        obj.put(PLPCPUSnapshot_keys.PC_ADDRESS, String.valueOf(pc_value));
-        
-        obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.CONTROL);
-        obj.put(PLPCPUSnapshot_keys.CONTROL_ALUOP, String.valueOf(bAluOp));
-        obj.put(PLPCPUSnapshot_keys.CONTROL_ALUSRC, String.valueOf(bAluSrc));
-        obj.put(PLPCPUSnapshot_keys.CONTROL_JUMP, String.valueOf(bJump));
-        obj.put(PLPCPUSnapshot_keys.CONTROL_MEMREAD, String.valueOf(bMemRead));
-        obj.put(PLPCPUSnapshot_keys.CONTROL_MEMTOREG, String.valueOf(bMemToReg));
-        obj.put(PLPCPUSnapshot_keys.CONTROL_REGDST, String.valueOf(bRegDst));
-        obj.put(PLPCPUSnapshot_keys.CONTROL_MEMWRITE, String.valueOf(bMemWrite));
-        obj.put(PLPCPUSnapshot_keys.CONTROL_REGWRITE, String.valueOf(bRegWrite));
-        obj.put(PLPCPUSnapshot_keys.CONTROL_BRANCH, String.valueOf(bBranch));
+        update_nonpipelined_cpusnapshot(pc_value, 
+        		instr, 
+        		instr_address, 
+        		bAluOp, 
+        		bAluSrc, 
+        		bJump, 
+        		bMemRead, 
+        		bMemToReg, 
+        		bRegDst, 
+        		bMemWrite, 
+        		bRegWrite, 
+        		bBranch,
+        		opcode,
+        		rs,
+        		rd,
+        		rt,
+        		funct,
+        		imm,
+        		jaddr,
+        		s,
+        		t,
+        		s_imm,
+        		alu_result, 
+        		w_r);
              
-        obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.REGISTER_MUX);
-        if(bRegDst)
-        	obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_VALUE, "1");
-        else
-        	obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_VALUE, "0");
-        
-        obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.MEM_MUX);
-        if(bMemToReg)
-        	obj.put(PLPCPUSnapshot_keys.MEM_MUX_VALUE, "1");
-        else
-        	obj.put(PLPCPUSnapshot_keys.MEM_MUX_VALUE, "0");
-        
-        obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.ALU_MUX);
-        if(bAluSrc)
-        	obj.put(PLPCPUSnapshot_keys.ALU_MUX_VALUE, "1");
-        else
-        	obj.put(PLPCPUSnapshot_keys.ALU_MUX_VALUE, "0");
-        
-        obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.MUX_BRANCH_2);
-        if(bJump)
-        	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_VALUE, "1");
-        else
-        	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_VALUE, "0");
-        
-        
-        
-        
 
         return ret;
+    }
+    
+    private void update_nonpipelined_cpusnapshot(long pc_value, 
+    		long instruction, 
+    		long instruction_address, 
+    		boolean bAluOp,
+    		boolean bAluSrc,
+    		boolean bJump,
+    		boolean bMemRead,
+    		boolean bMemToReg,
+    		boolean bRegDst,
+    		boolean bMemWrite,
+    		boolean bRegWrite,
+    		boolean bBranch,
+    		int opcode,
+    		byte rs,
+    		byte rd,
+    		byte rt,
+    		byte funct,
+    		long imm,
+    		long jaddr,
+    		long s,
+    		long t,
+    		long s_imm,
+    		long alu_result,
+    		long w_r)
+    {
+    	
+    	JSONObject obj;
+    	
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.PC, new JSONObject());
+    	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.PC);
+    	obj.put("id", PLPCPUSnapshot_keys.PC);
+    	obj.put(PLPCPUSnapshot_keys.PC_ADDRESS, String.valueOf(pc_value));
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.INSTRUCTION_MEMORY);
+    	obj.put(PLPCPUSnapshot_keys.INST_MEM_VALUE, String.valueOf(instruction) );
+    	obj.put(PLPCPUSnapshot_keys.INST_MEM_ADDR, String.valueOf(instruction_address));
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.INSTRUCTION_MEMORY, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.CONTROL);
+    	
+    	String control_signals = "";
+    	if(bAluOp)
+    		control_signals = "ALU Operation,";
+    	if(bAluSrc)
+    		control_signals += "ALU Source,";
+    	if(bJump)
+    		control_signals += "Jump,";
+    	if(bMemRead)
+    		control_signals += "Memory Read,";
+    	if(bMemToReg)
+    		control_signals += "Memory to Register,";
+    	if(bRegDst)
+    		control_signals += "Register Destination,";
+    	if(bMemWrite)
+    		control_signals += "Memory Write,";
+    	if(bRegWrite)
+    		control_signals += "Register Write,";
+    	if(bBranch)
+    		control_signals += "Branch,";
+    	
+    	obj.put(PLPCPUSnapshot_keys.CONTROL_SIGNALS, control_signals);
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.CONTROL, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.REGISTER_MUX);
+    	if(bRegDst)
+    		obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_VALUE, "1");
+    	else
+    		obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_VALUE, "0");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_MUX, obj);
+        
+        obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.MEM_MUX);
+    	if(bMemToReg)
+    		obj.put(PLPCPUSnapshot_keys.MEM_MUX_VALUE, "1");
+    	else
+    		obj.put(PLPCPUSnapshot_keys.MEM_MUX_VALUE, "0");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MEM_MUX, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.ALU_MUX);
+    	if(bAluSrc)
+    		obj.put(PLPCPUSnapshot_keys.ALU_MUX_VALUE, "1");
+    	else
+    		obj.put(PLPCPUSnapshot_keys.ALU_MUX_VALUE, "0");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_MUX, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.MUX_BRANCH_1);
+    	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_1_VALUE, "-");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MUX_BRANCH_1, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.MUX_BRANCH_2);
+    	if(bJump)
+    		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_VALUE, "1");
+    	else
+    		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_VALUE, "0");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MUX_BRANCH_2, obj);
+    	
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_PC, new JSONObject());
+    	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.ADD_PC);
+    	obj.put("id", PLPCPUSnapshot_keys.ADD_PC);
+    	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT1, String.valueOf(instruction_address));
+    	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT2, "4");
+    	obj.put(PLPCPUSnapshot_keys.ADD_PC_OUTPUT, String.valueOf(instruction_address+4));
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.SHIFT_LEFT_PC);
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_INPUT, String.valueOf(jaddr));
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_OUTPUT, String.valueOf(jaddr<<2 ));
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id",PLPCPUSnapshot_keys.REGISTERS);
+    	obj.put(PLPCPUSnapshot_keys.REGISTER1, String.valueOf(rs));
+    	obj.put(PLPCPUSnapshot_keys.REGISTER2, String.valueOf(rt));
+    	if(bRegDst)
+    		obj.put(PLPCPUSnapshot_keys.REGISTER_WRITE, String.valueOf(rd));
+    	else
+    		obj.put(PLPCPUSnapshot_keys.REGISTER_WRITE, String.valueOf(rt));
+    	obj.put(PLPCPUSnapshot_keys.REGISTER1_READ, String.valueOf(s));
+    	obj.put(PLPCPUSnapshot_keys.REGISTER2_READ, String.valueOf(t));
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_WRITE_DATA, w_r);
+    	
+    	obj = new JSONObject();
+    	obj.put("id",PLPCPUSnapshot_keys.SIGN_EXTEND);
+    	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_INPUT, String.valueOf(imm));
+    	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_OUTPUT, String.valueOf(s_imm));
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SIGN_EXTEND, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.ALU);
+    	obj.put(PLPCPUSnapshot_keys.ALU_INPUT1, String.valueOf(s));
+    	if(bAluSrc)
+    		obj.put(PLPCPUSnapshot_keys.ALU_INPUT2, String.valueOf(s_imm));
+    	else
+    		obj.put(PLPCPUSnapshot_keys.ALU_INPUT2, String.valueOf(t));
+    	obj.put(PLPCPUSnapshot_keys.ALU_ZERO, "0");
+    	obj.put(PLPCPUSnapshot_keys.ALU_OP_TYPE, "-");
+    	obj.put(PLPCPUSnapshot_keys.ALU_RESULT, String.valueOf(alu_result));
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.ALU_CONTROL);
+    	obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_INPUT, String.valueOf(funct));
+    	if(bAluOp)
+    		obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_OUTPUT, String.valueOf(funct));
+    	else
+    		obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_OUTPUT, String.valueOf(funct));
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_CONTROL, obj);
+    	
+    	obj = new JSONObject();
+    	obj.put("id", PLPCPUSnapshot_keys.SHIFT_BRANCH);
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_BRANCH_INPUT, String.valueOf(s_imm));
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_BRANCH_OUTPUT, String.valueOf(s_imm<<2));
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_BRANCH, obj);
+    	
+    	
+    	
     }
 
     /**

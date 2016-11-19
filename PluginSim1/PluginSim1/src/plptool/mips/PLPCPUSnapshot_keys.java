@@ -39,6 +39,8 @@ public class PLPCPUSnapshot_keys
 	public static String INST_MEM_MEM_ADDR = "mem_instruction_address";
 	public static String INST_MEM_WB = "wb_instruction";
 	public static String INST_MEM_WB_ADDR = "wb_instruction_address";
+	public static String INST_MEM_VALUE = "instruction";
+	public static String INST_MEM_ADDR = "instruction value";
 	
 	public static String SHIFT_LEFT_PC = "shift1";
 	public static String SHIFT_LEFT_PC_INPUT = "input";
@@ -54,6 +56,7 @@ public class PLPCPUSnapshot_keys
 	public static String CONTROL_ALUSRC = "alusrc";
 	public static String CONTROL_REGWRITE = "regwrite";
 	public static String CONTROL_BRANCH = "branch";
+	public static String CONTROL_SIGNALS = "control_signals";
 	
 	/**
 	 * This key's value will indicate the value of the mux which chooses registers
@@ -85,6 +88,8 @@ public class PLPCPUSnapshot_keys
 	public static String ALU_INPUT1 = "register_input";
 	public static String ALU_INPUT2 = "register_or_immediate_input";
 	public static String ALU_RESULT = "alu_result";
+	public static String ALU_OP_TYPE = "alu_control_input";
+	public static String ALU_ZERO = "zero";
 	
 	public static String MUX_BRANCH_1 = "mux_branch_1";
 	public static String MUX_BRANCH_1_VALUE = "value";
@@ -114,6 +119,7 @@ public class PLPCPUSnapshot_keys
 	 */
 	public static String ALU_CONTROL = "alu_control";
 	public static String ALU_CONTROL_INPUT = "input";
+	public static String ALU_CONTROL_OUTPUT = "output";
 	
 	/**
 	 * This key's value will indicate which input is used for ALU
@@ -262,6 +268,14 @@ public class PLPCPUSnapshot_keys
 	 * This key's value gives the value stored in register 31
 	 */
 	public static String REGISTER_31 = "$31";
+	
+	public static String REGISTER1 = "read register 1";
+	public static String REGISTER2 = "read register 2";
+	public static String REGISTER_WRITE = "write register";
+	public static String REGISTER1_READ = "read data 1";
+	public static String REGISTER2_READ = "read data 2";
+	public static String REGISTER_WRITE_DATA = "write data";
+	
 	
 	
 	

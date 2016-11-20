@@ -1,0 +1,16 @@
+<shapes>
+<shape name="and" aspect="fixed" w="50">
+	<background>
+		<linejoin join="round"/>
+		<path>
+			<move x="0" y="0"/>
+			<line x="50" y="50"/>
+			<line x="0" y="100"/>
+			<close/>
+		</path>
+	</background>
+	<foreground>
+		<fillstroke/>
+	</foreground>
+</shape>
+</shapes>

@@ -1,5 +1,6 @@
 package plptool.visualizer;
 
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
@@ -14,18 +15,27 @@ import javax.swing.JFrame;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import plptool.visualizer.communication.BackendProducer;
 import plptool.visualizer.communication.FrontendConsumer;
 import plptool.visualizer.event.SnapshotEventHandler;
 import plptool.visualizer.graphs.plpGraph;
 
+import com.mxgraph.canvas.mxGraphics2DCanvas;
+import com.mxgraph.canvas.mxGraphicsCanvas2D;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxGraphModel;
+import com.mxgraph.shape.mxStencil;
+import com.mxgraph.shape.mxStencilRegistry;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.util.mxPoint;
+import com.mxgraph.util.mxUtils;
+import com.mxgraph.util.mxXmlUtils;
 
 public class PLPVisualizer extends JFrame
 {
@@ -52,10 +62,53 @@ public class PLPVisualizer extends JFrame
 		return instance;
 	}
 	
+	private void initializeVertexStyle() {
+		try {
+			Document doc = mxXmlUtils.parseXml(mxUtils.readFile("config/shape.xml"));
+	
+			Element shapes = (Element) doc.getDocumentElement();
+			NodeList list = shapes.getElementsByTagName("shape");
+	
+			for (int i = 0; i < list.getLength(); i++)
+			{
+				Element shape = (Element) list.item(i);
+				mxStencilRegistry.addStencil(shape.getAttribute("name"),
+						new mxStencil(shape)
+						{
+							protected mxGraphicsCanvas2D createCanvas(
+									final mxGraphics2DCanvas gc)
+							{
+								// Redirects image loading to graphics canvas
+								return new mxGraphicsCanvas2D(gc.getGraphics())
+								{
+									protected Image loadImage(String src)
+									{
+										// Adds image base path to relative image URLs
+										if (!src.startsWith("/")
+												&& !src.startsWith("http://")
+												&& !src.startsWith("https://")
+												&& !src.startsWith("file:"))
+										{
+											src = gc.getImageBasePath() + src;
+										}
+	
+										// Call is cached
+										return gc.loadImage(src);
+									}
+								};
+							}
+						});
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	protected PLPVisualizer()
 	{
 		super("PLP Visualizer");
 
+		this.initializeVertexStyle();
 		graph = new plpGraph();
 
 		final mxGraphComponent graphComponent = new mxGraphComponent(graph);
@@ -141,10 +194,8 @@ public class PLPVisualizer extends JFrame
 			}
 			reader.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		JSONObject conf = new JSONObject(jsonString);

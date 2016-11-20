@@ -32,7 +32,7 @@ public class Messenger {
      */
     protected Messenger() {
         try {
-            connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
+            connectionFactory = new ActiveMQConnectionFactory("vm://localhost?broker.persistent=false");
             connection = connectionFactory.createConnection();
             connection.start();
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);

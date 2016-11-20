@@ -26,7 +26,7 @@ public class FrontendConsumer implements Runnable, ExceptionListener {
 	public void run() {
 		try {
 			// Create a ConnectionFactory
-			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
+			ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost?broker.persistent=false");
 
 			// Create a Connection
 			Connection connection = connectionFactory.createConnection();

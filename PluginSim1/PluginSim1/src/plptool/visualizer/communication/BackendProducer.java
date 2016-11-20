@@ -22,7 +22,7 @@ public class BackendProducer implements Runnable {
 			try {
 				Thread.sleep(1000);
 				// Create a ConnectionFactory
-				ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
+				ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost?broker.persistent=false");
 
 				// Create a Connection
 				Connection connection = connectionFactory.createConnection();

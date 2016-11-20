@@ -6,7 +6,8 @@
 			"pos_x": 40,
 			"pos_y": 280,
 			"width": 20,
-			"height": 60
+			"height": 60,
+			"shape": ""
 		},
 		"add1": {
 			"name": "Add",
@@ -14,7 +15,8 @@
 			"pos_x": 120,
 			"pos_y": 120,
 			"width": 60,
-			"height": 80
+			"height": 80,
+			"shape": ""
 		},
 		"if_id_buffer": {
 			"name": "IF\nID",
@@ -22,7 +24,8 @@
 			"pos_x": 200,
 			"pos_y": 120,
 			"width": 20,
-			"height": 400
+			"height": 400,
+			"shape": ""
 		},
 		"id_ex_buffer": {
 			"name": "ID\nEX",
@@ -30,7 +33,8 @@
 			"pos_x": 440,
 			"pos_y": 80,
 			"width": 20,
-			"height": 440
+			"height": 440,
+			"shape": ""
 		},
 		"ex_mem_buffer": {
 			"name": "EX\nMEM",
@@ -38,7 +42,8 @@
 			"pos_x": 600,
 			"pos_y": 80,
 			"width": 20,
-			"height": 440
+			"height": 440,
+			"shape": ""
 		},
 		"mem_wb_buffer": {
 			"name": "MEM\nWB",
@@ -46,7 +51,8 @@
 			"pos_x": 720,
 			"pos_y": 120,
 			"width": 20,
-			"height": 400
+			"height": 400,
+			"shape": ""
 		},
 		"instruction_memory": {
 			"name": "Instruction\nMemory",
@@ -54,7 +60,8 @@
 			"pos_x": 120,
 			"pos_y": 300,
 			"width": 60,
-			"height": 80
+			"height": 80,
+			"shape": ""
 		},
 		"shift1": {
 			"name": "\nShift Left 2",
@@ -62,7 +69,8 @@
 			"pos_x": 260,
 			"pos_y": 40,
 			"width": 20,
-			"height": 40
+			"height": 40,
+			"shape": ""
 		},
 		"control": {
 			"name": "Control",
@@ -70,7 +78,8 @@
 			"pos_x": 280,
 			"pos_y": 140,
 			"width": 60,
-			"height": 120
+			"height": 120,
+			"shape": ""
 		},
 		"mux1": {
 			"name": "Mux\n1",
@@ -78,7 +87,8 @@
 			"pos_x": 290,
 			"pos_y": 300,
 			"width": 20,
-			"height": 40
+			"height": 40,
+			"shape": ""
 		},
 		"sign_extend": {
 			"name": "Sign\nExtend",
@@ -86,7 +96,8 @@
 			"pos_x": 320,
 			"pos_y": 420,
 			"width": 40,
-			"height": 60
+			"height": 60,
+			"shape": ""
 		},
 		"registers": {
 			"name": "Registers",
@@ -94,7 +105,8 @@
 			"pos_x": 340,
 			"pos_y": 280,
 			"width": 80,
-			"height": 120
+			"height": 120,
+			"shape": ""
 		},
 		"shift2": {
 			"name": "\nShift left 2",
@@ -102,7 +114,8 @@
 			"pos_x": 480,
 			"pos_y": 130,
 			"width": 20,
-			"height": 40
+			"height": 40,
+			"shape": ""
 		},
 		"mux2": {
 			"name": "Mux\n2",
@@ -110,7 +123,8 @@
 			"pos_x": 475,
 			"pos_y": 340,
 			"width": 20,
-			"height": 40
+			"height": 40,
+			"shape": ""
 		},
 		"muxB": {
 			"name": "Mux\nB",
@@ -118,7 +132,8 @@
 			"pos_x": 475,
 			"pos_y": 260,
 			"width": 20,
-			"height": 40
+			"height": 40,
+			"shape": ""
 		},
 		"muxA": {
 			"name": "Mux\nA",
@@ -126,7 +141,8 @@
 			"pos_x": 510,
 			"pos_y": 320,
 			"width": 20,
-			"height": 40
+			"height": 40,
+			"shape": ""
 		},
 		"alu_control": {
 			"name": "ALU\nControl",
@@ -134,7 +150,8 @@
 			"pos_x": 500,
 			"pos_y": 470,
 			"width": 40,
-			"height": 60
+			"height": 60,
+			"shape": ""
 		},
 		"forwarding_unit": {
 			"name": "Forwarding Unit",
@@ -142,7 +159,8 @@
 			"pos_x": 460,
 			"pos_y": 550,
 			"width": 140,
-			"height": 30
+			"height": 30,
+			"shape": ""
 		},
 		"add2": {
 			"name": "Add",
@@ -150,7 +168,8 @@
 			"pos_x": 520,
 			"pos_y": 90,
 			"width": 60,
-			"height": 80
+			"height": 80,
+			"shape": ""
 		},
 		"alu": {
 			"name": "ALU",
@@ -158,7 +177,8 @@
 			"pos_x": 545,
 			"pos_y": 260,
 			"width": 40,
-			"height": 80
+			"height": 80,
+			"shape": ""
 		},
 		"mux3": {
 			"name": "Mux\n3",
@@ -166,7 +186,8 @@
 			"pos_x": 660,
 			"pos_y": 70,
 			"width": 20,
-			"height": 40
+			"height": 40,
+			"shape": ""
 		},
 		"mux4": {
 			"name": "Mux\n4",
@@ -174,7 +195,8 @@
 			"pos_x": 700,
 			"pos_y": 40,
 			"width": 20,
-			"height": 40
+			"height": 40,
+			"shape": ""
 		},
 		"and_gate": {
 			"name": "AND",
@@ -182,7 +204,8 @@
 			"pos_x": 650,
 			"pos_y": 130,
 			"width": 30,
-			"height": 20
+			"height": 20,
+			"shape": "shape=and"
 		},
 		"data_memory": {
 			"name": "Data\nMemory",
@@ -190,7 +213,8 @@
 			"pos_x": 640,
 			"pos_y": 340,
 			"width": 60,
-			"height": 90
+			"height": 90,
+			"shape": ""
 		},
 		"mux5": {
 			"name": "Mux\n5",
@@ -198,7 +222,8 @@
 			"pos_x": 800,
 			"pos_y": 320,
 			"width": 20,
-			"height": 40
+			"height": 40,
+			"shape": ""
 		}
 	},
 	"edges": {

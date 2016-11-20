@@ -216,7 +216,8 @@ public class PLPVisualizer extends JFrame
 											node.getDouble("pos_x"),
 											node.getDouble("pos_y"),
 											node.getDouble("width"),
-											node.getDouble("height"));
+											node.getDouble("height"),
+											node.getString("shape"));
 			}
 
 			// create edges

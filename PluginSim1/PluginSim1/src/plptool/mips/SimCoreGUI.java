@@ -887,7 +887,8 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
             
             JSONObject main = new JSONObject();
             main.put("vertices_values", obj);
-            main.put("enabled_edges", edgeObj);
+            main.put(PLPCPUSnapshot_keys.EDGE_ENABLE, obj.get(PLPCPUSnapshot_keys.EDGE_ENABLE));
+            obj.remove(PLPCPUSnapshot_keys.EDGE_ENABLE);
             
             Messenger messenger = Messenger.getInstance();
             messenger.sentMessage(main.toString());

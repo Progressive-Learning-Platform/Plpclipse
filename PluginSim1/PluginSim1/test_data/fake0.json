@@ -66,8 +66,8 @@
 		}
 	},
 	"enabled_edges": {
-		"pc_add1": {"address": "0x12345678"},
-		"pc_im": {"instruction": "0x00000000"},
-		"add1_add2": {"pc": "0x12345678"}
+		"pc_add1": "address:0x12345678",
+		"pc_im": "instruction:0x00000000",
+		"add1_add2": "pc:0x12345678"
 	}
 }

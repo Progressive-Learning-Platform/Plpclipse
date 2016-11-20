@@ -66,12 +66,12 @@
 		}
 	},
 	"enabled_edges": {
-		"mux1_registers" : {"1": 1},
-		"registers_alu" : {"1": 1},
-		"registers_mux2" : {"1": 1},
-		"registers_data_memory" : {"1": 1},
-		"mux3_mux4" : {"1": 1},
-		"sign_extend_shift2" : {"1": 1},
-		"sign_extend_mux2" : {"1": 1}
+		"mux1_registers" : "1",
+		"registers_alu" : "1",
+		"registers_mux2" : "1",
+		"registers_data_memory" : "1",
+		"mux3_mux4" : "1",
+		"sign_extend_shift2" : "1",
+		"sign_extend_mux2" : "1"
 	}
 }

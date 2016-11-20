@@ -66,18 +66,18 @@
 		}
 	},
 	"enabled_edges": {
-		"mux2_alu" : {"1": 1},
-		"add1_mux3" : {"1": 1},
-		"add1_mux4" : {"1": 1},
-		"shift1_mux4" : {"1": 1},
-		"shift2_add2" : {"1": 1},
-		"add2_mux3" : {"1": 1},
-		"alu_and_gate" : {"1": 1},
-		"alu_data_memory" : {"1": 1},
-		"alu_mux5" : {"1": 1},
-		"data_memory_mux5" : {"1": 1},
-		"and_gate_mux3" : {"1": 1},
-		"mux5_registers" : {"1": 1},
-		"mux4_pc" : {"1": 1}
+		"mux2_alu" : "1",
+		"add1_mux3" : "1",
+		"add1_mux4" : "1",
+		"shift1_mux4" : "1",
+		"shift2_add2" : "1",
+		"add2_mux3" : "1",
+		"alu_and_gate" : "1",
+		"alu_data_memory" : "1",
+		"alu_mux5" : "1",
+		"data_memory_mux5" : "1",
+		"and_gate_mux3" : "1",
+		"mux5_registers" : "1",
+		"mux4_pc" : "1"
 	}
 }

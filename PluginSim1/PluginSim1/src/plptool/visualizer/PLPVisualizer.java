@@ -166,7 +166,7 @@ public class PLPVisualizer extends JFrame
 				enabled_list.clear();
 				while( json_keys.hasNext() ){
 					String json_key = (String)json_keys.next();
-					JSONObject data = edges.getJSONObject(json_key);
+					String data = edges.getString(json_key);
 					mxCell myCell = (mxCell)((mxGraphModel)graph.getModel()).getCell(json_key);
 					if (myCell != null) {
 						enabled_list.add(myCell);

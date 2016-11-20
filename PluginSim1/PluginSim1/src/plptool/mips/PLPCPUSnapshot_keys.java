@@ -286,6 +286,10 @@ public class PLPCPUSnapshot_keys
 	 * This key's value will give the content of the intermediate pipeline buffer for IF and ID Stage
 	 */
 	public static String IF_ID_INTERMEDIATE = "if_id_buffer";
+	public static String IF_ID_PC_ADD = "if_id_pc_add";
+	public static String IF_ID_INSTRUCTION = "if_id_instruction";
+	public static String IF_ID_INSTRUCTION_ADDR = "if_id_instruction_addr";
+	
 	/**
 	 * This key's value will give the content of the intermediate pipeline buffer for ID and EX Stage
 	 */

@@ -33,17 +33,7 @@ import javax.swing.text.html.*;
 import java.awt.event.FocusListener;
 import java.awt.event.FocusEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
-import javax.jms.Connection;
-import javax.jms.DeliveryMode;
-import javax.jms.Destination;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
-import javax.jms.TextMessage;
-import org.apache.activemq.ActiveMQConnectionFactory;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 import plptool.PLPToolbox;
 import plptool.mips.communication.Messenger;
 import plptool.mips.visualizer.*;
@@ -805,90 +795,12 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
     {
         try
         {
-            
-            /*JSONObject regObj = (JSONObject)((SimCore)sim).cpuSnapShotmap.get(PLPCPUSnapshot_keys.REGISTERS);
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_0, String.valueOf(((SimCore)sim).regfile.read(0)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_1, String.valueOf(((SimCore)sim).regfile.read(1)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_2, String.valueOf(((SimCore)sim).regfile.read(2)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_3, String.valueOf(((SimCore)sim).regfile.read(3)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_4, String.valueOf(((SimCore)sim).regfile.read(4)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_5, String.valueOf(((SimCore)sim).regfile.read(5)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_6, String.valueOf(((SimCore)sim).regfile.read(6)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_7, String.valueOf(((SimCore)sim).regfile.read(7)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_8, String.valueOf(((SimCore)sim).regfile.read(8)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_9, String.valueOf(((SimCore)sim).regfile.read(9)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_10, String.valueOf(((SimCore)sim).regfile.read(10)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_11, String.valueOf(((SimCore)sim).regfile.read(11)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_12, String.valueOf(((SimCore)sim).regfile.read(12)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_13, String.valueOf(((SimCore)sim).regfile.read(13)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_14, String.valueOf(((SimCore)sim).regfile.read(14)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_15, String.valueOf(((SimCore)sim).regfile.read(15)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_16, String.valueOf(((SimCore)sim).regfile.read(16)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_17, String.valueOf(((SimCore)sim).regfile.read(17)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_18, String.valueOf(((SimCore)sim).regfile.read(18)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_19, String.valueOf(((SimCore)sim).regfile.read(19)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_20, String.valueOf(((SimCore)sim).regfile.read(20)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_21, String.valueOf(((SimCore)sim).regfile.read(21)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_22, String.valueOf(((SimCore)sim).regfile.read(22)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_23, String.valueOf(((SimCore)sim).regfile.read(23)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_24, String.valueOf(((SimCore)sim).regfile.read(24)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_25, String.valueOf(((SimCore)sim).regfile.read(25)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_26, String.valueOf(((SimCore)sim).regfile.read(26)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_27, String.valueOf(((SimCore)sim).regfile.read(27)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_28, String.valueOf(((SimCore)sim).regfile.read(28)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_29, String.valueOf(((SimCore)sim).regfile.read(29)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_30, String.valueOf(((SimCore)sim).regfile.read(30)));
-            regObj.put(PLPCPUSnapshot_keys.REGISTER_31, String.valueOf(((SimCore)sim).regfile.read(31)));*/
-            
-            
-            JSONObject edgeObj = new JSONObject();
-//          edgeObj.put(PLPCPUSnapshot_keys.PC_ADD_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.PC_IMM_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.ADD_PC_2_ADD_BRANCH_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.SHIFT_PC_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.CONTROL_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.IM_MUX1_UPPER_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.IM_MUX1_LOWER_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.IM_SIGN_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.IM_ALUC_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.CONTROL_MUX1_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.CONTROL_REGISTERS_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.CONTROL_MUX4_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.CONTROL_ANDGATE_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.CONTROL_MUX5_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.CONTROL_DATAMEMORY_LEFT_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.CONTROL_DATAMEMORY_RIGHT_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.CONTROL_MUX2_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.CONTROL_ALU_CONTROL_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.ALU_CONTROL_ALU_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.MUX1_REGISTERS_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.REGISTERS_ALU_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.REGISTERS_MUX2_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.REGISTERS_DATA_MEMORY_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.MUX3_MUX4_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_SHIFT2_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_MUX2_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.MUX2_ALU_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.ADD1_MUX3_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.ADD1_MUX4_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.SHIFT1_MUX4_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.SHIFT2_ADD2_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.ADD2_MUX3_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.ALU_AND_GATE_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.ALU_DATA_MEMORY_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.ALU_MUX5_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.DATA_MEMORY_MUX5_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.AND_GATE_MUX3_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.MUX5_REGISTERS_EDGE, 0);
-//          edgeObj.put(PLPCPUSnapshot_keys.MUX4_PC_EDGE, 0);
-//          
-            
-            JSONObject obj = ((SimCore)sim).cpuSnapShotmap;
+            JSONObject cpusnapshot = ((SimCore)sim).getCPUSnapshot();
             
             JSONObject main = new JSONObject();
-            main.put("vertices_values", obj);
-            main.put(PLPCPUSnapshot_keys.EDGE_ENABLE, obj.get(PLPCPUSnapshot_keys.EDGE_ENABLE));
-            obj.remove(PLPCPUSnapshot_keys.EDGE_ENABLE);
+            main.put(PLPCPUSnapshot_keys.EDGE_ENABLE, cpusnapshot.get(PLPCPUSnapshot_keys.EDGE_ENABLE));
+            cpusnapshot.remove(PLPCPUSnapshot_keys.EDGE_ENABLE);
+            main.put("vertices_values", cpusnapshot);
             
             Messenger messenger = Messenger.getInstance();
             messenger.sentMessage(main.toString());

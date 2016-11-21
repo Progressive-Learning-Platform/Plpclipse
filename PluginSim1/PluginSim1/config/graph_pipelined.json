@@ -16,7 +16,7 @@
 			"pos_y": 120,
 			"width": 60,
 			"height": 80,
-			"shape": ""
+			"shape": "shape=add"
 		},
 		"if_id_buffer": {
 			"name": "IF\nID",
@@ -70,7 +70,7 @@
 			"pos_y": 40,
 			"width": 20,
 			"height": 40,
-			"shape": ""
+			"shape": "shape=shift"
 		},
 		"control": {
 			"name": "Control",
@@ -79,7 +79,7 @@
 			"pos_y": 140,
 			"width": 60,
 			"height": 120,
-			"shape": ""
+			"shape": "shape=control"
 		},
 		"mux1": {
 			"name": "Mux\n1",
@@ -88,7 +88,7 @@
 			"pos_y": 300,
 			"width": 20,
 			"height": 40,
-			"shape": ""
+			"shape": "shape=mux"
 		},
 		"sign_extend": {
 			"name": "Sign\nExtend",
@@ -97,7 +97,7 @@
 			"pos_y": 420,
 			"width": 40,
 			"height": 60,
-			"shape": ""
+			"shape": "shape=sign"
 		},
 		"registers": {
 			"name": "Registers",
@@ -115,7 +115,7 @@
 			"pos_y": 130,
 			"width": 20,
 			"height": 40,
-			"shape": ""
+			"shape": "shape=shift"
 		},
 		"mux2": {
 			"name": "Mux\n2",
@@ -124,7 +124,7 @@
 			"pos_y": 340,
 			"width": 20,
 			"height": 40,
-			"shape": ""
+			"shape": "shape=mux"
 		},
 		"muxB": {
 			"name": "Mux\nB",
@@ -133,7 +133,7 @@
 			"pos_y": 260,
 			"width": 20,
 			"height": 40,
-			"shape": ""
+			"shape": "shape=mux"
 		},
 		"muxA": {
 			"name": "Mux\nA",
@@ -142,7 +142,7 @@
 			"pos_y": 320,
 			"width": 20,
 			"height": 40,
-			"shape": ""
+			"shape": "shape=mux"
 		},
 		"alu_control": {
 			"name": "ALU\nControl",
@@ -151,7 +151,7 @@
 			"pos_y": 470,
 			"width": 40,
 			"height": 60,
-			"shape": ""
+			"shape": "shape=add"
 		},
 		"forwarding_unit": {
 			"name": "Forwarding Unit",
@@ -169,7 +169,7 @@
 			"pos_y": 90,
 			"width": 60,
 			"height": 80,
-			"shape": ""
+			"shape": "shape=add"
 		},
 		"alu": {
 			"name": "ALU",
@@ -178,7 +178,7 @@
 			"pos_y": 260,
 			"width": 40,
 			"height": 80,
-			"shape": ""
+			"shape": "shape=add"
 		},
 		"mux3": {
 			"name": "Mux\n3",
@@ -187,7 +187,7 @@
 			"pos_y": 70,
 			"width": 20,
 			"height": 40,
-			"shape": ""
+			"shape": "shape=mux"
 		},
 		"mux4": {
 			"name": "Mux\n4",
@@ -196,7 +196,7 @@
 			"pos_y": 40,
 			"width": 20,
 			"height": 40,
-			"shape": ""
+			"shape": "shape=mux"
 		},
 		"and_gate": {
 			"name": "AND",
@@ -223,7 +223,7 @@
 			"pos_y": 320,
 			"width": 20,
 			"height": 40,
-			"shape": ""
+			"shape": "shape=mux"
 		}
 	},
 	"edges": {

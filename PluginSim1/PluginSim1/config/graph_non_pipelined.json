@@ -16,7 +16,7 @@
 			"pos_y": 20,
 			"width": 60,
 			"height": 80,
-			"shape": ""
+			"shape": "shape=add"
 		},
 		"instruction_memory": {
 			"name": "Instruction\nMemory",
@@ -34,7 +34,7 @@
 			"pos_y": 40,
 			"width": 20,
 			"height": 40,
-			"shape": ""
+			"shape": "shape=shift"
 		},
 		"control": {
 			"name": "Control",
@@ -43,7 +43,7 @@
 			"pos_y": 140,
 			"width": 60,
 			"height": 120,
-			"shape": ""
+			"shape": "shape=control"
 		},
 		"mux1": {
 			"name": "Mux",
@@ -52,7 +52,7 @@
 			"pos_y": 300,
 			"width": 20,
 			"height": 40,
-			"shape": ""
+			"shape": "shape=mux"
 		},
 		"sign_extend": {
 			"name": "Sign-extend",
@@ -61,7 +61,7 @@
 			"pos_y": 420,
 			"width": 40,
 			"height": 60,
-			"shape": ""
+			"shape": "shape=sign"
 		},
 		"registers": {
 			"name": "Registers",
@@ -79,7 +79,7 @@
 			"pos_y": 130,
 			"width": 20,
 			"height": 40,
-			"shape": ""
+			"shape": "shape=shift"
 		},
 		"mux2": {
 			"name": "Mux",
@@ -88,7 +88,7 @@
 			"pos_y": 340,
 			"width": 20,
 			"height": 40,
-			"shape": ""
+			"shape": "shape=mux"
 		},
 		"alu_control": {
 			"name": "ALU Control",
@@ -97,7 +97,7 @@
 			"pos_y": 480,
 			"width": 40,
 			"height": 60,
-			"shape": ""
+			"shape": "shape=control"
 		},
 		"add2": {
 			"name": "Add",
@@ -106,7 +106,7 @@
 			"pos_y": 90,
 			"width": 60,
 			"height": 80,
-			"shape": ""
+			"shape": "shape=add"
 		},
 		"alu": {
 			"name": "ALU",
@@ -115,7 +115,7 @@
 			"pos_y": 300,
 			"width": 60,
 			"height": 80,
-			"shape": ""
+			"shape": "shape=add"
 		},
 		"mux3": {
 			"name": "Mux",
@@ -124,7 +124,7 @@
 			"pos_y": 70,
 			"width": 20,
 			"height": 40,
-			"shape": ""
+			"shape": "shape=mux"
 		},
 		"mux4": {
 			"name": "Mux",
@@ -133,7 +133,7 @@
 			"pos_y": 40,
 			"width": 20,
 			"height": 40,
-			"shape": ""
+			"shape": "mux"
 		},
 		"and_gate": {
 			"name": "",
@@ -160,7 +160,7 @@
 			"pos_y": 320,
 			"width": 20,
 			"height": 40,
-			"shape": ""
+			"shape": "shape=mux"
 		}
 	},
 	"edges": {

@@ -125,7 +125,8 @@ public class PLPVisualizer extends JFrame
 				Dimension newSize = e.getComponent().getBounds().getSize();
 				double newFactor = newSize.getHeight() / 600;
 				if (newSize.getWidth() / 800 > newFactor)
-					newFactor = newSize.getWidth();
+					newFactor = newSize.getWidth() / 800;
+				System.out.println(newFactor);
 				drawGraph(newFactor);
 			}
 

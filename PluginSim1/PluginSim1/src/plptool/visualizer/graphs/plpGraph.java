@@ -4,6 +4,8 @@ import java.text.NumberFormat;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.ToolTipManager;
+
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.util.mxPoint;
@@ -15,6 +17,7 @@ public class plpGraph extends mxGraph{
 	public static final String DEBUG = System.getProperty("debug");
 	public String getToolTipForCell(Object cell)
 	{
+		ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
 		String tip = "<html>";
 		mxGeometry geo = getModel().getGeometry(cell);
 		mxCellState state = getView().getState(cell);

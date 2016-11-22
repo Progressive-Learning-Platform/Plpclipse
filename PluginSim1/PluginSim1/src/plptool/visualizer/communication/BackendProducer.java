@@ -63,7 +63,7 @@ public class BackendProducer implements Runnable {
 				TextMessage message = session.createTextMessage(text);
 
 				// Tell the producer to send the message
-				System.out.println("Sent message: "+ message.hashCode() + " : " + Thread.currentThread().getName());
+				//System.out.println("Sent message: "+ message.hashCode() + " : " + Thread.currentThread().getName());
 				producer.send(message);
 
 				// Clean up

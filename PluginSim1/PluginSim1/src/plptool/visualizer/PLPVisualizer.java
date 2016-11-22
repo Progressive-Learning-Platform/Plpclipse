@@ -127,7 +127,6 @@ public class PLPVisualizer extends JFrame
 				if (newSize.getWidth() / 800 > newFactor)
 					newFactor = newSize.getWidth();
 				drawGraph(newFactor);
-				System.out.println("Resized:" + newFactor);
 			}
 
 			@Override
@@ -153,23 +152,20 @@ public class PLPVisualizer extends JFrame
 		{
 			public void mouseReleased(MouseEvent e)
 			{
-				Object cell = graphComponent.getCellAt(e.getX(), e.getY());
+				mxCell cell = (mxCell)graphComponent.getCellAt(e.getX(), e.getY());
 				if (cell != null)
 				{
-					System.out.println("cell="+graph.getLabel(cell));
+					System.out.println("cell="+ cell.getValue());
 				}
 			}
 			public void mouseEntered(MouseEvent e)
 			{
-				System.out.println("Hover");
 			}
 			public void mouseExited(MouseEvent e)
 			{
-				System.out.println("Leave");
 			}
 			public void mouseMoved(MouseEvent e)
 			{
-				System.out.println("Moved");
 			}
 		});
 		FrontendConsumer frontend = new FrontendConsumer();

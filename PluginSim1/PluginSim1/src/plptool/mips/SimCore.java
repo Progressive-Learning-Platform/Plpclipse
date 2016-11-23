@@ -288,29 +288,24 @@ public class SimCore extends PLPSimCore {
     	
     	//PC
     	obj = new JSONObject();
-    	obj.put(PLPCPUSnapshot_keys.PC_ADDRESS, String.valueOf(pc.eval()));
+    	obj.put(PLPCPUSnapshot_keys.PC_ADDRESS, Long.toHexString(pc.eval()));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.PC, obj);
     	
     	
     	//PC + 4
     	obj = new JSONObject();
-    	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT1, String.valueOf(pc.eval()));
+    	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT1, Long.toHexString(pc.eval()));
     	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT2, "4");
-    	obj.put(PLPCPUSnapshot_keys.ADD_PC_OUTPUT, String.valueOf(pc.eval()+4));
+    	obj.put(PLPCPUSnapshot_keys.ADD_PC_OUTPUT, Long.toHexString(pc.eval() + 4));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_PC, obj);
     	
     	
     	//Instruction Memory
     	obj = new JSONObject();
-    	obj.put(PLPCPUSnapshot_keys.INST_MEM_VALUE, String.valueOf(bus.read(pc.eval())));
-    	obj.put(PLPCPUSnapshot_keys.INST_MEM_ADDR, String.valueOf(pc.eval()));
+    	obj.put(PLPCPUSnapshot_keys.INST_MEM_VALUE, Long.toHexString((long)bus.read(pc.eval())));
+    	obj.put(PLPCPUSnapshot_keys.INST_MEM_ADDR, Long.toHexString(pc.eval()));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.INSTRUCTION_MEMORY, obj);
     	
-    	// Shift Left PC
-    	obj = new JSONObject();
-    	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_INPUT, String.valueOf(id_stage.i_ctl_pcplus4));
-    	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_OUTPUT, String.valueOf((id_stage.i_ctl_pcplus4)<<2));
-    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC, obj);
     	
     	//Register File
     	obj = new JSONObject();
@@ -385,23 +380,23 @@ public class SimCore extends PLPSimCore {
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.CONTROL, obj);
     	
     	// SHIFT LEFT immediate value for jump address
-    	//obj = new JSONObject();
-    	//obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_INPUT, String.valueOf(MIPSInstr.jaddr(ex_stage.instruction)));
-    	//obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_OUTPUT, String.valueOf(ex_stage.ctl_jumptarget ));
-    	//cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC, obj);
+    	obj = new JSONObject();
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_INPUT, Long.toHexString(MIPSInstr.jaddr(ex_stage.instruction)));
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_OUTPUT, Long.toHexString(ex_stage.ctl_jumptarget ));
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC, obj);
     	
     	//Shift left 2 branch
     	obj = new JSONObject();
-    	obj.put(PLPCPUSnapshot_keys.SHIFT_BRANCH_INPUT, String.valueOf(ex_stage.i_data_imm_signExtended));
-    	obj.put(PLPCPUSnapshot_keys.SHIFT_BRANCH_OUTPUT, String.valueOf(ex_stage.i_data_imm_signExtended << 2));
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_BRANCH_INPUT, Long.toHexString(ex_stage.i_data_imm_signExtended));
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_BRANCH_OUTPUT, Long.toHexString(ex_stage.i_data_imm_signExtended << 2));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_BRANCH, obj);
     	
     	//ADD PC and BRANCH offset
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_BRANCH, new JSONObject());
     	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.ADD_BRANCH);
-    	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_INPUT1, String.valueOf(id_stage.ctl_pcplus4));
-    	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_INPUT2, String.valueOf(ex_stage.i_data_imm_signExtended << 2));
-    	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_OUTPUT, String.valueOf(ex_stage.i_ctl_branchtarget));
+    	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_INPUT1, Long.toHexString(id_stage.ctl_pcplus4));
+    	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_INPUT2, Long.toHexString(ex_stage.i_data_imm_signExtended << 2));
+    	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_OUTPUT, Long.toHexString(ex_stage.i_ctl_branchtarget));
     	
     	//Register Mux - TODO:In pipelined version implement register mux
     	obj = new JSONObject();
@@ -478,7 +473,7 @@ public class SimCore extends PLPSimCore {
     	
     	//Data Memory
     	obj = new JSONObject();
-    	obj.put(PLPCPUSnapshot_keys.DATA_MEM_ADDRESS, String.valueOf(mem_stage.fwd_data_alu_result));
+    	obj.put(PLPCPUSnapshot_keys.DATA_MEM_ADDRESS, Long.toHexString(mem_stage.fwd_data_alu_result));
     	if(mem_stage.ctl_memwrite != 0)
     		obj.put(PLPCPUSnapshot_keys.DATA_MEM_WRITE, mem_stage.data_mem_store);
     	if(mem_stage.ctl_memread != 0)
@@ -517,16 +512,16 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_MEMTOREG, String.valueOf(ex_stage.fwd_ctl_memtoreg));
     	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_MEMWRITE, String.valueOf(ex_stage.fwd_ctl_memwrite));
     	obj.put(PLPCPUSnapshot_keys.EX_MEM_CTL_REGWRITE, String.valueOf(ex_stage.fwd_ctl_regwrite));
-    	obj.put(PLPCPUSnapshot_keys.EX_MEM_INSTRUCTION, String.valueOf(ex_stage.instruction));
-    	obj.put(PLPCPUSnapshot_keys.EX_MEM_INSTRUCTION_ADDR, String.valueOf(ex_stage.instrAddr));
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_INSTRUCTION, Long.toHexString(ex_stage.instruction));
+    	obj.put(PLPCPUSnapshot_keys.EX_MEM_INSTRUCTION_ADDR, Long.toHexString(ex_stage.instrAddr));
     	obj.put(PLPCPUSnapshot_keys.EX_MEM_INSTRUCTION_BUBBLE, String.valueOf(ex_stage.bubble));
     	obj.put(PLPCPUSnapshot_keys.EX_MEM_MEMWRITEDATA, String.valueOf(ex_stage.data_eff_y));
     	obj.put(PLPCPUSnapshot_keys.EX_RS_FORWARDED, String.valueOf(ex_stage.rs_forwarded_from));
     	obj.put(PLPCPUSnapshot_keys.EX_RT_FORWARDED, String.valueOf(ex_stage.rt_forwarded_from));
     	
     	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.MEM_WB_INTRMEDIATE);
-    	obj.put(PLPCPUSnapshot_keys.MEM_WB_INSTRUCTION, String.valueOf(mem_stage.instruction));
-    	obj.put(PLPCPUSnapshot_keys.MEM_WB_INSTRUCTION_ADDR, String.valueOf(mem_stage.instrAddr));
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_INSTRUCTION, Long.toHexString(mem_stage.instruction));
+    	obj.put(PLPCPUSnapshot_keys.MEM_WB_INSTRUCTION_ADDR, Long.toHexString(mem_stage.instrAddr));
     	obj.put(PLPCPUSnapshot_keys.MEM_CTRL_WRITE, String.valueOf(mem_stage.ctl_memwrite));
     	obj.put(PLPCPUSnapshot_keys.MEM_CTRL_READ, String.valueOf(mem_stage.ctl_memread));
     	obj.put(PLPCPUSnapshot_keys.MEM_DATA_LOAD, String.valueOf(mem_stage.data_mem_load));
@@ -541,13 +536,13 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.MEM_WB_BUBBLE, String.valueOf(mem_stage.bubble));
     	
     	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.IF_ID_INTERMEDIATE);
-    	obj.put(PLPCPUSnapshot_keys.IF_ID_PC_ADD, String.valueOf(pc.eval() + 4));
-    	obj.put(PLPCPUSnapshot_keys.IF_ID_INSTRUCTION, String.valueOf(bus.read(pc.eval())));
-    	obj.put(PLPCPUSnapshot_keys.IF_ID_INSTRUCTION_ADDR, String.valueOf(pc.eval()));
+    	obj.put(PLPCPUSnapshot_keys.IF_ID_PC_ADD, Long.toHexString(pc.eval() + 4));
+    	obj.put(PLPCPUSnapshot_keys.IF_ID_INSTRUCTION, Long.toHexString((long)bus.read(pc.eval())));
+    	obj.put(PLPCPUSnapshot_keys.IF_ID_INSTRUCTION_ADDR, Long.toHexString(pc.eval()));
     	
     	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.ID_EX_INTERMEDIATE);
-    	obj.put(PLPCPUSnapshot_keys.ID_EX_INSTRUCTION, String.valueOf(id_stage.instruction));
-    	obj.put(PLPCPUSnapshot_keys.ID_EX_INSTRUCTION_ADDR, String.valueOf(id_stage.instrAddr));
+    	obj.put(PLPCPUSnapshot_keys.ID_EX_INSTRUCTION, Long.toHexString(id_stage.instruction));
+    	obj.put(PLPCPUSnapshot_keys.ID_EX_INSTRUCTION_ADDR, Long.toHexString(id_stage.instrAddr));
     	obj.put(PLPCPUSnapshot_keys.ID_EX_INSTRUCTION_BUBBLE, String.valueOf(id_stage.bubble));
     	obj.put(PLPCPUSnapshot_keys.ID_EX_REGSOURCE, String.valueOf(ex_stage.i_data_rs));
     	obj.put(PLPCPUSnapshot_keys.ID_EX_REGTRANS, String.valueOf(ex_stage.i_data_rt));
@@ -1058,24 +1053,24 @@ public class SimCore extends PLPSimCore {
     	
     	//PC
     	obj = new JSONObject();
-    	obj.put(PLPCPUSnapshot_keys.PC_ADDRESS, String.valueOf(pc_value));
+    	obj.put(PLPCPUSnapshot_keys.PC_ADDRESS, Long.toHexString(pc_value));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.PC, obj);
     	
     	//PC + 4
     	obj = new JSONObject();
-    	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT1, String.valueOf(instruction_address));
+    	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT1, Long.toHexString(instruction_address));
     	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT2, "4");
-    	obj.put(PLPCPUSnapshot_keys.ADD_PC_OUTPUT, String.valueOf(instruction_address+4));
+    	obj.put(PLPCPUSnapshot_keys.ADD_PC_OUTPUT, Long.toHexString(instruction_address+4));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_PC, obj);
     	// Edges related to PC+4
-    	edge_obj.put(PLPCPUSnapshot_keys.PC_IMM_EDGE, String.valueOf(instruction_address));
-    	edge_obj.put(PLPCPUSnapshot_keys.PC_ADD_EDGE, String.valueOf(instruction_address));
+    	edge_obj.put(PLPCPUSnapshot_keys.PC_IMM_EDGE, Long.toHexString(instruction_address));
+    	edge_obj.put(PLPCPUSnapshot_keys.PC_ADD_EDGE, Long.toHexString(instruction_address));
     	
     	
     	//Instruction Memory
     	obj = new JSONObject();
-    	obj.put(PLPCPUSnapshot_keys.INST_MEM_VALUE, String.valueOf(instruction) );
-    	obj.put(PLPCPUSnapshot_keys.INST_MEM_ADDR, String.valueOf(instruction_address));
+    	obj.put(PLPCPUSnapshot_keys.INST_MEM_VALUE, Long.toHexString(instruction) );
+    	obj.put(PLPCPUSnapshot_keys.INST_MEM_ADDR, Long.toHexString(instruction_address));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.INSTRUCTION_MEMORY, obj);
     	
     	//Register Mux
@@ -1160,8 +1155,8 @@ public class SimCore extends PLPSimCore {
     	
     	// SHIFT LEFT immediate value for jump address
     	obj = new JSONObject();
-    	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_INPUT, String.valueOf(jaddr));
-    	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_OUTPUT, String.valueOf(jaddr<<2 ));
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_INPUT, Long.toHexString(jaddr));
+    	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_OUTPUT, Long.toHexString(jaddr<<2 ));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC, obj);
         
     	//ALU MUX
@@ -1204,9 +1199,9 @@ public class SimCore extends PLPSimCore {
     	
     	//ADD PC and BRANCH offset
     	obj = new JSONObject();
-    	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_INPUT1, String.valueOf(instruction_address+4));
-    	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_INPUT2, String.valueOf(s_imm<<2));
-    	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_OUTPUT, String.valueOf(instruction_address+4 + s_imm<<2));
+    	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_INPUT1, Long.toHexString(instruction_address+4));
+    	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_INPUT2, Long.toHexString(s_imm<<2));
+    	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_OUTPUT, Long.toHexString(instruction_address+4 + s_imm<<2));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_BRANCH, obj);
     	
     	//AND Gate for branch
@@ -1246,7 +1241,7 @@ public class SimCore extends PLPSimCore {
     	
     	//Data Memory
     	obj = new JSONObject();
-    	obj.put(PLPCPUSnapshot_keys.DATA_MEM_ADDRESS, String.valueOf(alu_result));
+    	obj.put(PLPCPUSnapshot_keys.DATA_MEM_ADDRESS, Long.toHexString(alu_result));
     	if(bMemWrite)
     		obj.put(PLPCPUSnapshot_keys.DATA_MEM_WRITE, t);
     	if(bMemRead)

@@ -69,11 +69,14 @@
 		<linejoin join="round"/>
 		<path>
 			<move x="0" y="0"/>
-			<line x="50" y="50"/>
+			<line x="100" y="50"/>
 			<line x="0" y="100"/>
 			<close/>
 		</path>
 	</background>
+	<foreground>
+		<fillstroke/>
+	</foreground>
 </shape>
 
 </shapes>

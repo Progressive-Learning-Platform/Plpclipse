@@ -929,9 +929,11 @@ public class SimCore extends PLPSimCore {
         } else if (opcode == 0x23) {                    // lw
         	bMemRead = true;
         	bAluOp = true;
+        	bAluSrc = true;
         	bRegDst = true;
         	bRegWrite = true;
         	bMemToReg = true;
+        	alu_result = ex_stage.exAlu.eval(s, imm, instr) & 0xffffffffL;
             Long data = (Long) bus.read(s + s_imm);
             if(data == null)
                 return Msg.E("Bus read error.", Constants.PLP_SIM_BUS_ERROR, this);
@@ -941,7 +943,8 @@ public class SimCore extends PLPSimCore {
         } else if (opcode == 0x2B) {                    // sw
         	bMemWrite = true;
         	bAluOp = true;
-        	
+        	bAluSrc = true;
+        	alu_result = ex_stage.exAlu.eval(s, imm, instr) & 0xffffffffL;
             ret = bus.write(s + s_imm, regfile.read(rt), false);
             if(ret > 0) {
                 return Msg.E("Bus write error.", Constants.PLP_SIM_BUS_ERROR, this);
@@ -1085,8 +1088,10 @@ public class SimCore extends PLPSimCore {
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.REGISTER1, String.valueOf(rs));
     	obj.put(PLPCPUSnapshot_keys.REGISTER2, String.valueOf(rt));
-    	if(bRegDst)
-    		obj.put(PLPCPUSnapshot_keys.REGISTER_WRITE, String.valueOf(rd));
+    	if(bMemRead)
+    		obj.put(PLPCPUSnapshot_keys.REGISTER_WRITE, String.valueOf(rt));
+    	else if(bRegDst)
+    		obj.put(PLPCPUSnapshot_keys.REGISTER_WRITE, String.valueOf(rd));    	
     	else
     		obj.put(PLPCPUSnapshot_keys.REGISTER_WRITE, String.valueOf(rt));
     	obj.put(PLPCPUSnapshot_keys.REGISTER1_READ, String.valueOf(s));
@@ -1242,10 +1247,17 @@ public class SimCore extends PLPSimCore {
     	//Data Memory
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.DATA_MEM_ADDRESS, Long.toHexString(alu_result));
-    	if(bMemWrite)
+    	if(bMemWrite){    		
+    		edge_obj.put(PLPCPUSnapshot_keys.REGISTERS_DATA_MEMORY_EDGE, String.valueOf(t));
     		obj.put(PLPCPUSnapshot_keys.DATA_MEM_WRITE, t);
-    	if(bMemRead)
+    		edge_obj.put(PLPCPUSnapshot_keys.ALU_DATA_MEMORY_EDGE, Long.toHexString(alu_result));
+    		}
+    	if(bMemRead){
     		obj.put(PLPCPUSnapshot_keys.DATA_MEM_READ, w_r);
+    		edge_obj.put(PLPCPUSnapshot_keys.ALU_DATA_MEMORY_EDGE, Long.toHexString(alu_result));
+    		edge_obj.put(PLPCPUSnapshot_keys.MUX5_REGISTERS_EDGE, String.valueOf(w_r));
+    		edge_obj.put(PLPCPUSnapshot_keys.DATA_MEMORY_MUX5_EDGE, String.valueOf(w_r));
+    		}
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY, obj);
     	
     	//MUX to decide mem or register write

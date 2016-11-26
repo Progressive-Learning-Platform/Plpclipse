@@ -382,7 +382,7 @@ public class PLPCPUSnapshot_keys
 	public static String MUX1_REGISTERS_EDGE = "mux1_registers";
 	public static String REGISTERS_ALU_EDGE = "registers_alu";
 	public static String REGISTERS_MUX2_EDGE = "registers_mux2_edge";
-	public static String REGISTERS_DATA_MEMORY_EDGE = "registers_data_memory_edge";
+	public static String REGISTERS_DATA_MEMORY_EDGE = "registers_data_memory";
 	public static String MUX3_MUX4_EDGE = "mux3_mux4";
 	public static String SIGN_EXTEND_SHIFT2_EDGE = "sign_extend_shift2";
 	public static String SIGN_EXTEND_MUX2_EDGE = "sign_extend_mux2";

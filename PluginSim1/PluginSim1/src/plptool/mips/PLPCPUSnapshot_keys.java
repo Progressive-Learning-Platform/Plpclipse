@@ -400,6 +400,9 @@ public class PLPCPUSnapshot_keys
 	public static String MUX5_REGISTERS_EDGE = "mux5_registers";
 	public static String MUX4_PC_EDGE = "mux4_pc";
 	
+	public static String ADD1_IF_ID_BUFFER_EDGE = "add1_if_id_buffer";
+	public static String IM_IF_ID_BUFFER_EDGE = "im_if_id_buffer";
+	
 	public static String EDGE_ENABLE = "enabled_edges";
 	
 	public static void initializeKeysFromFile()

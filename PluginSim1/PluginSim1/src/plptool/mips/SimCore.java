@@ -279,6 +279,10 @@ public class SimCore extends PLPSimCore {
         return ret;
     }
     
+    /***
+     * This function will udpate the cpusnapshot related to pipelined version.
+     * This will be used by the PLP Data Visualizer.
+     */
     private void update_pipelined_cpusnapshot()
     {
     	
@@ -289,20 +293,25 @@ public class SimCore extends PLPSimCore {
     	//PC
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.PC_ADDRESS, Long.toHexString(pc.eval()));
+    	edge_obj.put(PLPCPUSnapshot_keys.PC_IMM_EDGE, Long.toHexString(pc.eval()));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.PC, obj);
     	
     	
     	//PC + 4
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT1, Long.toHexString(pc.eval()));
+    	edge_obj.put(PLPCPUSnapshot_keys.PC_ADD_EDGE, Long.toHexString(pc.eval()));
     	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT2, "4");
     	obj.put(PLPCPUSnapshot_keys.ADD_PC_OUTPUT, Long.toHexString(pc.eval() + 4));
+    	edge_obj.put(PLPCPUSnapshot_keys.ADD1_MUX3_EDGE, Long.toHexString(pc.eval() + 4));
+    	edge_obj.put(PLPCPUSnapshot_keys.ADD1_IF_ID_BUFFER_EDGE, Long.toHexString(pc.eval() + 4));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_PC, obj);
     	
     	
     	//Instruction Memory
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.INST_MEM_VALUE, Long.toHexString((long)bus.read(pc.eval())));
+    	edge_obj.put(PLPCPUSnapshot_keys.IM_IF_ID_BUFFER_EDGE, Long.toHexString((long)bus.read(pc.eval())));
     	obj.put(PLPCPUSnapshot_keys.INST_MEM_ADDR, Long.toHexString(pc.eval()));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.INSTRUCTION_MEMORY, obj);
     	
@@ -333,47 +342,47 @@ public class SimCore extends PLPSimCore {
     	if(ex_stage.i_ctl_aluOp != 0)
     	{
     		control_signals = "ALU Operation,";
-    		//edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ALU_CONTROL_EDGE, "ALU Operation");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ALU_CONTROL_EDGE, "ALU Operation");
     	}
     	if(ex_stage.i_ctl_aluSrc != 0)
     	{
     		control_signals += "ALU Source,";
-    		//edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX2_EDGE, "ALU Source");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX2_EDGE, "ALU Source");
     	}
     	if(ex_stage.i_ctl_jump != 0)
     	{
     		control_signals += "Jump,";
-    		//edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX4_EDGE, "Jump");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX4_EDGE, "Jump");
     	}
     	if(ex_stage.i_fwd_ctl_memread != 0)
     	{
     		control_signals += "Memory Read,";
-    		//edge_obj.put(PLPCPUSnapshot_keys.CONTROL_DATAMEMORY_RIGHT_EDGE, "Memory Read");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_DATAMEMORY_RIGHT_EDGE, "Memory Read");
     	}
     	if(ex_stage.i_fwd_ctl_memtoreg != 0)
     	{
     		control_signals += "Memory to Register,";
-    		//edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX5_EDGE, "Memory to Register");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX5_EDGE, "Memory to Register");
     	}
     	if(ex_stage.i_ctl_regDst != 0)
     	{
     		control_signals += "Register Destination,";
-    		//edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX1_EDGE, "Register Destination");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX1_EDGE, "Register Destination");
     	}
     	if(ex_stage.i_fwd_ctl_memwrite != 0)
     	{
     		control_signals += "Memory Write,";
-    		//edge_obj.put(PLPCPUSnapshot_keys.CONTROL_DATAMEMORY_LEFT_EDGE, "Memory Write");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_DATAMEMORY_LEFT_EDGE, "Memory Write");
     	}
     	if(ex_stage.i_fwd_ctl_regwrite != 0)
     	{
     		control_signals += "Register Write,";
-    		//edge_obj.put(PLPCPUSnapshot_keys.CONTROL_REGISTERS_EDGE, "Register Write");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_REGISTERS_EDGE, "Register Write");
     	}
     	if(ex_stage.i_ctl_branch != 0)
     	{
     		control_signals += "Branch,";
-    		//edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ANDGATE_EDGE, "BRANCH");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ANDGATE_EDGE, "BRANCH");
     	}
     	
     	obj.put(PLPCPUSnapshot_keys.CONTROL_SIGNALS, control_signals);
@@ -416,11 +425,11 @@ public class SimCore extends PLPSimCore {
     	
     	//ALU Control
     	obj = new JSONObject();
-    	obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_INPUT, String.valueOf(MIPSInstr.funct(ex_stage.instruction)));
+    	obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_INPUT, String.valueOf(Integer.toBinaryString(MIPSInstr.funct(ex_stage.instruction))));
     	if(ex_stage.ctl_aluOp != 0)
-    		obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_OUTPUT, String.valueOf(MIPSInstr.funct(ex_stage.instruction)));
+    		obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_OUTPUT, String.valueOf(Integer.toBinaryString(MIPSInstr.funct(ex_stage.instruction))));
     	else
-    		obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_OUTPUT, String.valueOf(MIPSInstr.funct(ex_stage.instruction)));
+    		obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_OUTPUT, String.valueOf(Integer.toBinaryString(MIPSInstr.funct(ex_stage.instruction))));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_CONTROL, obj);
     	
     	//ALU
@@ -431,7 +440,7 @@ public class SimCore extends PLPSimCore {
     		obj.put(PLPCPUSnapshot_keys.ALU_ZERO, "1");
     	else
     		obj.put(PLPCPUSnapshot_keys.ALU_ZERO, "0");
-    	obj.put(PLPCPUSnapshot_keys.ALU_OP_TYPE, "-");
+    	obj.put(PLPCPUSnapshot_keys.ALU_OP_TYPE, String.valueOf(Integer.toBinaryString(MIPSInstr.funct(ex_stage.instruction))));
     	obj.put(PLPCPUSnapshot_keys.ALU_RESULT, String.valueOf(ex_stage.internal_alu_out));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU, obj);
     	
@@ -559,6 +568,8 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.ID_EX_CTL_BRANCH, String.valueOf(ex_stage.i_ctl_branch));
     	obj.put(PLPCPUSnapshot_keys.ID_EX_CTL_JUMP, String.valueOf(ex_stage.i_ctl_jump));
     	obj.put(PLPCPUSnapshot_keys.ID_EX_CTL_REGDST, String.valueOf(ex_stage.i_ctl_regDst));
+    	
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.EDGE_ENABLE, edge_obj);
     	
     }
 
@@ -1024,6 +1035,35 @@ public class SimCore extends PLPSimCore {
         return ret;
     }
     
+    /***
+     * This function will update the non pipelined version of the cpu snapshot.
+     * It will be used by the PLP Data Visualizer.
+     * @param pc_value
+     * @param instruction
+     * @param instruction_address
+     * @param bAluOp
+     * @param bAluSrc
+     * @param bJump
+     * @param bMemRead
+     * @param bMemToReg
+     * @param bRegDst
+     * @param bMemWrite
+     * @param bRegWrite
+     * @param bBranch
+     * @param opcode
+     * @param rs
+     * @param rd
+     * @param rt
+     * @param funct
+     * @param imm
+     * @param jaddr
+     * @param s
+     * @param t
+     * @param s_imm
+     * @param alu_result
+     * @param w_r
+     * @param branch_taken
+     */
     private void update_nonpipelined_cpusnapshot(long pc_value, 
     		long instruction, 
     		long instruction_address, 

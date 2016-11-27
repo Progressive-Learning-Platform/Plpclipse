@@ -382,7 +382,7 @@ public class PLPCPUSnapshot_keys
 	public static String MUX1_REGISTERS_EDGE = "mux1_registers";
 	public static String REGISTERS_ALU_EDGE = "registers_alu";
 	public static String REGISTERS_MUX2_EDGE = "registers_mux2_edge";
-	public static String REGISTERS_DATA_MEMORY_EDGE = "registers_data_memory_edge";
+	public static String REGISTERS_DATA_MEMORY_EDGE = "registers_data_memory";
 	public static String MUX3_MUX4_EDGE = "mux3_mux4";
 	public static String SIGN_EXTEND_SHIFT2_EDGE = "sign_extend_shift2";
 	public static String SIGN_EXTEND_MUX2_EDGE = "sign_extend_mux2";
@@ -399,6 +399,9 @@ public class PLPCPUSnapshot_keys
 	public static String AND_GATE_MUX3_EDGE = "and_gate_mux3";
 	public static String MUX5_REGISTERS_EDGE = "mux5_registers";
 	public static String MUX4_PC_EDGE = "mux4_pc";
+	
+	public static String ADD1_IF_ID_BUFFER_EDGE = "add1_if_id_buffer";
+	public static String IM_IF_ID_BUFFER_EDGE = "im_if_id_buffer";
 	
 	public static String EDGE_ENABLE = "enabled_edges";
 	

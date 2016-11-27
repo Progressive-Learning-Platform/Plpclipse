@@ -50,15 +50,14 @@ public class FrontendConsumer implements Runnable, ExceptionListener {
 				if (message instanceof TextMessage) {
 					TextMessage textMessage = (TextMessage) message;
 					String text = textMessage.getText();
-					System.out.println("Received: " + text);
+					//System.out.println("Received: " + text);
 					for (SnapshotListener hl : listeners)
 						hl.receiveSnapshot(text);
 				} else {
-					System.out.println("Received: " + message);
+					//System.out.println("Received: " + message);
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("Caught: " + e);
 			e.printStackTrace();
 		}
 	}

@@ -1,6 +1,9 @@
 package plptool.visualizer;
 
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
@@ -45,6 +48,7 @@ public class PLPVisualizer extends JFrame
 	private static final long serialVersionUID = -2707712944901661771L;
 	private static PLPVisualizer instance = null;
 	private final plpGraph graph;
+	private static String conf_file = null;
 
 	/** 
 	 * Default Constructor
@@ -55,10 +59,15 @@ public class PLPVisualizer extends JFrame
 		{
 			instance = new PLPVisualizer();
 		}
-		if (pipelined)
-			instance.drawGraph("config/graph_pipelined.json");
-		else
-			instance.drawGraph("config/graph_non_pipelined.json");
+		if (pipelined) {
+			conf_file = "config/graph_pipelined.json";
+			instance.drawGraph(1.0);
+		}
+		else {
+			conf_file = "config/graph_non_pipelined.json";
+			instance.drawGraph(1.0);
+		}
+
 		return instance;
 	}
 	
@@ -109,6 +118,30 @@ public class PLPVisualizer extends JFrame
 		super("PLP Visualizer");
 
 		this.initializeVertexStyle();
+		this.addComponentListener(new ComponentListener() {
+
+			@Override
+			public void componentResized(ComponentEvent e) {
+				Dimension newSize = e.getComponent().getBounds().getSize();
+				double newFactor = newSize.getHeight() / 600;
+				if (newSize.getWidth() / 800 > newFactor)
+					newFactor = newSize.getWidth() / 800;
+				System.out.println(newFactor);
+				drawGraph(newFactor);
+			}
+
+			@Override
+			public void componentMoved(ComponentEvent e) {
+			}
+
+			@Override
+			public void componentShown(ComponentEvent e) {
+			}
+
+			@Override
+			public void componentHidden(ComponentEvent e) {
+			}
+		});
 		graph = new plpGraph();
 
 		final mxGraphComponent graphComponent = new mxGraphComponent(graph);
@@ -120,23 +153,20 @@ public class PLPVisualizer extends JFrame
 		{
 			public void mouseReleased(MouseEvent e)
 			{
-				Object cell = graphComponent.getCellAt(e.getX(), e.getY());
+				mxCell cell = (mxCell)graphComponent.getCellAt(e.getX(), e.getY());
 				if (cell != null)
 				{
-					System.out.println("cell="+graph.getLabel(cell));
+					System.out.println("cell="+ cell.getValue());
 				}
 			}
 			public void mouseEntered(MouseEvent e)
 			{
-				System.out.println("Hover");
 			}
 			public void mouseExited(MouseEvent e)
 			{
-				System.out.println("Leave");
 			}
 			public void mouseMoved(MouseEvent e)
 			{
-				System.out.println("Moved");
 			}
 		});
 		FrontendConsumer frontend = new FrontendConsumer();
@@ -179,7 +209,7 @@ public class PLPVisualizer extends JFrame
 		thread(frontend, false);
 	}
 	
-	public void drawGraph(String conf_file)
+	public void drawGraph(double rescale)
 	{
 		Object parent = graph.getDefaultParent();
 		this.graph.removeCells(graph.getChildVertices(parent));
@@ -213,10 +243,10 @@ public class PLPVisualizer extends JFrame
 				JSONObject node = vertices.getJSONObject(json_key);
 				graph.insertVertex(parent, node.getString("id"),
 									(Object)node.getString("name"),
-											node.getDouble("pos_x"),
-											node.getDouble("pos_y"),
-											node.getDouble("width"),
-											node.getDouble("height"),
+											node.getDouble("pos_x") * rescale,
+											node.getDouble("pos_y") * rescale,
+											node.getDouble("width") * rescale,
+											node.getDouble("height") * rescale,
 											node.getString("shape"));
 			}
 
@@ -246,8 +276,8 @@ public class PLPVisualizer extends JFrame
 					List<mxPoint> waypoint = new ArrayList<mxPoint>();
 					while(array_iterator.hasNext()) {
 						JSONArray point = (JSONArray)array_iterator.next();
-						waypoint.add(new mxPoint(point.getInt(0),
-												point.getInt(1)));
+						waypoint.add(new mxPoint(point.getInt(0) * rescale,
+												point.getInt(1) * rescale));
 					}
 					geo.setPoints(waypoint);
 				}

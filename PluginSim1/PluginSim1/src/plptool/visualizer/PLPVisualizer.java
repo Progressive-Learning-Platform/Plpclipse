@@ -2,6 +2,7 @@ package plptool.visualizer;
 
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
@@ -15,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -212,8 +214,10 @@ public class PLPVisualizer extends JFrame
 	
 	protected void showGraphPopupMenu(MouseEvent e, mxCell cell)
 	{
+		Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),
+				graphComponent);
 		ValuePopupMenu menu = new ValuePopupMenu(cell);
-		menu.show(graphComponent, e.getX(), e.getY());
+		menu.show(graphComponent, pt.x, pt.y);
 
 		e.consume();
 	}

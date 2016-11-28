@@ -250,19 +250,24 @@ public class PLPVisualizer extends JFrame
 		{
 			// create nodex
 			Iterator<?> json_keys = vertices.keys();
+			ArrayList<Object> cells = new ArrayList<Object>();
+			String fontSize = "fontSize=" + Double.toString(22 * rescale) + ";";
 			
 			while( json_keys.hasNext() ){
 				String json_key = (String)json_keys.next();
 				JSONObject node = vertices.getJSONObject(json_key);
-				graph.insertVertex(parent, node.getString("id"),
+				Object vertex = graph.insertVertex(parent, node.getString("id"),
 									(Object)node.getString("name"),
 											node.getDouble("pos_x") * rescale,
 											node.getDouble("pos_y") * rescale,
 											node.getDouble("width") * rescale,
 											node.getDouble("height") * rescale,
-											node.getString("shape"));
+											fontSize + node.getString("shape"));
+				cells.add(vertex);
 			}
 
+			graph.setCellStyles(mxConstants.STYLE_FILLCOLOR, "0xb2aaff", cells.toArray());
+			cells.clear();
 			// create edges
 			json_keys = edges.keys();
 			
@@ -277,6 +282,7 @@ public class PLPVisualizer extends JFrame
 										(Object)node.getString("name"),
 										first_node, second_node,
 										node.getString("style")+"noLabel=1;");
+				cells.add(edge);
 				// customize way points
 				/**
 				 * Some edges may overlap the vertex, so we using "way points" 
@@ -295,6 +301,7 @@ public class PLPVisualizer extends JFrame
 					geo.setPoints(waypoint);
 				}
 			}
+			graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "green", cells.toArray());
 		}
 		finally
 		{

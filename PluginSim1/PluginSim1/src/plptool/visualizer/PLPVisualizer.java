@@ -2,6 +2,7 @@ package plptool.visualizer;
 
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
@@ -15,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,6 +27,7 @@ import org.w3c.dom.NodeList;
 import plptool.visualizer.communication.BackendProducer;
 import plptool.visualizer.communication.FrontendConsumer;
 import plptool.visualizer.event.SnapshotEventHandler;
+import plptool.visualizer.graphs.ValuePopupMenu;
 import plptool.visualizer.graphs.plpGraph;
 
 import com.mxgraph.canvas.mxGraphics2DCanvas;
@@ -48,6 +51,7 @@ public class PLPVisualizer extends JFrame
 	private static final long serialVersionUID = -2707712944901661771L;
 	private static PLPVisualizer instance = null;
 	private final plpGraph graph;
+	private final mxGraphComponent graphComponent;
 	private static String conf_file = null;
 
 	/** 
@@ -126,7 +130,6 @@ public class PLPVisualizer extends JFrame
 				double newFactor = newSize.getHeight() / 600;
 				if (newSize.getWidth() / 800 > newFactor)
 					newFactor = newSize.getWidth() / 800;
-				System.out.println(newFactor);
 				drawGraph(newFactor);
 			}
 
@@ -144,7 +147,7 @@ public class PLPVisualizer extends JFrame
 		});
 		graph = new plpGraph();
 
-		final mxGraphComponent graphComponent = new mxGraphComponent(graph);
+		graphComponent = new mxGraphComponent(graph);
 		getContentPane().add(graphComponent);
 		graph.setCellsLocked(true);
 		graphComponent.setConnectable(false);
@@ -156,7 +159,7 @@ public class PLPVisualizer extends JFrame
 				mxCell cell = (mxCell)graphComponent.getCellAt(e.getX(), e.getY());
 				if (cell != null)
 				{
-					System.out.println("cell="+ cell.getValue());
+					showGraphPopupMenu(e, cell);
 				}
 			}
 			public void mouseEntered(MouseEvent e)
@@ -207,6 +210,16 @@ public class PLPVisualizer extends JFrame
 			}
 		});
 		thread(frontend, false);
+	}
+	
+	protected void showGraphPopupMenu(MouseEvent e, mxCell cell)
+	{
+		Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),
+				graphComponent);
+		ValuePopupMenu menu = new ValuePopupMenu(cell);
+		menu.show(graphComponent, pt.x, pt.y);
+
+		e.consume();
 	}
 	
 	public void drawGraph(double rescale)
@@ -287,6 +300,10 @@ public class PLPVisualizer extends JFrame
 		{
 			graph.getModel().endUpdate();
 		}
+	}
+	
+	public Object getGraphComponent() {
+		return graphComponent;
 	}
 
 	/**

@@ -97,7 +97,7 @@
 			"pos_y": 420,
 			"width": 40,
 			"height": 60,
-			"shape": "shape=sign"
+			"shape": "shape=ellipse;perimeter=ellipsePerimeter;"
 		},
 		"registers": {
 			"name": "Registers",

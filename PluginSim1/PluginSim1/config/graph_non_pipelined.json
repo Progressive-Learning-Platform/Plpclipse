@@ -34,7 +34,7 @@
 			"pos_y": 40,
 			"width": 20,
 			"height": 40,
-			"shape": "shape=shift"
+			"shape": "shape=ellipse;perimeter=ellipsePerimeter;"
 		},
 		"control": {
 			"name": "Control",
@@ -61,7 +61,7 @@
 			"pos_y": 420,
 			"width": 40,
 			"height": 60,
-			"shape": "shape=sign"
+			"shape": "shape=ellipse;perimeter=ellipsePerimeter;"
 		},
 		"registers": {
 			"name": "Registers",

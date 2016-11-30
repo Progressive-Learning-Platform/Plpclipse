@@ -334,7 +334,7 @@ public class PLPCPUSnapshot_keys
 	public static String EX_MEM_CTL_MEMWRITE = "ex_mem_ctl_memwrite";
 	public static String EX_MEM_CTL_MEMREAD = "ex_mem_ctl_memread";
 	public static String EX_MEM_CTL_LINKADDRESS = "ex_mem_ctl_linkaddress";
-	public static String EX_MEM_CTL_JAL = "ex_mem_ctl_jal";
+	public static String EX_MEM_CTL_JAL = "ex_mem_ctl_jal";	
 	public static String EX_MEM_MEMWRITEDATA = "ex_mem_memwritedata";
 	public static String EX_IF_STALL_SET = "ex_if_stall_set";
 	
@@ -402,6 +402,9 @@ public class PLPCPUSnapshot_keys
 	
 	public static String ADD1_IF_ID_BUFFER_EDGE = "add1_if_id_buffer";
 	public static String IM_IF_ID_BUFFER_EDGE = "im_if_id_buffer";
+	public static String EX_MEM_BUFFER_DATA_MEMORY_ADDRESS_EDGE = "ex_mem_buffer_data_left";
+	public static String EX_MEM_BUFFER_DATA_MEMORY_WRITE_DATA_EDGE = "ex_mem_buffer_data_right";
+	public static String DATA_MEMORY_MEM_WB_BUFFER_READ_DATA_EDGE = "data_memory_mem_wb_buffer";	
 	
 	public static String EDGE_ENABLE = "enabled_edges";
 	

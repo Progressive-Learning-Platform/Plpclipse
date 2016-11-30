@@ -70,7 +70,7 @@
 			"pos_y": 40,
 			"width": 20,
 			"height": 40,
-			"shape": "shape=shift"
+			"shape": "shape=ellipse;perimeter=ellipsePerimeter;"
 		},
 		"control": {
 			"name": "Control",
@@ -79,7 +79,7 @@
 			"pos_y": 140,
 			"width": 60,
 			"height": 120,
-			"shape": "shape=control"
+			"shape": "shape=ellipse;perimeter=ellipsePerimeter;"
 		},
 		"mux1": {
 			"name": "Mux\n1",
@@ -115,7 +115,7 @@
 			"pos_y": 130,
 			"width": 20,
 			"height": 40,
-			"shape": "shape=shift"
+			"shape": "shape=ellipse;perimeter=ellipsePerimeter;"
 		},
 		"mux2": {
 			"name": "Mux\n2",

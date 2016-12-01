@@ -327,12 +327,20 @@ public class SimCore extends PLPSimCore {
     	}
     	obj.put(PLPCPUSnapshot_keys.REGISTER1_READ, String.valueOf(ex_stage.i_data_rs));
     	obj.put(PLPCPUSnapshot_keys.REGISTER2_READ, String.valueOf(ex_stage.i_data_rt));
+    	/* Edges stretched from Register File - Begin */
+    	
+    	/* Edges stretched from Register File - End */
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTERS, obj);
     	
     	//Sign extend immediate value
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_INPUT, String.valueOf(id_stage.imm_field));
     	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_OUTPUT, String.valueOf(ex_stage.i_data_imm_signExtended));
+    	/* Edge stretched from Sign_Extend */
+    	/*if (id_stage.imm_field != 0)
+			edge_obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_ID_EX_EDGE, String.valueOf(id_stage.ex_reg.i_data_imm_signExtended));
+		else
+			edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_SIGN_EDGE);*/
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SIGN_EXTEND, obj);
     	
     	//Control
@@ -560,6 +568,37 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.IF_ID_PC_ADD, Long.toHexString(pc.eval() + 4));
     	obj.put(PLPCPUSnapshot_keys.IF_ID_INSTRUCTION, Long.toHexString((long)bus.read(pc.eval())));
     	obj.put(PLPCPUSnapshot_keys.IF_ID_INSTRUCTION_ADDR, Long.toHexString(pc.eval()));
+    	/* Edges stretched from IF_ID_Buffer - Begin */
+    	// IF_ID_Buffer to Control
+    	if (id_stage.instruction != 0)
+    		edge_obj.put(PLPCPUSnapshot_keys.IF_ID_CONTROL_EDGE, Long.toHexString(id_stage.instruction));
+    	else
+    		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_CONTROL_EDGE);
+    	
+    	// IF_ID_Buffer to ID_EX_Buffer
+    	if (id_stage.instruction != 0)
+    		edge_obj.put(PLPCPUSnapshot_keys.IF_ID_ID_EX_EDGE, Long.toHexString(pc.eval() + 4));
+    	else
+    		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_ID_EX_EDGE);
+    	
+    	// IF_ID_Buffer to Mux Upper
+    	if (id_stage.ex_reg.i_ctl_rt_addr != 0 || id_stage.ex_reg.i_ctl_rd_addr != 0)
+    		edge_obj.put(PLPCPUSnapshot_keys.IF_ID_MUX1_UPPER_EDGE, String.valueOf(id_stage.ex_reg.i_ctl_rt_addr));
+    	else
+    		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_MUX1_UPPER_EDGE);
+    	
+    	// IF_ID_Buffer to Mux Lower
+    	if (id_stage.ex_reg.i_ctl_rt_addr != 0 || id_stage.ex_reg.i_ctl_rd_addr != 0)
+    		edge_obj.put(PLPCPUSnapshot_keys.IF_ID_MUX1_LOWER_EDGE, String.valueOf(id_stage.ex_reg.i_ctl_rd_addr));
+    	else
+    		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_MUX1_LOWER_EDGE);
+    	
+    	// IF_ID_Buffer to Sign_Extend
+    	/*if (id_stage.imm_field != 0)
+    		edge_obj.put(PLPCPUSnapshot_keys.IF_ID_SIGN_EDGE, String.valueOf(id_stage.imm_field));
+    	else
+    		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_SIGN_EDGE);*/
+    	/* Edges stretched from IF_ID_Buffer - End */
     	
     	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.ID_EX_INTERMEDIATE);
     	obj.put(PLPCPUSnapshot_keys.ID_EX_INSTRUCTION, Long.toHexString(id_stage.instruction));

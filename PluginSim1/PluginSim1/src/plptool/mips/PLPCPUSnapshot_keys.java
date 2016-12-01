@@ -406,6 +406,25 @@ public class PLPCPUSnapshot_keys
 	public static String EX_MEM_BUFFER_DATA_MEMORY_WRITE_DATA_EDGE = "ex_mem_buffer_data_right";
 	public static String DATA_MEMORY_MEM_WB_BUFFER_READ_DATA_EDGE = "data_memory_mem_wb_buffer";	
 	
+	/* Edges specific in ID Stage */
+	public static String IF_ID_SHIFT_PC_EDGE = "if_id_buffer_shift1";
+	//public static String SHIFT1_MUX4_EDGE = "shift1_mux4";
+	public static String IF_ID_CONTROL_EDGE = "if_id_buffer_control";
+	public static String CONTROL_ID_EX_EDGE_1 = "control_id_ex_buffer";
+	public static String CONTROL_ID_EX_EDGE_2 = "control_id_ex_buffer2";
+	public static String CONTROL_ID_EX_EDGE_3 = "control_id_ex_buffer3";
+	public static String IF_ID_ID_EX_EDGE = "if_id_buffer_id_ex_buffer";
+	public static String IF_ID_MUX1_UPPER_EDGE = "im_mux1_upper";
+	public static String IF_ID_MUX1_LOWER_EDGE = "im_mux1_lower";
+	//public static String MUX1_REGISTERS_EDGE = "mux1_registers";
+	public static String REGISTERS_ID_EX_EDGE_1 = "registers_id_ex_buffer_1";
+	public static String REGISTERS_ID_EX_EDGE_2 = "registers_id_ex_buffer_2";
+	public static String ID_EX_REGISTERS_EDGE = "id_ex_buffer_registers";
+	public static String ID_EX_MUX1_EDGE = "id_ex_buffer_mux1";
+	public static String IF_ID_SIGN_EDGE = "im_sign";
+	public static String SIGN_EXTEND_ID_EX_EDGE = "sign_extend_id_ex_buffer";
+	
+	
 	public static String EDGE_ENABLE = "enabled_edges";
 	
 	public static void initializeKeysFromFile()

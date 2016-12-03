@@ -95,9 +95,15 @@ public class PLPCPUSnapshot_keys
 	public static String ALU_ZERO = "zero";
 	
 	public static String MUX_BRANCH_1 = "mux_branch_1";
+	public static String MUX_BRANCH_1_INPUT_0 = "input_0";
+	public static String MUX_BRANCH_1_INPUT_1 = "input_1";
+	public static String MUX_BRANCH_1_OUTPUT = "output";
 	public static String MUX_BRANCH_1_VALUE = "value";
 	
 	public static String MUX_BRANCH_2 = "mux_branch_2";
+	public static String MUX_BRANCH_2_INPUT_0 = "input_0";
+	public static String MUX_BRANCH_2_INPUT_1 = "input_1";
+	public static String MUX_BRANCH_2_OUTPUT = "output";
 	public static String MUX_BRANCH_2_VALUE = "value";
 	
 	public static String AND_GATE = "and_gate";
@@ -373,6 +379,8 @@ public class PLPCPUSnapshot_keys
 	public static String CONTROL_EDGE = "im_control";
 	public static String IM_MUX1_LOWER_EDGE = "im_mux1_lower";
 	public static String IM_MUX1_UPPER_EDGE = "im_mux1_upper";
+	public static String IM_REGISTER_READ_RIGHT_EDGE = "im_register_read_right";
+	public static String IM_REGISTER_READ_LEFT_EDGE = "im_register_read_left";
 	public static String IM_SIGN_EDGE = "im_sign";
 	public static String IM_ALUC_EDGE = "im_aluc";
 	public static String CONTROL_MUX1_EDGE = "control_mux1";

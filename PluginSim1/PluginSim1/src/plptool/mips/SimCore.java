@@ -1089,31 +1089,31 @@ public class SimCore extends PLPSimCore {
     /***
      * This function will update the non pipelined version of the cpu snapshot.
      * It will be used by the PLP Data Visualizer.
-     * @param pc_value
-     * @param instruction
-     * @param instruction_address
-     * @param bAluOp
-     * @param bAluSrc
-     * @param bJump
-     * @param bMemRead
-     * @param bMemToReg
-     * @param bRegDst
-     * @param bMemWrite
-     * @param bRegWrite
-     * @param bBranch
-     * @param opcode
-     * @param rs
-     * @param rd
-     * @param rt
-     * @param funct
-     * @param imm
-     * @param jaddr
-     * @param s
-     * @param t
-     * @param s_imm
-     * @param alu_result
-     * @param w_r
-     * @param branch_taken
+     * @param pc_value - Current value of the program counter
+     * @param instruction - Current instruction which is being executed
+     * @param instruction_address - Address of the current instruction usually pc-4
+     * @param bAluOp - Control signal informing whether this involves ALU Operation
+     * @param bAluSrc - Control signal informing whether to taken input from immediate or register
+     * @param bJump - Control signal informing whether this is a jump instruction
+     * @param bMemRead - Control signal informing whether a data memory read is needed
+     * @param bMemToReg - Control signal informing whether resultant is from ALU or memory read
+     * @param bRegDst - Control signal informing whether there is 3rd register or not
+     * @param bMemWrite - Control signal informing whether there is data memory write
+     * @param bRegWrite - Control signal informing we are writing to register file
+     * @param bBranch - Control signal informing it is branch instruction or not
+     * @param opcode - Current instructions opcode
+     * @param rs - Current instructions source register
+     * @param rd - Current instructions destination register
+     * @param rt - Current instructions transition register
+     * @param funct - Current instructions ALU operations control
+     * @param imm - Current instructions immediate value
+     * @param jaddr - Current instructions jump address
+     * @param s - Register read of the source register
+     * @param t - Register read of the transition register
+     * @param s_imm =  Current instructions sign extended immediate value
+     * @param alu_result - Current instructions ALU result
+     * @param w_r - Current instructions write back value of the register
+     * @param branch_taken - Whether current instruction takes branch or not
      */
     private void update_nonpipelined_cpusnapshot(long pc_value, 
     		long instruction, 
@@ -1141,6 +1141,7 @@ public class SimCore extends PLPSimCore {
     		long w_r,
     		boolean branch_taken)
     {
+    	long lOutputOfbranchMux = 0;
     	
     	JSONObject obj;
     	JSONObject edge_obj = new JSONObject();
@@ -1201,6 +1202,9 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.REGISTER2_READ, String.valueOf(t));
     	obj.put(PLPCPUSnapshot_keys.REGISTER_WRITE_DATA, w_r);
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTERS, obj);
+    	
+    	edge_obj.put(PLPCPUSnapshot_keys.IM_REGISTER_READ_LEFT_EDGE, Integer.toBinaryString(rt));
+    	edge_obj.put(PLPCPUSnapshot_keys.IM_REGISTER_READ_RIGHT_EDGE, Integer.toBinaryString(rs));
     	
     	//Sign extend immediate value
     	obj = new JSONObject();
@@ -1339,6 +1343,9 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.ALU_RESULT, String.valueOf(alu_result));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU, obj);
     	
+    	edge_obj.put(PLPCPUSnapshot_keys.ALU_DATA_MEMORY_EDGE, Long.toHexString(alu_result));
+    	edge_obj.put(PLPCPUSnapshot_keys.ALU_MUX5_EDGE, String.valueOf(alu_result));
+    	
     	
     	//ADD PC and BRANCH offset
     	obj = new JSONObject();
@@ -1371,19 +1378,41 @@ public class SimCore extends PLPSimCore {
     	
     	//MUX PC+4 or branch
     	obj = new JSONObject();
+    	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_1_INPUT_0, Long.toHexString(instruction_address+4));
+    	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_1_INPUT_1, Long.toHexString(instruction_address+4 + s_imm<<2));
     	if(bBranch && branch_taken)
+    	{
     		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_1_VALUE, "1");
+    		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_1_OUTPUT, Long.toHexString(instruction_address+4 + s_imm<<2));
+    		edge_obj.put(PLPCPUSnapshot_keys.MUX3_MUX4_EDGE, Long.toHexString(instruction_address+4 + s_imm<<2));
+    		lOutputOfbranchMux = instruction_address+4 + s_imm<<2;
+    	}
     	else
+    	{
     		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_1_VALUE, "0");
+    		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_1_OUTPUT, Long.toHexString(instruction_address+4));
+    		edge_obj.put(PLPCPUSnapshot_keys.MUX3_MUX4_EDGE, Long.toHexString(instruction_address+4));
+    		lOutputOfbranchMux = instruction_address+4;
+    	}
     	
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MUX_BRANCH_1, obj);
     	
     	//MUX to decide jump or pc/branch
     	obj = new JSONObject();
+    	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_INPUT_0, Long.toHexString(lOutputOfbranchMux));
+    	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_INPUT_1, Long.toHexString(jaddr<<2));
     	if(bJump)
+    	{
     		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_VALUE, "1");
+    		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_OUTPUT, Long.toHexString(jaddr<<2));
+    		edge_obj.put(PLPCPUSnapshot_keys.MUX4_PC_EDGE, Long.toHexString(jaddr<<2));
+    	}
     	else
+    	{
+    		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_OUTPUT, Long.toHexString(lOutputOfbranchMux));
     		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_VALUE, "0");
+    		edge_obj.put(PLPCPUSnapshot_keys.MUX4_PC_EDGE, Long.toHexString(lOutputOfbranchMux));
+    	}
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MUX_BRANCH_2, obj);
     	
     	//Data Memory

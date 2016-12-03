@@ -196,7 +196,7 @@ public class PLPVisualizer extends JFrame
 				// Set previous enabled edges to disabled.
 				graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "green", enabled_list.toArray());
 				for (Object myCell : enabled_list) {
-					((mxCell)myCell).setValue(null);
+					((mxCell)myCell).setValue("");
 				}
 				// Then clear whole list to store new enabled edges.
 				enabled_list.clear();

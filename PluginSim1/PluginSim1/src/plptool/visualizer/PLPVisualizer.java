@@ -195,6 +195,10 @@ public class PLPVisualizer extends JFrame
 				json_keys = edges.keys();
 				// Set previous enabled edges to disabled.
 				graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "green", enabled_list.toArray());
+				for (int i = 0; i < enabled_list.size(); i++) {
+					mxCell myCell = (mxCell) enabled_list.get(i);
+					myCell.setValue(null);
+				}
 				// Then clear whole list to store new enabled edges.
 				enabled_list.clear();
 				while( json_keys.hasNext() ){

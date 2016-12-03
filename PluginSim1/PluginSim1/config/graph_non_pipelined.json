@@ -213,16 +213,16 @@
 			"vertex_id_to": "mux1",
 			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.4;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
 		},
-		"im_register_read": {
+		"im_register_read_right": {
 			"name": "",
-			"id": "im_regisiter_read",
+			"id": "im_register_read_right",
 			"vertex_id_from": "instruction_memory",
 			"vertex_id_to": "registers",
 			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.6;exitPerimeter=1;entryX=0;entryY=0.6;entryPerimeter=1;"
 		},
-		"im_register_write": {
+		"im_register_read_left": {
 			"name": "",
-			"id": "im_regisiter_write",
+			"id": "im_register_read_left",
 			"vertex_id_from": "instruction_memory",
 			"vertex_id_to": "registers",
 			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.7;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"

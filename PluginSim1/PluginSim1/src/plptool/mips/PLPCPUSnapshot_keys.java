@@ -63,6 +63,9 @@ public class PLPCPUSnapshot_keys
 	 */
 	public static String REGISTER_MUX = "reg_mux";
 	public static String REGISTER_MUX_VALUE = "value";
+	public static String REGISTER_MUX_INPUT1 = "input_0";
+	public static String REGISTER_MUX_INPUT2 = "input_1";
+	public static String REGISTER_MUX_OUTPUT = "output";
 		
 	public static String SIGN_EXTEND = "sign_extend";
 	public static String SIGN_EXTEND_INPUT = "input";
@@ -128,6 +131,9 @@ public class PLPCPUSnapshot_keys
 	 * This key's value will indicate which input is used for ALU
 	 */
 	public static String ALU_MUX = "alu_mux";
+	public static String ALU_MUX_INPUT_0 = "input_0";
+	public static String ALU_MUX_INPUT_1 = "input_1";
+	public static String ALU_MUX_OUTPUT = "output";
 	public static String ALU_MUX_VALUE = "value";
 	
 	/**
@@ -363,7 +369,7 @@ public class PLPCPUSnapshot_keys
 	public static String PC_ADD_EDGE = "pc_add1";
 	public static String PC_IMM_EDGE = "pc_im";
 	public static String ADD_PC_2_ADD_BRANCH_EDGE = "add1_add2";
-	public static String SHIFT_PC_EDGE = "im_shift1";
+	public static String IM_SHIFT_ADDR_EDGE = "im_shift1";
 	public static String CONTROL_EDGE = "im_control";
 	public static String IM_MUX1_LOWER_EDGE = "im_mux1_lower";
 	public static String IM_MUX1_UPPER_EDGE = "im_mux1_upper";

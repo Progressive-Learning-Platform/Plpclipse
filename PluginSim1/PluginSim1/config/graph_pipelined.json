@@ -393,14 +393,14 @@
 		},
 		"ex_mem_buffer_data_top": {
 			"name": "",
-			"id": "ex_mem_buffer_data_left",
+			"id": "ex_mem_buffer_data_top",
 			"vertex_id_from": "ex_mem_buffer",
 			"vertex_id_to": "data_memory",
 			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=1;exitY=0.55;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;"
 		},
 		"ex_mem_buffer_data_bottom": {
 			"name": "",
-			"id": "ex_mem_buffer_data_right",
+			"id": "ex_mem_buffer_data_bottom",
 			"vertex_id_from": "ex_mem_buffer",
 			"vertex_id_to": "data_memory",
 			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=1;exitY=0.84;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;"

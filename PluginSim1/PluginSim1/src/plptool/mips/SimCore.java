@@ -365,7 +365,7 @@ public class SimCore extends PLPSimCore {
     	if(ex_stage.i_fwd_ctl_memread != 0)
     	{
     		control_signals += "Memory Read,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_DATAMEMORY_RIGHT_EDGE, "Memory Read");
+    		edge_obj.put(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_MEM_READ_EDGE, "Memory Read");
     	}
     	if(ex_stage.i_fwd_ctl_memtoreg != 0)
     	{
@@ -380,7 +380,7 @@ public class SimCore extends PLPSimCore {
     	if(ex_stage.i_fwd_ctl_memwrite != 0)
     	{
     		control_signals += "Memory Write,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_DATAMEMORY_LEFT_EDGE, "Memory Write");
+    		edge_obj.put(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_MEM_WRITE_EDGE, "Memory Write");
     	}
     	if(ex_stage.i_fwd_ctl_regwrite != 0)
     	{
@@ -490,20 +490,24 @@ public class SimCore extends PLPSimCore {
     	
     	//Data Memory
     	obj = new JSONObject();
-    	obj.put(PLPCPUSnapshot_keys.DATA_MEM_ADDRESS, Long.toHexString(mem_stage.fwd_data_alu_result));    	
-    	if(mem_stage.fwd_data_alu_result != 0)
-    		edge_obj.put(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_ADDRESS_EDGE, Long.toHexString(mem_stage.fwd_data_alu_result));
-    	else
-    		edge_obj.remove(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_ADDRESS_EDGE);
+    	if(mem_stage.ctl_memwrite != 0 || mem_stage.ctl_memread != 0){
+	    	obj.put(PLPCPUSnapshot_keys.DATA_MEM_ADDRESS, Long.toHexString(mem_stage.fwd_data_alu_result));    	
+	    	if(mem_stage.fwd_data_alu_result != 0)
+	    		edge_obj.put(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_ADDRESS_EDGE, Long.toHexString(mem_stage.fwd_data_alu_result));
+	    	else
+	    		edge_obj.remove(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_ADDRESS_EDGE);
+    	}
     	if(mem_stage.ctl_memwrite != 0){
     		obj.put(PLPCPUSnapshot_keys.DATA_MEM_WRITE, mem_stage.data_mem_store);
     		edge_obj.put(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_WRITE_DATA_EDGE, String.valueOf(mem_stage.data_mem_store));
+    		edge_obj.put(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_MEM_WRITE_EDGE, "Memory Write");
     	}
     	else
     		edge_obj.remove(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_WRITE_DATA_EDGE);
     	if(mem_stage.ctl_memread != 0){
     		obj.put(PLPCPUSnapshot_keys.DATA_MEM_READ, mem_stage.data_mem_load);
     		edge_obj.put(PLPCPUSnapshot_keys.DATA_MEMORY_MEM_WB_BUFFER_READ_DATA_EDGE, String.valueOf(mem_stage.data_mem_load));
+    		edge_obj.put(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_MEM_READ_EDGE, "Memory Read");
     	}
     	else
     		edge_obj.remove(PLPCPUSnapshot_keys.DATA_MEMORY_MEM_WB_BUFFER_READ_DATA_EDGE);
@@ -1343,7 +1347,7 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.ALU_RESULT, String.valueOf(alu_result));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU, obj);
     	
-    	edge_obj.put(PLPCPUSnapshot_keys.ALU_DATA_MEMORY_EDGE, Long.toHexString(alu_result));
+    	//edge_obj.put(PLPCPUSnapshot_keys.ALU_DATA_MEMORY_EDGE, Long.toHexString(alu_result));
     	edge_obj.put(PLPCPUSnapshot_keys.ALU_MUX5_EDGE, String.valueOf(alu_result));
     	
     	
@@ -1424,7 +1428,7 @@ public class SimCore extends PLPSimCore {
     		edge_obj.put(PLPCPUSnapshot_keys.ALU_DATA_MEMORY_EDGE, Long.toHexString(alu_result));
     	}
     	if(bMemRead) {
-    		obj.put(PLPCPUSnapshot_keys.DATA_MEM_READ, w_r);
+    		obj.put(PLPCPUSnapshot_keys.DATA_MEM_READ, w_r);    		
     		edge_obj.put(PLPCPUSnapshot_keys.ALU_DATA_MEMORY_EDGE, Long.toHexString(alu_result));
     		edge_obj.put(PLPCPUSnapshot_keys.MUX5_REGISTERS_EDGE, String.valueOf(w_r));
     		edge_obj.put(PLPCPUSnapshot_keys.DATA_MEMORY_MUX5_EDGE, String.valueOf(w_r));

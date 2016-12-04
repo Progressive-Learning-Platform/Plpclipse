@@ -419,7 +419,8 @@ public class PLPCPUSnapshot_keys
 	public static String EX_MEM_BUFFER_DATA_MEMORY_ADDRESS_EDGE = "ex_mem_buffer_data_left";
 	public static String EX_MEM_BUFFER_DATA_MEMORY_WRITE_DATA_EDGE = "ex_mem_buffer_data_right";
 	public static String DATA_MEMORY_MEM_WB_BUFFER_READ_DATA_EDGE = "data_memory_mem_wb_buffer";	
-	
+	public static String EX_MEM_BUFFER_DATA_MEMORY_MEM_READ_EDGE = "ex_mem_buffer_data_top";
+	public static String EX_MEM_BUFFER_DATA_MEMORY_MEM_WRITE_EDGE = "ex_mem_buffer_data_bottom";
 	/* Edges specific in ID Stage */
 	public static String IF_ID_SHIFT_PC_EDGE = "if_id_buffer_shift1";
 	//public static String SHIFT1_MUX4_EDGE = "shift1_mux4";

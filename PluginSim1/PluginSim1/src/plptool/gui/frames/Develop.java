@@ -3023,9 +3023,9 @@ public final class Develop extends javax.swing.JFrame {
     }//GEN-LAST:event_menuSetMainProgramActionPerformed
 
     private void btnAssembleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssembleActionPerformed
-    	PLPVisualizer frame = PLPVisualizer.getInstance(Config.simFunctional);
-    	frame.setVisible(false);
-    	assemble();
+        PLPVisualizer frame = PLPVisualizer.getInstance(Config.simFunctional);
+        frame.setVisible(false);
+        assemble();
     }//GEN-LAST:event_btnAssembleActionPerformed
 
     private void menuExportASMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExportASMActionPerformed
@@ -3381,8 +3381,8 @@ public final class Develop extends javax.swing.JFrame {
         if(btnSimulate.isSelected()) {
             simBegin();
         } else {
-        	PLPVisualizer frame = PLPVisualizer.getInstance(Config.simFunctional);
-        	frame.setVisible(false);;
+            PLPVisualizer frame = PLPVisualizer.getInstance(Config.simFunctional);
+            frame.setVisible(false);;
             simEnd();
             //plp.refreshProjectView(false);
             safeRefresh(false);

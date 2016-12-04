@@ -133,7 +133,7 @@
 			"pos_y": 450,
 			"width": 40,
 			"height": 60,
-			"shape": "shape=add"
+			"shape": "shape=ellipse;perimeter=ellipsePerimeter;"
 		},
 		"forwarding_unit": {
 			"name": "Forwarding Unit",
@@ -185,9 +185,9 @@
 			"id": "and_gate",
 			"pos_x": 520,
 			"pos_y": 110,
-			"width": 30,
+			"width": 20,
 			"height": 20,
-			"shape": "shape=and"
+			"shape": "shape=triangle;perimeter=trianglePerimeter;"
 		},
 		"data_memory": {
 			"name": "Data\nMemory",

@@ -142,7 +142,7 @@
 			"pos_y": 170,
 			"width": 20,
 			"height": 20,
-			"shape": "shape=and"
+			"shape": "shape=triangle;perimeter=trianglePerimeter;"
 		},
 		"data_memory": {
 			"name": "Data\nmemory",

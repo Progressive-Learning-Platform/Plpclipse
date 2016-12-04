@@ -3,8 +3,8 @@
 		"pc": {
 			"name": "PC",
 			"id": "pc",
-			"pos_x": 40,
-			"pos_y": 280,
+			"pos_x": 20,
+			"pos_y": 260,
 			"width": 20,
 			"height": 60,
 			"shape": ""
@@ -12,8 +12,8 @@
 		"add1": {
 			"name": "Add",
 			"id": "add1",
-			"pos_x": 120,
-			"pos_y": 120,
+			"pos_x": 80,
+			"pos_y": 100,
 			"width": 60,
 			"height": 80,
 			"shape": "shape=add"
@@ -21,8 +21,8 @@
 		"if_id_buffer": {
 			"name": "IF\nID",
 			"id": "if_id_buffer",
-			"pos_x": 200,
-			"pos_y": 120,
+			"pos_x": 160,
+			"pos_y": 100,
 			"width": 20,
 			"height": 400,
 			"shape": ""
@@ -30,26 +30,26 @@
 		"id_ex_buffer": {
 			"name": "ID\nEX",
 			"id": "id_ex_buffer",
-			"pos_x": 440,
-			"pos_y": 80,
+			"pos_x": 400,
+			"pos_y": 100,
 			"width": 20,
-			"height": 440,
+			"height": 400,
 			"shape": ""
 		},
 		"ex_mem_buffer": {
 			"name": "EX\nMEM",
 			"id": "ex_mem_buffer",
-			"pos_x": 600,
-			"pos_y": 80,
+			"pos_x": 560,
+			"pos_y": 100,
 			"width": 20,
-			"height": 440,
+			"height": 400,
 			"shape": ""
 		},
 		"mem_wb_buffer": {
 			"name": "MEM\nWB",
 			"id": "mem_wb_buffer",
-			"pos_x": 720,
-			"pos_y": 120,
+			"pos_x": 680,
+			"pos_y": 100,
 			"width": 20,
 			"height": 400,
 			"shape": ""
@@ -57,8 +57,8 @@
 		"instruction_memory": {
 			"name": "Instruction\nMemory",
 			"id": "instruction_memory",
-			"pos_x": 120,
-			"pos_y": 300,
+			"pos_x": 80,
+			"pos_y": 280,
 			"width": 60,
 			"height": 80,
 			"shape": ""
@@ -66,8 +66,8 @@
 		"shift1": {
 			"name": "\nShift Left 2",
 			"id": "shift1",
-			"pos_x": 260,
-			"pos_y": 40,
+			"pos_x": 220,
+			"pos_y": 20,
 			"width": 20,
 			"height": 40,
 			"shape": "shape=ellipse;perimeter=ellipsePerimeter;"
@@ -75,17 +75,17 @@
 		"control": {
 			"name": "Control",
 			"id": "control",
-			"pos_x": 280,
-			"pos_y": 140,
+			"pos_x": 250,
+			"pos_y": 300,
 			"width": 60,
-			"height": 120,
+			"height": 100,
 			"shape": "shape=ellipse;perimeter=ellipsePerimeter;"
 		},
 		"mux1": {
 			"name": "Mux\n1",
 			"id": "mux1",
-			"pos_x": 290,
-			"pos_y": 300,
+			"pos_x": 250,
+			"pos_y": 470,
 			"width": 20,
 			"height": 40,
 			"shape": "shape=mux"
@@ -93,8 +93,8 @@
 		"sign_extend": {
 			"name": "Sign\nExtend",
 			"id": "sign_extend",
-			"pos_x": 320,
-			"pos_y": 420,
+			"pos_x": 210,
+			"pos_y": 200,
 			"width": 40,
 			"height": 60,
 			"shape": "shape=ellipse;perimeter=ellipsePerimeter;"
@@ -102,8 +102,8 @@
 		"registers": {
 			"name": "Registers",
 			"id": "registers",
-			"pos_x": 340,
-			"pos_y": 280,
+			"pos_x": 300,
+			"pos_y": 420,
 			"width": 80,
 			"height": 120,
 			"shape": ""
@@ -111,8 +111,8 @@
 		"shift2": {
 			"name": "\nShift left 2",
 			"id": "shift2",
-			"pos_x": 340,
-			"pos_y": 130,
+			"pos_x": 280,
+			"pos_y": 160,
 			"width": 20,
 			"height": 40,
 			"shape": "shape=ellipse;perimeter=ellipsePerimeter;"
@@ -120,8 +120,8 @@
 		"mux2": {
 			"name": "Mux\n2",
 			"id": "mux2",
-			"pos_x": 475,
-			"pos_y": 340,
+			"pos_x": 435,
+			"pos_y": 320,
 			"width": 20,
 			"height": 40,
 			"shape": "shape=mux"
@@ -129,8 +129,8 @@
 		"alu_control": {
 			"name": "ALU\nControl",
 			"id": "alu_control",
-			"pos_x": 500,
-			"pos_y": 470,
+			"pos_x": 460,
+			"pos_y": 450,
 			"width": 40,
 			"height": 60,
 			"shape": "shape=add"
@@ -138,8 +138,8 @@
 		"forwarding_unit": {
 			"name": "Forwarding Unit",
 			"id": "forwarding_unit",
-			"pos_x": 460,
-			"pos_y": 550,
+			"pos_x": 420,
+			"pos_y": 530,
 			"width": 140,
 			"height": 30,
 			"shape": ""
@@ -147,8 +147,8 @@
 		"add2": {
 			"name": "Add",
 			"id": "add2",
-			"pos_x": 370,
-			"pos_y": 90,
+			"pos_x": 330,
+			"pos_y": 70,
 			"width": 60,
 			"height": 80,
 			"shape": "shape=add"
@@ -156,8 +156,8 @@
 		"alu": {
 			"name": "ALU",
 			"id": "alu",
-			"pos_x": 545,
-			"pos_y": 260,
+			"pos_x": 475,
+			"pos_y": 240,
 			"width": 40,
 			"height": 80,
 			"shape": "shape=add"
@@ -165,8 +165,8 @@
 		"mux3": {
 			"name": "Mux\n3",
 			"id": "mux3",
-			"pos_x": 120,
-			"pos_y": 70,
+			"pos_x": 620,
+			"pos_y": 50,
 			"width": 20,
 			"height": 40,
 			"shape": "shape=mux"
@@ -174,8 +174,8 @@
 		"mux4": {
 			"name": "Mux\n4",
 			"id": "mux4",
-			"pos_x": 700,
-			"pos_y": 40,
+			"pos_x": 660,
+			"pos_y": 20,
 			"width": 20,
 			"height": 40,
 			"shape": "shape=mux"
@@ -184,7 +184,7 @@
 			"name": "AND",
 			"id": "and_gate",
 			"pos_x": 520,
-			"pos_y": 130,
+			"pos_y": 110,
 			"width": 30,
 			"height": 20,
 			"shape": "shape=and"
@@ -192,8 +192,8 @@
 		"data_memory": {
 			"name": "Data\nMemory",
 			"id": "data_memory",
-			"pos_x": 640,
-			"pos_y": 340,
+			"pos_x": 600,
+			"pos_y": 320,
 			"width": 60,
 			"height": 90,
 			"shape": ""
@@ -201,8 +201,8 @@
 		"mux5": {
 			"name": "Mux\n5",
 			"id": "mux5",
-			"pos_x": 800,
-			"pos_y": 320,
+			"pos_x": 740,
+			"pos_y": 300,
 			"width": 20,
 			"height": 40,
 			"shape": "shape=mux"
@@ -249,28 +249,28 @@
 			"id": "if_id_buffer_control",
 			"vertex_id_from": "if_id_buffer",
 			"vertex_id_to": "control",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.625;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
 		},
 		"im_mux1_upper": {
 			"name": "",
 			"id": "im_mux1_upper",
 			"vertex_id_from": "if_id_buffer",
 			"vertex_id_to": "mux1",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.48;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.92;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
 		},
 		"im_mux1_lower": {
 			"name": "",
 			"id": "im_mux1_lower",
 			"vertex_id_from": "if_id_buffer",
 			"vertex_id_to": "mux1",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.52;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.98;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
 		},
 		"im_sign": {
 			"name": "",
 			"id": "im_sign",
 			"vertex_id_from": "if_id_buffer",
 			"vertex_id_to": "sign_extend",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.825;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.325;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
 		},
 		"id_ex_buffer_aluc": {
 			"name": "",
@@ -284,7 +284,7 @@
 			"id": "control_id_ex_buffer",
 			"vertex_id_from": "control",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.25;exitPerimeter=1;entryX=0;entryY=0.205;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.525;entryPerimeter=1;"
 		},
 		"control_mux1": {
 			"name": "",
@@ -298,56 +298,56 @@
 			"id": "control_id_ex_buffer2",
 			"vertex_id_from": "control",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.274;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.550;entryPerimeter=1;"
 		},
 		"if_id_buffer_id_ex_buffer": {
 			"name": "",
 			"id": "id_ex_buffer_registers",
 			"vertex_id_from": "if_id_buffer",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.38;exitPerimeter=1;entryX=0;entryY=0.438;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.45;exitPerimeter=1;entryX=0;entryY=0.45;entryPerimeter=1;"
 		},
 		"control_id_ex_buffer3": {
 			"name": "",
 			"id": "control_id_ex_buffer3",
 			"vertex_id_from": "control",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.75;exitPerimeter=1;entryX=0;entryY=0.342;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.3;exitPerimeter=1;entryX=0;entryY=0.575;entryPerimeter=1;"
 		},
 		"control_id_ex_buffer4": {
 			"name": "",
 			"id": "control_id_ex_buffer4",
 			"vertex_id_from": "control",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.8;exitPerimeter=1;entryX=0;entryY=0.356;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.4;exitPerimeter=1;entryX=0;entryY=0.600;entryPerimeter=1;"
 		},
 		"control_id_ex_buffer5": {
 			"name": "",
 			"id": "control_id_ex_buffer5",
 			"vertex_id_from": "control",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.85;exitPerimeter=1;entryX=0;entryY=0.372;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.625;entryPerimeter=1;"
 		},
 		"control_id_ex_buffer6": {
 			"name": "",
 			"id": "control_id_ex_buffer6",
 			"vertex_id_from": "control",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.60;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.6;exitPerimeter=1;entryX=0;entryY=0.650;entryPerimeter=1;"
 		},
 		"control_id_ex_buffer7": {
 			"name": "",
 			"id": "control_id_ex_buffer7",
 			"vertex_id_from": "control",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.35;exitPerimeter=1;entryX=0;entryY=0.234;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.7;exitPerimeter=1;entryX=0;entryY=0.675;entryPerimeter=1;"
 		},
 		"control_id_ex_buffer8": {
 			"name": "",
 			"id": "control_id_ex_buffer8",
 			"vertex_id_from": "control",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.9;exitPerimeter=1;entryX=0;entryY=0.4;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.8;exitPerimeter=1;entryX=0;entryY=0.700;entryPerimeter=1;"
 		},
 		"id_ex_buffer_andgate": {
 			"name": "",
@@ -452,14 +452,14 @@
 			"id": "registers_id_ex_buffer_1",
 			"vertex_id_from": "registers",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.25;exitPerimeter=1;entryX=0;entryY=0.524;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.25;exitPerimeter=1;entryX=0;entryY=0.85;entryPerimeter=1;"
 		},
 		"registers_id_ex_buffer_2" :{
 			"name": "",
 			"id": "registers_id_ex_buffer_2",
 			"vertex_id_from": "registers",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.75;exitPerimeter=1;entryX=0;entryY=0.66;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.75;exitPerimeter=1;entryX=0;entryY=0.95;entryPerimeter=1;"
 		},
 		"mux3_mux4" :{
 			"name": "",
@@ -473,14 +473,14 @@
 			"id": "sign_extend_shift2",
 			"vertex_id_from": "sign_extend",
 			"vertex_id_to": "shift2",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.13;exitPerimeter=1;entryX=0;entryY=0.18;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.13;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
 		},
 		"sign_extend_id_ex_buffer" :{
 			"name": "",
 			"id": "sign_extend_id_ex_buffer",
 			"vertex_id_from": "sign_extend",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.842;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.325;entryPerimeter=1;"
 		},
 		"id_ex_buffer_alu" :{
 			"name": "",

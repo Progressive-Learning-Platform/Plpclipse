@@ -3,7 +3,7 @@
 	<background>
 		<linejoin join="round"/>
 		<path>
-			<move x="5" y="5"/>
+			<move x="0" y="5"/>
 			<line x="55" y="25"/>
 			<line x="55" y="75"/>
 			<line x="0" y="95"/>
@@ -26,51 +26,6 @@
 			<line x="-10" y="60"/>
 			<line x="5" y="50"/>
 			<line x="-10" y="40"/>
-			<close/>
-		</path>
-	</background>
-	<foreground>
-		<fillstroke/>
-	</foreground>
-</shape>
-
-<shape name="control" aspect="fixed">
-	<background>
-		<ellipse x="0" y="-40" w="100" h="180"/>
-	</background>
-	<foreground>
-   		<fillstroke/>
-		<stroke/>
-	</foreground>
-</shape>
-
-<shape name="shift" aspect="fixed">
-	<background>
-		<ellipse x="5" y="-30" w="90" h="180"/>
-	</background>
-	<foreground>
-   		<fillstroke/>
-		<stroke/>
-	</foreground>
-</shape>
-
-<shape name="sign" aspect="fixed">
-	<background>
-		<ellipse x="5" y="-30" w="90" h="160"/>
-	</background>
-	<foreground>
-   		<fillstroke/>
-		<stroke/>
-	</foreground>
-</shape>
-
-<shape name="and" aspect="fixed">
-	<background>
-		<linejoin join="round"/>
-		<path>
-			<move x="0" y="0"/>
-			<line x="100" y="50"/>
-			<line x="0" y="100"/>
 			<close/>
 		</path>
 	</background>

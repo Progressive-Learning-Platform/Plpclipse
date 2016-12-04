@@ -195,6 +195,9 @@ public class PLPVisualizer extends JFrame
 				json_keys = edges.keys();
 				// Set previous enabled edges to disabled.
 				graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "green", enabled_list.toArray());
+				for (Object myCell : enabled_list) {
+					((mxCell)myCell).setValue("");
+				}
 				// Then clear whole list to store new enabled edges.
 				enabled_list.clear();
 				while( json_keys.hasNext() ){
@@ -226,6 +229,7 @@ public class PLPVisualizer extends JFrame
 	{
 		Object parent = graph.getDefaultParent();
 		this.graph.removeCells(graph.getChildVertices(parent));
+		graph.getStylesheet().getDefaultVertexStyle().put(mxConstants.STYLE_FONTSIZE, Double.toString(22 * rescale));
 
 		BufferedReader reader;
 		String line = null;
@@ -251,7 +255,6 @@ public class PLPVisualizer extends JFrame
 			// create nodex
 			Iterator<?> json_keys = vertices.keys();
 			ArrayList<Object> cells = new ArrayList<Object>();
-			String fontSize = "fontSize=" + Double.toString(22 * rescale) + ";";
 			
 			while( json_keys.hasNext() ){
 				String json_key = (String)json_keys.next();
@@ -262,7 +265,7 @@ public class PLPVisualizer extends JFrame
 											node.getDouble("pos_y") * rescale,
 											node.getDouble("width") * rescale,
 											node.getDouble("height") * rescale,
-											fontSize + node.getString("shape"));
+											node.getString("shape"));
 				cells.add(vertex);
 			}
 

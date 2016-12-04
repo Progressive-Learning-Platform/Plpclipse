@@ -63,6 +63,9 @@ public class PLPCPUSnapshot_keys
 	 */
 	public static String REGISTER_MUX = "reg_mux";
 	public static String REGISTER_MUX_VALUE = "value";
+	public static String REGISTER_MUX_INPUT1 = "input_0";
+	public static String REGISTER_MUX_INPUT2 = "input_1";
+	public static String REGISTER_MUX_OUTPUT = "output";
 		
 	public static String SIGN_EXTEND = "sign_extend";
 	public static String SIGN_EXTEND_INPUT = "input";
@@ -92,9 +95,15 @@ public class PLPCPUSnapshot_keys
 	public static String ALU_ZERO = "zero";
 	
 	public static String MUX_BRANCH_1 = "mux_branch_1";
+	public static String MUX_BRANCH_1_INPUT_0 = "input_0";
+	public static String MUX_BRANCH_1_INPUT_1 = "input_1";
+	public static String MUX_BRANCH_1_OUTPUT = "output";
 	public static String MUX_BRANCH_1_VALUE = "value";
 	
 	public static String MUX_BRANCH_2 = "mux_branch_2";
+	public static String MUX_BRANCH_2_INPUT_0 = "input_0";
+	public static String MUX_BRANCH_2_INPUT_1 = "input_1";
+	public static String MUX_BRANCH_2_OUTPUT = "output";
 	public static String MUX_BRANCH_2_VALUE = "value";
 	
 	public static String AND_GATE = "and_gate";
@@ -128,6 +137,9 @@ public class PLPCPUSnapshot_keys
 	 * This key's value will indicate which input is used for ALU
 	 */
 	public static String ALU_MUX = "alu_mux";
+	public static String ALU_MUX_INPUT_0 = "input_0";
+	public static String ALU_MUX_INPUT_1 = "input_1";
+	public static String ALU_MUX_OUTPUT = "output";
 	public static String ALU_MUX_VALUE = "value";
 	
 	/**
@@ -334,7 +346,7 @@ public class PLPCPUSnapshot_keys
 	public static String EX_MEM_CTL_MEMWRITE = "ex_mem_ctl_memwrite";
 	public static String EX_MEM_CTL_MEMREAD = "ex_mem_ctl_memread";
 	public static String EX_MEM_CTL_LINKADDRESS = "ex_mem_ctl_linkaddress";
-	public static String EX_MEM_CTL_JAL = "ex_mem_ctl_jal";
+	public static String EX_MEM_CTL_JAL = "ex_mem_ctl_jal";	
 	public static String EX_MEM_MEMWRITEDATA = "ex_mem_memwritedata";
 	public static String EX_IF_STALL_SET = "ex_if_stall_set";
 	
@@ -363,10 +375,12 @@ public class PLPCPUSnapshot_keys
 	public static String PC_ADD_EDGE = "pc_add1";
 	public static String PC_IMM_EDGE = "pc_im";
 	public static String ADD_PC_2_ADD_BRANCH_EDGE = "add1_add2";
-	public static String SHIFT_PC_EDGE = "im_shift1";
+	public static String IM_SHIFT_ADDR_EDGE = "im_shift1";
 	public static String CONTROL_EDGE = "im_control";
 	public static String IM_MUX1_LOWER_EDGE = "im_mux1_lower";
 	public static String IM_MUX1_UPPER_EDGE = "im_mux1_upper";
+	public static String IM_REGISTER_READ_RIGHT_EDGE = "im_register_read_right";
+	public static String IM_REGISTER_READ_LEFT_EDGE = "im_register_read_left";
 	public static String IM_SIGN_EDGE = "im_sign";
 	public static String IM_ALUC_EDGE = "im_aluc";
 	public static String CONTROL_MUX1_EDGE = "control_mux1";
@@ -402,6 +416,28 @@ public class PLPCPUSnapshot_keys
 	
 	public static String ADD1_IF_ID_BUFFER_EDGE = "add1_if_id_buffer";
 	public static String IM_IF_ID_BUFFER_EDGE = "im_if_id_buffer";
+	public static String EX_MEM_BUFFER_DATA_MEMORY_ADDRESS_EDGE = "ex_mem_buffer_data_left";
+	public static String EX_MEM_BUFFER_DATA_MEMORY_WRITE_DATA_EDGE = "ex_mem_buffer_data_right";
+	public static String DATA_MEMORY_MEM_WB_BUFFER_READ_DATA_EDGE = "data_memory_mem_wb_buffer";	
+	
+	/* Edges specific in ID Stage */
+	public static String IF_ID_SHIFT_PC_EDGE = "if_id_buffer_shift1";
+	//public static String SHIFT1_MUX4_EDGE = "shift1_mux4";
+	public static String IF_ID_CONTROL_EDGE = "if_id_buffer_control";
+	public static String CONTROL_ID_EX_EDGE_1 = "control_id_ex_buffer";
+	public static String CONTROL_ID_EX_EDGE_2 = "control_id_ex_buffer2";
+	public static String CONTROL_ID_EX_EDGE_3 = "control_id_ex_buffer3";
+	public static String IF_ID_ID_EX_EDGE = "if_id_buffer_id_ex_buffer";
+	public static String IF_ID_MUX1_UPPER_EDGE = "im_mux1_upper";
+	public static String IF_ID_MUX1_LOWER_EDGE = "im_mux1_lower";
+	//public static String MUX1_REGISTERS_EDGE = "mux1_registers";
+	public static String REGISTERS_ID_EX_EDGE_1 = "registers_id_ex_buffer_1";
+	public static String REGISTERS_ID_EX_EDGE_2 = "registers_id_ex_buffer_2";
+	public static String ID_EX_REGISTERS_EDGE = "id_ex_buffer_registers";
+	public static String ID_EX_MUX1_EDGE = "id_ex_buffer_mux1";
+	public static String IF_ID_SIGN_EDGE = "im_sign";
+	public static String SIGN_EXTEND_ID_EX_EDGE = "sign_extend_id_ex_buffer";
+	
 	
 	public static String EDGE_ENABLE = "enabled_edges";
 	

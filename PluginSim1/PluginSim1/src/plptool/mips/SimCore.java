@@ -327,12 +327,20 @@ public class SimCore extends PLPSimCore {
     	}
     	obj.put(PLPCPUSnapshot_keys.REGISTER1_READ, String.valueOf(ex_stage.i_data_rs));
     	obj.put(PLPCPUSnapshot_keys.REGISTER2_READ, String.valueOf(ex_stage.i_data_rt));
+    	/* Edges stretched from Register File - Begin */
+    	
+    	/* Edges stretched from Register File - End */
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTERS, obj);
     	
     	//Sign extend immediate value
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_INPUT, String.valueOf(id_stage.imm_field));
     	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_OUTPUT, String.valueOf(ex_stage.i_data_imm_signExtended));
+    	/* Edge stretched from Sign_Extend */
+    	/*if (id_stage.imm_field != 0)
+			edge_obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_ID_EX_EDGE, String.valueOf(id_stage.ex_reg.i_data_imm_signExtended));
+		else
+			edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_SIGN_EDGE);*/
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SIGN_EXTEND, obj);
     	
     	//Control
@@ -482,11 +490,23 @@ public class SimCore extends PLPSimCore {
     	
     	//Data Memory
     	obj = new JSONObject();
-    	obj.put(PLPCPUSnapshot_keys.DATA_MEM_ADDRESS, Long.toHexString(mem_stage.fwd_data_alu_result));
-    	if(mem_stage.ctl_memwrite != 0)
+    	obj.put(PLPCPUSnapshot_keys.DATA_MEM_ADDRESS, Long.toHexString(mem_stage.fwd_data_alu_result));    	
+    	if(mem_stage.fwd_data_alu_result != 0)
+    		edge_obj.put(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_ADDRESS_EDGE, Long.toHexString(mem_stage.fwd_data_alu_result));
+    	else
+    		edge_obj.remove(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_ADDRESS_EDGE);
+    	if(mem_stage.ctl_memwrite != 0){
     		obj.put(PLPCPUSnapshot_keys.DATA_MEM_WRITE, mem_stage.data_mem_store);
-    	if(mem_stage.ctl_memread != 0)
+    		edge_obj.put(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_WRITE_DATA_EDGE, String.valueOf(mem_stage.data_mem_store));
+    	}
+    	else
+    		edge_obj.remove(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_WRITE_DATA_EDGE);
+    	if(mem_stage.ctl_memread != 0){
     		obj.put(PLPCPUSnapshot_keys.DATA_MEM_READ, mem_stage.data_mem_load);
+    		edge_obj.put(PLPCPUSnapshot_keys.DATA_MEMORY_MEM_WB_BUFFER_READ_DATA_EDGE, String.valueOf(mem_stage.data_mem_load));
+    	}
+    	else
+    		edge_obj.remove(PLPCPUSnapshot_keys.DATA_MEMORY_MEM_WB_BUFFER_READ_DATA_EDGE);
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY, obj);
     	
     	//MUX to decide mem or register write
@@ -548,6 +568,37 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.IF_ID_PC_ADD, Long.toHexString(pc.eval() + 4));
     	obj.put(PLPCPUSnapshot_keys.IF_ID_INSTRUCTION, Long.toHexString((long)bus.read(pc.eval())));
     	obj.put(PLPCPUSnapshot_keys.IF_ID_INSTRUCTION_ADDR, Long.toHexString(pc.eval()));
+    	/* Edges stretched from IF_ID_Buffer - Begin */
+    	// IF_ID_Buffer to Control
+    	if (id_stage.instruction != 0)
+    		edge_obj.put(PLPCPUSnapshot_keys.IF_ID_CONTROL_EDGE, Long.toHexString(id_stage.instruction));
+    	else
+    		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_CONTROL_EDGE);
+    	
+    	// IF_ID_Buffer to ID_EX_Buffer
+    	if (id_stage.instruction != 0)
+    		edge_obj.put(PLPCPUSnapshot_keys.IF_ID_ID_EX_EDGE, Long.toHexString(pc.eval() + 4));
+    	else
+    		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_ID_EX_EDGE);
+    	
+    	// IF_ID_Buffer to Mux Upper
+    	if (id_stage.ex_reg.i_ctl_rt_addr != 0 || id_stage.ex_reg.i_ctl_rd_addr != 0)
+    		edge_obj.put(PLPCPUSnapshot_keys.IF_ID_MUX1_UPPER_EDGE, String.valueOf(id_stage.ex_reg.i_ctl_rt_addr));
+    	else
+    		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_MUX1_UPPER_EDGE);
+    	
+    	// IF_ID_Buffer to Mux Lower
+    	if (id_stage.ex_reg.i_ctl_rt_addr != 0 || id_stage.ex_reg.i_ctl_rd_addr != 0)
+    		edge_obj.put(PLPCPUSnapshot_keys.IF_ID_MUX1_LOWER_EDGE, String.valueOf(id_stage.ex_reg.i_ctl_rd_addr));
+    	else
+    		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_MUX1_LOWER_EDGE);
+    	
+    	// IF_ID_Buffer to Sign_Extend
+    	/*if (id_stage.imm_field != 0)
+    		edge_obj.put(PLPCPUSnapshot_keys.IF_ID_SIGN_EDGE, String.valueOf(id_stage.imm_field));
+    	else
+    		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_SIGN_EDGE);*/
+    	/* Edges stretched from IF_ID_Buffer - End */
     	
     	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.ID_EX_INTERMEDIATE);
     	obj.put(PLPCPUSnapshot_keys.ID_EX_INSTRUCTION, Long.toHexString(id_stage.instruction));
@@ -1038,31 +1089,31 @@ public class SimCore extends PLPSimCore {
     /***
      * This function will update the non pipelined version of the cpu snapshot.
      * It will be used by the PLP Data Visualizer.
-     * @param pc_value
-     * @param instruction
-     * @param instruction_address
-     * @param bAluOp
-     * @param bAluSrc
-     * @param bJump
-     * @param bMemRead
-     * @param bMemToReg
-     * @param bRegDst
-     * @param bMemWrite
-     * @param bRegWrite
-     * @param bBranch
-     * @param opcode
-     * @param rs
-     * @param rd
-     * @param rt
-     * @param funct
-     * @param imm
-     * @param jaddr
-     * @param s
-     * @param t
-     * @param s_imm
-     * @param alu_result
-     * @param w_r
-     * @param branch_taken
+     * @param pc_value - Current value of the program counter
+     * @param instruction - Current instruction which is being executed
+     * @param instruction_address - Address of the current instruction usually pc-4
+     * @param bAluOp - Control signal informing whether this involves ALU Operation
+     * @param bAluSrc - Control signal informing whether to taken input from immediate or register
+     * @param bJump - Control signal informing whether this is a jump instruction
+     * @param bMemRead - Control signal informing whether a data memory read is needed
+     * @param bMemToReg - Control signal informing whether resultant is from ALU or memory read
+     * @param bRegDst - Control signal informing whether there is 3rd register or not
+     * @param bMemWrite - Control signal informing whether there is data memory write
+     * @param bRegWrite - Control signal informing we are writing to register file
+     * @param bBranch - Control signal informing it is branch instruction or not
+     * @param opcode - Current instructions opcode
+     * @param rs - Current instructions source register
+     * @param rd - Current instructions destination register
+     * @param rt - Current instructions transition register
+     * @param funct - Current instructions ALU operations control
+     * @param imm - Current instructions immediate value
+     * @param jaddr - Current instructions jump address
+     * @param s - Register read of the source register
+     * @param t - Register read of the transition register
+     * @param s_imm =  Current instructions sign extended immediate value
+     * @param alu_result - Current instructions ALU result
+     * @param w_r - Current instructions write back value of the register
+     * @param branch_taken - Whether current instruction takes branch or not
      */
     private void update_nonpipelined_cpusnapshot(long pc_value, 
     		long instruction, 
@@ -1090,6 +1141,7 @@ public class SimCore extends PLPSimCore {
     		long w_r,
     		boolean branch_taken)
     {
+    	long lOutputOfbranchMux = 0;
     	
     	JSONObject obj;
     	JSONObject edge_obj = new JSONObject();
@@ -1118,11 +1170,23 @@ public class SimCore extends PLPSimCore {
     	
     	//Register Mux
     	obj = new JSONObject();
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_INPUT1, Integer.toBinaryString(rt));
+    	obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_INPUT2, Integer.toBinaryString(rd));
     	if(bRegDst)
+    	{
     		obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_VALUE, "1");
+    		obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_OUTPUT, Integer.toBinaryString(rd));
+    	}
     	else
+    	{
     		obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_VALUE, "0");
+    		obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_OUTPUT, Integer.toBinaryString(rt));
+    	}
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_MUX, obj);
+    	
+    	
+    	edge_obj.put(PLPCPUSnapshot_keys.IM_MUX1_UPPER_EDGE, Integer.toBinaryString(rt));
+    	edge_obj.put(PLPCPUSnapshot_keys.IM_MUX1_LOWER_EDGE, Integer.toBinaryString(rd));
     	
     	//Register File
     	obj = new JSONObject();
@@ -1139,15 +1203,22 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.REGISTER_WRITE_DATA, w_r);
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTERS, obj);
     	
+    	edge_obj.put(PLPCPUSnapshot_keys.IM_REGISTER_READ_LEFT_EDGE, Integer.toBinaryString(rt));
+    	edge_obj.put(PLPCPUSnapshot_keys.IM_REGISTER_READ_RIGHT_EDGE, Integer.toBinaryString(rs));
+    	
     	//Sign extend immediate value
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_INPUT, String.valueOf(imm));
     	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_OUTPUT, String.valueOf(s_imm));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SIGN_EXTEND, obj);
     	
+    	edge_obj.put(PLPCPUSnapshot_keys.IM_SIGN_EDGE, Long.toBinaryString(imm));
+    	edge_obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_MUX2_EDGE, Long.toHexString(s_imm));
+    	edge_obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_SHIFT2_EDGE, Long.toHexString(s_imm));
     	//Control
     	obj = new JSONObject();
     	
+    	edge_obj.put(PLPCPUSnapshot_keys.CONTROL_EDGE, Integer.toBinaryString(opcode));
     	String control_signals = "";
     	if(bAluOp)
     	{
@@ -1203,14 +1274,28 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_INPUT, Long.toHexString(jaddr));
     	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_OUTPUT, Long.toHexString(jaddr<<2 ));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC, obj);
+    	
+    	edge_obj.put(PLPCPUSnapshot_keys.IM_SHIFT_ADDR_EDGE, Long.toHexString(jaddr));
         
     	//ALU MUX
     	obj = new JSONObject();
+    	obj.put(PLPCPUSnapshot_keys.ALU_MUX_INPUT_0, String.valueOf(t));
+    	obj.put(PLPCPUSnapshot_keys.ALU_MUX_INPUT_1, String.valueOf(s_imm));
     	if(bAluSrc)
+    	{
     		obj.put(PLPCPUSnapshot_keys.ALU_MUX_VALUE, "1");
+    		obj.put(PLPCPUSnapshot_keys.ALU_MUX_OUTPUT, String.valueOf(s_imm));
+    		edge_obj.put(PLPCPUSnapshot_keys.MUX2_ALU_EDGE, String.valueOf(s_imm));
+    	}
     	else
+    	{
+    		obj.put(PLPCPUSnapshot_keys.ALU_MUX_OUTPUT, String.valueOf(t));
     		obj.put(PLPCPUSnapshot_keys.ALU_MUX_VALUE, "0");
+    		edge_obj.put(PLPCPUSnapshot_keys.MUX2_ALU_EDGE, String.valueOf(t));
+    	}
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_MUX, obj);
+    	edge_obj.put(PLPCPUSnapshot_keys.REGISTERS_MUX2_EDGE, String.valueOf(t));
+    	
     	
     	//Shift left 2 branch
     	obj = new JSONObject();
@@ -1218,29 +1303,49 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.SHIFT_BRANCH_OUTPUT, String.valueOf(s_imm<<2));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_BRANCH, obj);
     	
+    	edge_obj.put(PLPCPUSnapshot_keys.SHIFT2_ADD2_EDGE, String.valueOf(s_imm<<2));
+    	
+    	
     	//ALU Control
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_INPUT, String.valueOf(funct));
     	if(bAluOp)
-    		obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_OUTPUT, String.valueOf(funct));
+    		obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_OUTPUT, Integer.toBinaryString(funct));
     	else
-    		obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_OUTPUT, String.valueOf(funct));
+    		obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_OUTPUT, "-");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_CONTROL, obj);
+    	
+    	edge_obj.put(PLPCPUSnapshot_keys.IM_ALUC_EDGE, Integer.toBinaryString(funct));
+    	edge_obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_ALU_EDGE, String.valueOf(funct));
     	
     	//ALU
     	obj = new JSONObject();
+    	edge_obj.put(PLPCPUSnapshot_keys.REGISTERS_ALU_EDGE, String.valueOf(s));
     	obj.put(PLPCPUSnapshot_keys.ALU_INPUT1, String.valueOf(s));
     	if(bAluSrc)
     		obj.put(PLPCPUSnapshot_keys.ALU_INPUT2, String.valueOf(s_imm));
     	else
     		obj.put(PLPCPUSnapshot_keys.ALU_INPUT2, String.valueOf(t));
     	if(branch_taken)
+    	{
+    		edge_obj.put(PLPCPUSnapshot_keys.ALU_AND_GATE_EDGE, "1");
     		obj.put(PLPCPUSnapshot_keys.ALU_ZERO, "1");
+    	}
     	else
+    	{
     		obj.put(PLPCPUSnapshot_keys.ALU_ZERO, "0");
-    	obj.put(PLPCPUSnapshot_keys.ALU_OP_TYPE, "-");
+    		edge_obj.put(PLPCPUSnapshot_keys.ALU_AND_GATE_EDGE, "0");
+    	}
+    	if(bAluOp)
+    		obj.put(PLPCPUSnapshot_keys.ALU_OP_TYPE, String.valueOf(funct));
+    	else
+    		obj.put(PLPCPUSnapshot_keys.ALU_OP_TYPE, "-");
     	obj.put(PLPCPUSnapshot_keys.ALU_RESULT, String.valueOf(alu_result));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU, obj);
+    	
+    	edge_obj.put(PLPCPUSnapshot_keys.ALU_DATA_MEMORY_EDGE, Long.toHexString(alu_result));
+    	edge_obj.put(PLPCPUSnapshot_keys.ALU_MUX5_EDGE, String.valueOf(alu_result));
+    	
     	
     	//ADD PC and BRANCH offset
     	obj = new JSONObject();
@@ -1248,6 +1353,10 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_INPUT2, Long.toHexString(s_imm<<2));
     	obj.put(PLPCPUSnapshot_keys.ADD_BRANCH_OUTPUT, Long.toHexString(instruction_address+4 + s_imm<<2));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_BRANCH, obj);
+    	
+    	edge_obj.put(PLPCPUSnapshot_keys.ADD_PC_2_ADD_BRANCH_EDGE, Long.toHexString(instruction_address+4));
+    	edge_obj.put(PLPCPUSnapshot_keys.ADD2_MUX3_EDGE, Long.toHexString(instruction_address+4 + s_imm<<2));
+    	edge_obj.put(PLPCPUSnapshot_keys.ADD1_MUX3_EDGE, Long.toHexString(instruction_address+4));
     	
     	//AND Gate for branch
     	obj = new JSONObject();
@@ -1269,35 +1378,57 @@ public class SimCore extends PLPSimCore {
     	
     	//MUX PC+4 or branch
     	obj = new JSONObject();
+    	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_1_INPUT_0, Long.toHexString(instruction_address+4));
+    	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_1_INPUT_1, Long.toHexString(instruction_address+4 + s_imm<<2));
     	if(bBranch && branch_taken)
+    	{
     		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_1_VALUE, "1");
+    		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_1_OUTPUT, Long.toHexString(instruction_address+4 + s_imm<<2));
+    		edge_obj.put(PLPCPUSnapshot_keys.MUX3_MUX4_EDGE, Long.toHexString(instruction_address+4 + s_imm<<2));
+    		lOutputOfbranchMux = instruction_address+4 + s_imm<<2;
+    	}
     	else
+    	{
     		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_1_VALUE, "0");
+    		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_1_OUTPUT, Long.toHexString(instruction_address+4));
+    		edge_obj.put(PLPCPUSnapshot_keys.MUX3_MUX4_EDGE, Long.toHexString(instruction_address+4));
+    		lOutputOfbranchMux = instruction_address+4;
+    	}
     	
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MUX_BRANCH_1, obj);
     	
     	//MUX to decide jump or pc/branch
     	obj = new JSONObject();
+    	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_INPUT_0, Long.toHexString(lOutputOfbranchMux));
+    	obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_INPUT_1, Long.toHexString(jaddr<<2));
     	if(bJump)
+    	{
     		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_VALUE, "1");
+    		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_OUTPUT, Long.toHexString(jaddr<<2));
+    		edge_obj.put(PLPCPUSnapshot_keys.MUX4_PC_EDGE, Long.toHexString(jaddr<<2));
+    	}
     	else
+    	{
+    		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_OUTPUT, Long.toHexString(lOutputOfbranchMux));
     		obj.put(PLPCPUSnapshot_keys.MUX_BRANCH_2_VALUE, "0");
+    		edge_obj.put(PLPCPUSnapshot_keys.MUX4_PC_EDGE, Long.toHexString(lOutputOfbranchMux));
+    	}
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MUX_BRANCH_2, obj);
     	
     	//Data Memory
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.DATA_MEM_ADDRESS, Long.toHexString(alu_result));
-    	if(bMemWrite){    		
+    	if(bMemWrite) {    		
     		edge_obj.put(PLPCPUSnapshot_keys.REGISTERS_DATA_MEMORY_EDGE, String.valueOf(t));
     		obj.put(PLPCPUSnapshot_keys.DATA_MEM_WRITE, t);
     		edge_obj.put(PLPCPUSnapshot_keys.ALU_DATA_MEMORY_EDGE, Long.toHexString(alu_result));
-    		}
-    	if(bMemRead){
+    	}
+    	if(bMemRead) {
     		obj.put(PLPCPUSnapshot_keys.DATA_MEM_READ, w_r);
     		edge_obj.put(PLPCPUSnapshot_keys.ALU_DATA_MEMORY_EDGE, Long.toHexString(alu_result));
     		edge_obj.put(PLPCPUSnapshot_keys.MUX5_REGISTERS_EDGE, String.valueOf(w_r));
     		edge_obj.put(PLPCPUSnapshot_keys.DATA_MEMORY_MUX5_EDGE, String.valueOf(w_r));
-    		}
+    	}     	
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.DATA_MEMORY, obj);
     	
     	//MUX to decide mem or register write

@@ -85,7 +85,7 @@
 			"name": "Mux\n1",
 			"id": "mux1",
 			"pos_x": 250,
-			"pos_y": 470,
+			"pos_y": 420,
 			"width": 20,
 			"height": 40,
 			"shape": "shape=mux"
@@ -115,7 +115,7 @@
 			"pos_x": 300,
 			"pos_y": 420,
 			"width": 80,
-			"height": 120,
+			"height": 100,
 			"shape": ""
 		},
 		"shift2": {
@@ -261,26 +261,40 @@
 			"vertex_id_to": "control",
 			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.625;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
 		},
-		"im_mux1_upper": {
+		"if_id_buffer_mux1_upper": {
 			"name": "",
-			"id": "im_mux1_upper",
+			"id": "if_id_buffer_mux1_upper",
 			"vertex_id_from": "if_id_buffer",
 			"vertex_id_to": "mux1",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.92;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.83;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
 		},
-		"im_mux1_lower": {
+		"if_id_buffer_mux1_lower": {
 			"name": "",
-			"id": "im_mux1_lower",
+			"id": "if_id_buffer_mux1_lower",
 			"vertex_id_from": "if_id_buffer",
 			"vertex_id_to": "mux1",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.98;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.87;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
 		},
-		"im_sign": {
+		"if_id_buffer_sign": {
 			"name": "",
-			"id": "im_sign",
+			"id": "if_id_buffer_sign",
 			"vertex_id_from": "if_id_buffer",
 			"vertex_id_to": "sign_extend",
 			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.325;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
+		},
+		"if_id_buffer_registers_left": {
+			"name": "",
+			"id": "if_id_buffer_registers_left",
+			"vertex_id_from": "if_id_buffer",
+			"vertex_id_to": "registers",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.93;exitPerimeter=1;entryX=0;entryY=0.52;entryPerimeter=1;"
+		},
+		"if_id_buffer_registers_right": {
+			"name": "",
+			"id": "if_id_buffer_registers_right",
+			"vertex_id_from": "if_id_buffer",
+			"vertex_id_to": "registers",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.97;exitPerimeter=1;entryX=0;entryY=0.68;entryPerimeter=1;"
 		},
 		"id_ex_buffer_aluc": {
 			"name": "",
@@ -483,7 +497,7 @@
 			"id": "mux1_registers",
 			"vertex_id_from": "mux1",
 			"vertex_id_to": "registers",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.34;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.2;entryPerimeter=1;"
 		},
 		"registers_id_ex_buffer_1" :{
 			"name": "",

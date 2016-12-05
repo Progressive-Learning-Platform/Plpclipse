@@ -99,6 +99,16 @@
 			"height": 60,
 			"shape": "shape=ellipse;perimeter=ellipsePerimeter;"
 		},
+		"bne": {
+			"name": "BNE",
+			"id": "bne",
+			"pos_x": 300,
+			"pos_y": 235,
+			"width": 40,
+			"height": 40,
+			"shape": ""
+		},
+		
 		"registers": {
 			"name": "Registers",
 			"id": "registers",
@@ -293,6 +303,13 @@
 			"vertex_id_to": "mux1",
 			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=0.5;exitY=0.9;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;"
 		},
+		"control_bne": {
+			"name": "",
+			"id": "control_bne",
+			"vertex_id_from": "control",
+			"vertex_id_to": "bne",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=0.5;exitY=0.1;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;"
+		},
 		"control_id_ex_buffer2": {
 			"name": "",
 			"id": "control_id_ex_buffer2",
@@ -306,6 +323,27 @@
 			"vertex_id_from": "if_id_buffer",
 			"vertex_id_to": "id_ex_buffer",
 			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.45;exitPerimeter=1;entryX=0;entryY=0.45;entryPerimeter=1;"
+		},
+		"if_id_buffer_bne_1": {
+			"name": "",
+			"id": "if_id_buffer_bne_1",
+			"vertex_id_from": "if_id_buffer",
+			"vertex_id_to": "bne",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.41;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
+		},
+		"if_id_buffer_bne_2": {
+			"name": "",
+			"id": "if_id_buffer_bne_2",
+			"vertex_id_from": "if_id_buffer",
+			"vertex_id_to": "bne",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.43;exitPerimeter=1;entryX=0;entryY=0.9;entryPerimeter=1;"
+		},
+		"bne_id_ex_buffer": {
+			"name": "",
+			"id": "bne_id_ex_buffer",
+			"vertex_id_from": "bne",
+			"vertex_id_to": "id_ex_buffer",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.40;entryPerimeter=1;"
 		},
 		"control_id_ex_buffer3": {
 			"name": "",

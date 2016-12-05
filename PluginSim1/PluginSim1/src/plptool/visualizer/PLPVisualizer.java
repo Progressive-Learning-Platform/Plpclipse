@@ -1,3 +1,20 @@
+/**
+    Copyright 2016 PLP Contributors
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
 package plptool.visualizer;
 
 import java.awt.Dimension;
@@ -19,11 +36,13 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import plptool.Config;
 import plptool.visualizer.communication.BackendProducer;
 import plptool.visualizer.communication.FrontendConsumer;
 import plptool.visualizer.event.SnapshotEventHandler;
@@ -43,19 +62,42 @@ import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
 
+/**
+ * Main class of PLP data path visualizer.
+ * Please remain in singleton model!
+ * Using getInstance method to get an instance.
+ */
 public class PLPVisualizer extends JFrame
 {
 	/**
-	 * 
+	 * Randomly generated Serial ID.
 	 */
 	private static final long serialVersionUID = -2707712944901661771L;
+	
+	/**
+	 * The instance of this class.
+	 */
 	private static PLPVisualizer instance = null;
+	
+	/**
+	 * The data path graph frame.
+	 */
 	private final plpGraph graph;
+	
+	/**
+	 * The data path graph component.
+	 */
 	private final mxGraphComponent graphComponent;
+	
+	/**
+	 * The path of configuration file to draw the data path.
+	 */
 	private static String conf_file = null;
 
 	/** 
-	 * Default Constructor
+	 * Get one valid instance.
+	 * @param pipelined True pipeline enabled, False pipeline disabled.
+	 *		This flag bit stored in Config.java "simFunctional".
 	 */
 	public static PLPVisualizer getInstance(boolean pipelined)
 	{
@@ -64,17 +106,21 @@ public class PLPVisualizer extends JFrame
 			instance = new PLPVisualizer();
 		}
 		if (pipelined) {
-			conf_file = "config/graph_pipelined.json";
+			conf_file = Config.pipeLinedBlueprint;
 			instance.drawGraph(1.0);
 		}
 		else {
-			conf_file = "config/graph_non_pipelined.json";
+			conf_file = Config.nonPipelinedBlueprint;
 			instance.drawGraph(1.0);
 		}
 
 		return instance;
 	}
 	
+	/**
+	 * Load customized shape.
+	 * We customized the shape of ALU and MUX in shape.xml
+	 */
 	private void initializeVertexStyle() {
 		try {
 			Document doc = mxXmlUtils.parseXml(mxUtils.readFile("config/shape.xml"));
@@ -117,11 +163,16 @@ public class PLPVisualizer extends JFrame
 		}
 	}
 	
+	/**
+	 * Default Constructor, please remain singleton.
+	 * Don't change the protected keyword.
+	 */
 	protected PLPVisualizer()
 	{
 		super("PLP Visualizer");
 
 		this.initializeVertexStyle();
+		// Listen to the component change event.
 		this.addComponentListener(new ComponentListener() {
 
 			@Override
@@ -149,9 +200,13 @@ public class PLPVisualizer extends JFrame
 
 		graphComponent = new mxGraphComponent(graph);
 		getContentPane().add(graphComponent);
+		// lock all cells, avoid user to move them.
 		graph.setCellsLocked(true);
+		// disable add new edges.
 		graphComponent.setConnectable(false);
+		// listen to the hover event.
 		graphComponent.setToolTips(true);
+		// listen to the mouse event.
 		graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
 		{
 			public void mouseReleased(MouseEvent e)
@@ -172,50 +227,63 @@ public class PLPVisualizer extends JFrame
 			{
 			}
 		});
+		// Create a new thread to listen to the message.
 		FrontendConsumer frontend = new FrontendConsumer();
+		// Handle the message.
 		frontend.addListener(new SnapshotEventHandler(){
 			ArrayList<Object> enabled_list = null;
+
+			@Override
 			public void receiveSnapshot(String jsonString)
 			{
-				JSONObject snapshot = new JSONObject(jsonString);
-				JSONObject vertices = snapshot.getJSONObject("vertices_values");
-				Iterator<?> json_keys = vertices.keys();
-				if (enabled_list == null)
-					enabled_list = new ArrayList<Object>();
-				
-				while( json_keys.hasNext() ){
-					String json_key = (String)json_keys.next();
-					JSONObject data = vertices.getJSONObject(json_key);
-					mxCell myCell = (mxCell) ((mxGraphModel)graph.getModel()).getCell(json_key);
-					if (myCell != null)
-						myCell.setValue(data);
-				}
-				
-				JSONObject edges = snapshot.getJSONObject("enabled_edges");
-				json_keys = edges.keys();
-				// Set previous enabled edges to disabled.
-				graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "green", enabled_list.toArray());
-				for (Object myCell : enabled_list) {
-					((mxCell)myCell).setValue("");
-				}
-				// Then clear whole list to store new enabled edges.
-				enabled_list.clear();
-				while( json_keys.hasNext() ){
-					String json_key = (String)json_keys.next();
-					String data = edges.getString(json_key);
-					mxCell myCell = (mxCell)((mxGraphModel)graph.getModel()).getCell(json_key);
-					if (myCell != null) {
-						enabled_list.add(myCell);
-						myCell.setValue(data);
+				try {
+					JSONObject snapshot = new JSONObject(jsonString);
+					JSONObject vertices = snapshot.getJSONObject("vertices_values");
+					Iterator<?> json_keys = vertices.keys();
+					if (enabled_list == null)
+						enabled_list = new ArrayList<Object>();
+					
+					while( json_keys.hasNext() ){
+						String json_key = (String)json_keys.next();
+						JSONObject data = vertices.getJSONObject(json_key);
+						mxCell myCell = (mxCell) ((mxGraphModel)graph.getModel()).getCell(json_key);
+						if (myCell != null)
+							myCell.setValue(data);
 					}
+					
+					JSONObject edges = snapshot.getJSONObject("enabled_edges");
+					json_keys = edges.keys();
+					// Set previous enabled edges to disabled.
+					graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "green", enabled_list.toArray());
+					for (Object myCell : enabled_list) {
+						((mxCell)myCell).setValue("");
+					}
+					// Then clear whole list to store new enabled edges.
+					enabled_list.clear();
+					while( json_keys.hasNext() ){
+						String json_key = (String)json_keys.next();
+						String data = edges.getString(json_key);
+						mxCell myCell = (mxCell)((mxGraphModel)graph.getModel()).getCell(json_key);
+						if (myCell != null) {
+							enabled_list.add(myCell);
+							myCell.setValue(data);
+						}
+					}
+					graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "red", enabled_list.toArray());
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
-				graph.setCellStyles(mxConstants.STYLE_STROKECOLOR, "red", enabled_list.toArray());
 			}
 		});
 		thread(frontend, false);
 	}
 	
-	protected void showGraphPopupMenu(MouseEvent e, mxCell cell)
+	/**
+	 * Respond to mouse click event, pop up a menu to display value in the cell.
+	 * @param e the source of mouse event.
+	 * @param cell the cell needs to display value.
+	 */
+	private void showGraphPopupMenu(MouseEvent e, mxCell cell)
 	{
 		Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(),
 				graphComponent);
@@ -225,12 +293,19 @@ public class PLPVisualizer extends JFrame
 		e.consume();
 	}
 	
-	public void drawGraph(double rescale)
+	/**
+	 * Construct the data path graph based on the blue_print.
+	 * @param rescale When window resized, Using a new scale factor 
+	 * 				to reconstruct the graph.
+	 */
+	private void drawGraph(double rescale)
 	{
 		Object parent = graph.getDefaultParent();
 		this.graph.removeCells(graph.getChildVertices(parent));
+		// rescale the font size.
 		graph.getStylesheet().getDefaultVertexStyle().put(mxConstants.STYLE_FONTSIZE, Double.toString(22 * rescale));
 
+		// read the blueprint file.
 		BufferedReader reader;
 		String line = null;
 		String jsonString = "";
@@ -249,6 +324,7 @@ public class PLPVisualizer extends JFrame
 		JSONObject vertices = conf.getJSONObject("vertices");
 		JSONObject edges = conf.getJSONObject("edges");
 
+		// start drawing the graph
 		graph.getModel().beginUpdate();
 		try
 		{
@@ -311,10 +387,6 @@ public class PLPVisualizer extends JFrame
 			graph.getModel().endUpdate();
 		}
 	}
-	
-	public Object getGraphComponent() {
-		return graphComponent;
-	}
 
 	/**
 	 * Test function, you can run front end separately to test it.
@@ -329,6 +401,11 @@ public class PLPVisualizer extends JFrame
 		thread(new BackendProducer(), false);
 	}
 	
+	/**
+	 * Create a new thread.
+	 * @param runnable A thread instance.
+	 * @param daemon In daemon model or not.
+	 */
 	public static void thread(Runnable runnable, boolean daemon) {
 		Thread brokerThread = new Thread(runnable);
 		brokerThread.setDaemon(daemon);

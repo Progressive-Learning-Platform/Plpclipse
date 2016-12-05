@@ -1,3 +1,20 @@
+/**
+    Copyright 2016 PLP Contributors
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
 package plptool.visualizer.communication;
 
 import java.io.BufferedReader;
@@ -14,6 +31,12 @@ import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
+/**
+ * Mocking test, backend simulator.
+ * This class support to test the front end separately.
+ * 1.Read the fake*.json files under test_data folder.
+ * 2.Send these data to front end.
+ */
 public class BackendProducer implements Runnable {
 	public void run() {
 
@@ -54,16 +77,13 @@ public class BackendProducer implements Runnable {
 					}
 					reader.close();
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				TextMessage message = session.createTextMessage(text);
 
 				// Tell the producer to send the message
-				//System.out.println("Sent message: "+ message.hashCode() + " : " + Thread.currentThread().getName());
 				producer.send(message);
 
 				// Clean up

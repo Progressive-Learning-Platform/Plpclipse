@@ -293,26 +293,41 @@ public class SimCore extends PLPSimCore {
     	//PC
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.PC_ADDRESS, Long.toHexString(pc.eval()));
-    	edge_obj.put(PLPCPUSnapshot_keys.PC_IMM_EDGE, Long.toHexString(pc.eval()));
+    	// Edge - PC to Instruction Memory
+    	if (pc.eval() > 0)
+    		edge_obj.put(PLPCPUSnapshot_keys.PC_IMM_EDGE, Long.toHexString(pc.eval()));
+    	else
+    		edge_obj.remove(PLPCPUSnapshot_keys.PC_IMM_EDGE);
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.PC, obj);
     	
     	
     	//PC + 4
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT1, Long.toHexString(pc.eval()));
-    	edge_obj.put(PLPCPUSnapshot_keys.PC_ADD_EDGE, Long.toHexString(pc.eval()));
     	obj.put(PLPCPUSnapshot_keys.ADD_PC_INPUT2, "4");
     	obj.put(PLPCPUSnapshot_keys.ADD_PC_OUTPUT, Long.toHexString(pc.eval() + 4));
-    	edge_obj.put(PLPCPUSnapshot_keys.ADD1_MUX3_EDGE, Long.toHexString(pc.eval() + 4));
-    	edge_obj.put(PLPCPUSnapshot_keys.ADD1_IF_ID_BUFFER_EDGE, Long.toHexString(pc.eval() + 4));
+    	// Edges - PC to ADD1, ADD1 to IF-ID Buffer, ADD1 to MUX3
+    	if (pc.eval() > 0) {
+    		edge_obj.put(PLPCPUSnapshot_keys.PC_ADD_EDGE, Long.toHexString(pc.eval()));
+    		edge_obj.put(PLPCPUSnapshot_keys.ADD1_MUX3_EDGE, Long.toHexString(pc.eval() + 4));
+    		edge_obj.put(PLPCPUSnapshot_keys.ADD1_IF_ID_BUFFER_EDGE, Long.toHexString(pc.eval() + 4));
+    	}
+    	else {
+    		edge_obj.remove(PLPCPUSnapshot_keys.PC_ADD_EDGE);
+    		edge_obj.remove(PLPCPUSnapshot_keys.ADD1_MUX3_EDGE);
+    		edge_obj.remove(PLPCPUSnapshot_keys.ADD1_IF_ID_BUFFER_EDGE);
+    	}
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ADD_PC, obj);
     	
     	
     	//Instruction Memory
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.INST_MEM_VALUE, Long.toHexString((long)bus.read(pc.eval())));
-    	edge_obj.put(PLPCPUSnapshot_keys.IM_IF_ID_BUFFER_EDGE, Long.toHexString((long)bus.read(pc.eval())));
     	obj.put(PLPCPUSnapshot_keys.INST_MEM_ADDR, Long.toHexString(pc.eval()));
+    	if ((long)bus.read(pc.eval()) != 0)
+    		edge_obj.put(PLPCPUSnapshot_keys.IM_IF_ID_BUFFER_EDGE, Long.toHexString((long)bus.read(pc.eval())));
+    	else
+    		edge_obj.remove(PLPCPUSnapshot_keys.IM_IF_ID_BUFFER_EDGE);
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.INSTRUCTION_MEMORY, obj);
     	
     	
@@ -368,47 +383,86 @@ public class SimCore extends PLPSimCore {
     	if(ex_stage.i_ctl_aluOp != 0)
     	{
     		control_signals = "ALU Operation,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_1, "ALU Operation");
+    		// Edge - Control Signal "ALU Op"
+    		if (id_stage.i_instruction != 0)
+    			edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_1, "ALU Operation");
+    		else
+    			edge_obj.remove(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_1);
     	}
     	if(ex_stage.i_ctl_aluSrc != 0)
     	{
     		control_signals += "ALU Source,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_2, "ALU Source");
+    		// Edge - Control Signal "ALU Source"
+    		if (id_stage.i_instruction != 0)
+    			edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_2, "ALU Source");
+    		else
+    			edge_obj.remove(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_2);
     	}
     	if(ex_stage.i_ctl_jump != 0)
     	{
     		control_signals += "Jump,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_3, "Jump");
+    		// Edge - Control Signal "Jump"
+    		if (id_stage.i_instruction != 0)
+    			edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_3, "Jump");
+    		else
+    			edge_obj.remove(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_3);
     	}
     	if(ex_stage.i_fwd_ctl_memread != 0)
     	{
     		control_signals += "Memory Read,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_4, "Memory Read");
+    		// Edge - Control Signal "Memory Read"
+    		if (id_stage.i_instruction != 0)
+    			edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_4, "Memory Read");
+    		else
+    			edge_obj.remove(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_4);
     	}
     	if(ex_stage.i_fwd_ctl_memtoreg != 0)
     	{
     		control_signals += "Memory to Register,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_5, "Memory to Register");
+    		// Edge - Control Signal "Memory to Register"
+    		if (id_stage.i_instruction != 0)
+    			edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_5, "Memory to Register");
+    		else
+    			edge_obj.remove(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_5);
     	}
     	if(ex_stage.i_ctl_regDst != 0)
     	{
     		control_signals += "Register Destination,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX1_EDGE, "Register Destination");
+    		// Edge - Control Signal "Register Destination"
+    		if (id_stage.i_instruction != 0)
+    			edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX1_EDGE, "Register Destination");
+    		else
+    			edge_obj.remove(PLPCPUSnapshot_keys.CONTROL_MUX1_EDGE);
     	}
     	if(ex_stage.i_fwd_ctl_memwrite != 0)
     	{
     		control_signals += "Memory Write,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_7, "Memory Write");
+    		// Edge - Control Signal "Memory Write"
+    		if (id_stage.i_instruction != 0)
+    			edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_6, "Memory Write");
+    		else
+    			edge_obj.remove(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_6);
     	}
     	if(ex_stage.i_fwd_ctl_regwrite != 0)
     	{
     		control_signals += "Register Write,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_8, "Register Write");
+    		// Edge - Control Signal "Register Write";
+    		if (id_stage.i_instruction != 0)
+    			edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_7, "Register Write");
+    		else
+    			edge_obj.remove(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_7);
     	}
     	if(ex_stage.i_ctl_branch != 0)
     	{
     		control_signals += "Branch,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_BNE, "BRANCH");
+    		// Edges - Control Signal "Branch"
+    		if (id_stage.i_instruction != 0) {
+    			edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_8, "BRANCH");
+    			edge_obj.put(PLPCPUSnapshot_keys.CONTROL_BNE, "BRANCH");
+    		}
+    		else
+    			edge_obj.remove(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_8);
+    		
     	}
     	
     	obj.put(PLPCPUSnapshot_keys.CONTROL_SIGNALS, control_signals);
@@ -418,6 +472,16 @@ public class SimCore extends PLPSimCore {
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_INPUT, Long.toHexString(MIPSInstr.jaddr(ex_stage.instruction)));
     	obj.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC_OUTPUT, Long.toHexString(ex_stage.ctl_jumptarget ));
+    	// Edges - IF-ID Buffer to Shift1, Shift Left 1 to MUX4
+    	if (id_stage.i_instruction != 0 && id_stage.ex_reg.i_ctl_jump != 0) {
+    		edge_obj.put(PLPCPUSnapshot_keys.IF_ID_SHIFT_PC_EDGE, 
+    					 Long.toHexString(MIPSInstr.jaddr(id_stage.i_instruction)));
+    		edge_obj.put(PLPCPUSnapshot_keys.SHIFT1_MUX4_EDGE, Long.toHexString(id_stage.ex_reg.ctl_jumptarget));
+    	}
+    	else {
+    		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_SHIFT_PC_EDGE);
+    		edge_obj.remove(PLPCPUSnapshot_keys.SHIFT1_MUX4_EDGE);
+    	}
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.SHIFT_LEFT_PC, obj);
     	
     	//Shift left 2 branch
@@ -435,10 +499,23 @@ public class SimCore extends PLPSimCore {
     	
     	//Register Mux - TODO:In pipelined version implement register mux
     	obj = new JSONObject();
-    	if(ex_stage.ctl_regDst != 0)
+    	if(ex_stage.ctl_regDst != 0) {
     		obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_VALUE, "1");
-    	else
+    		// Edge - MUX1 to Register - rd enabled
+    		if (id_stage.i_instruction != 0)
+    			edge_obj.put(PLPCPUSnapshot_keys.MUX1_REGISTERS_EDGE, String.valueOf(id_stage.ex_reg.i_ctl_rd_addr));
+    		else
+    			edge_obj.remove(PLPCPUSnapshot_keys.MUX1_REGISTERS_EDGE);
+    	}
+    	else {
     		obj.put(PLPCPUSnapshot_keys.REGISTER_MUX_VALUE, "0");
+    		// Edge - MUX1 to Register - rt enabled
+    		if (id_stage.i_instruction != 0 && 
+        			id_stage.ex_reg.i_ctl_rt_addr >= 0 && id_stage.ex_reg.i_ctl_rt_addr < 32)
+        			edge_obj.put(PLPCPUSnapshot_keys.MUX1_REGISTERS_EDGE, String.valueOf(id_stage.ex_reg.i_ctl_rt_addr));
+        		else
+        			edge_obj.remove(PLPCPUSnapshot_keys.MUX1_REGISTERS_EDGE);
+    	}
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTER_MUX, obj);
         
     	//ALU MUX
@@ -641,10 +718,21 @@ public class SimCore extends PLPSimCore {
     		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_MUX1_LOWER_EDGE);
     	
     	// IF_ID_Buffer to Sign_Extend
-    	/*if (id_stage.imm_field != 0)
+    	if (id_stage.imm_field != 0)
     		edge_obj.put(PLPCPUSnapshot_keys.IF_ID_SIGN_EDGE, String.valueOf(id_stage.imm_field));
     	else
-    		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_SIGN_EDGE);*/
+    		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_SIGN_EDGE);
+    	
+    	// IF_ID_Buffer to Registers
+    	if (id_stage.i_instruction != 0 && id_stage.rs > 0 && id_stage.rs < 32 &&
+    		id_stage.rt > 0 && id_stage.rt < 32) {
+    		edge_obj.put(PLPCPUSnapshot_keys.IF_ID_BUFFER_REGISTERS_LEFT, String.valueOf(id_stage.ex_reg.i_data_rs));
+    		edge_obj.put(PLPCPUSnapshot_keys.IF_ID_BUFFER_REGISTERS_RIGHT, String.valueOf(id_stage.ex_reg.i_data_rt));
+    	}
+    	else {
+    		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_BUFFER_REGISTERS_LEFT);
+    		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_BUFFER_REGISTERS_RIGHT);
+    	}
     	/* Edges stretched from IF_ID_Buffer - End */
     	
     	//Forwarding

@@ -753,6 +753,14 @@ public class SimCore extends PLPSimCore {
     			obj.put(PLPCPUSnapshot_keys.FORW_RT_EX, "MEM->EX");
     	}
     	
+    	if(ex_stage.ctl_forwardX != 0 || ex_stage.ctl_forwardY != 0)
+    	{
+    		edge_obj.put(PLPCPUSnapshot_keys.FORWARDING_UNIT_ID_EX_BUFFER_EDGE, "true");
+    		
+    	}
+    	
+    	//if(ex_stage)
+    	
     	if(mem_stage.ctl_fwd_mem_mem == 1)
     		obj.put(PLPCPUSnapshot_keys.FORW_MEM_MEM, "true");
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.FORWARDING_UNIT, obj);

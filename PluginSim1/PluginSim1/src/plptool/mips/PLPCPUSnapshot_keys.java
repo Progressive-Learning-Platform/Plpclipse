@@ -462,6 +462,8 @@ public class PLPCPUSnapshot_keys
 	public static String ID_EX_BUFFER_ALUC_EDGE = "id_ex_buffer_aluc";
 	public static String ID_EX_BUFFER_ALUCONTROL_EDGE = "id_ex_buffer_alu_control";
 	
+	public static String FORWARDING_UNIT_ID_EX_BUFFER_EDGE = "forwarding_unit_id_ex_buffer";
+	
 	public static String EDGE_ENABLE = "enabled_edges";
 	
 	public static void initializeKeysFromFile()

@@ -339,6 +339,8 @@ public class SimCore extends PLPSimCore {
     	{
     		obj.put(PLPCPUSnapshot_keys.REGISTER_WRITE, String.valueOf(wb_stage.ctl_dest_reg_addr));
     		obj.put(PLPCPUSnapshot_keys.REGISTER_WRITE_DATA, wb_stage.data_regwrite);
+    		edge_obj.put(PLPCPUSnapshot_keys.MEM_WB_BUFFER_REGISTERS, "Reg Write");
+    		edge_obj.put(PLPCPUSnapshot_keys.MUX5_REGISTERS_EDGE, wb_stage.data_regwrite);
     	}
     	obj.put(PLPCPUSnapshot_keys.REGISTER1_READ, String.valueOf(ex_stage.i_data_rs));
     	obj.put(PLPCPUSnapshot_keys.REGISTER2_READ, String.valueOf(ex_stage.i_data_rt));

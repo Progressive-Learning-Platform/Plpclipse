@@ -472,6 +472,7 @@ public class PLPCPUSnapshot_keys
 	public static String MEM_WB_BUFFER_MUX5_TOP_EDGE = "mem_wb_buffer_mux5_top";
 	public static String MEM_WB_BUFFER_MUX5_1_EDGE = "mem_wb_buffer_mux5_1";
 	public static String MEM_WB_BUFFER_MUX5_2_EDGE = "mem_wb_buffer_mux5_2";
+	public static String MEM_WB_BUFFER_REGISTERS = "mem_wb_buffer_registers";
 	
 	public static String EDGE_ENABLE = "enabled_edges";
 	

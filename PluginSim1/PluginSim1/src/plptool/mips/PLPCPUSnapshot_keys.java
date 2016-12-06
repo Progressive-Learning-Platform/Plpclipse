@@ -463,6 +463,9 @@ public class PLPCPUSnapshot_keys
 	public static String ID_EX_BUFFER_ALUCONTROL_EDGE = "id_ex_buffer_alu_control";
 	
 	public static String FORWARDING_UNIT_ID_EX_BUFFER_EDGE = "forwarding_unit_id_ex_buffer";
+	public static String EX_MEM_BUFFER_FORWARDING_UNIT_EDGE = "ex_mem_buffer_forwarding_unit";
+	public static String MEM_WB_BUFFER_FORWARDING_UNIT_EDGE = "mem_wb_buffer_forwarding_unit";
+	public static String FORWARDING_UNIT_EX_MEM_BUFFER_EDGE = "forwarding_unit_mem_wb_buffer";
 	
 	public static String EDGE_ENABLE = "enabled_edges";
 	

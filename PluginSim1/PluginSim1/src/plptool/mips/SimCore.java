@@ -740,17 +740,29 @@ public class SimCore extends PLPSimCore {
     	if(ex_stage.ctl_forwardX != 0)
     	{
     		if(ex_stage.ctl_forwardX == 1)
+    		{
     			obj.put(PLPCPUSnapshot_keys.FORW_RS_EX, "EX->EX");
+    			edge_obj.put(PLPCPUSnapshot_keys.EX_MEM_BUFFER_FORWARDING_UNIT_EDGE, "true");
+    		}
     		else
+    		{
     			obj.put(PLPCPUSnapshot_keys.FORW_RS_EX, "MEM->EX");
+    			edge_obj.put(PLPCPUSnapshot_keys.MEM_WB_BUFFER_FORWARDING_UNIT_EDGE, "true");
+    		}
     		
     	}
     	if(ex_stage.ctl_forwardY != 0)
     	{
     		if(ex_stage.ctl_forwardY == 1)
+    		{
     			obj.put(PLPCPUSnapshot_keys.FORW_RT_EX, "EX->EX");
+    			edge_obj.put(PLPCPUSnapshot_keys.EX_MEM_BUFFER_FORWARDING_UNIT_EDGE, "true");
+    		}
     		else
+    		{
     			obj.put(PLPCPUSnapshot_keys.FORW_RT_EX, "MEM->EX");
+    			edge_obj.put(PLPCPUSnapshot_keys.MEM_WB_BUFFER_FORWARDING_UNIT_EDGE, "true");
+    		}
     	}
     	
     	if(ex_stage.ctl_forwardX != 0 || ex_stage.ctl_forwardY != 0)
@@ -762,7 +774,10 @@ public class SimCore extends PLPSimCore {
     	//if(ex_stage)
     	
     	if(mem_stage.ctl_fwd_mem_mem == 1)
+    	{
     		obj.put(PLPCPUSnapshot_keys.FORW_MEM_MEM, "true");
+    		edge_obj.put(PLPCPUSnapshot_keys.EX_MEM_BUFFER_FORWARDING_UNIT_EDGE, "true");
+    	}
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.FORWARDING_UNIT, obj);
     	
     	

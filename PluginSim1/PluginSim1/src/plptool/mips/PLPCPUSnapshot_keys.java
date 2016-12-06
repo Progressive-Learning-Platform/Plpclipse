@@ -467,6 +467,12 @@ public class PLPCPUSnapshot_keys
 	public static String MEM_WB_BUFFER_FORWARDING_UNIT_EDGE = "mem_wb_buffer_forwarding_unit";
 	public static String FORWARDING_UNIT_EX_MEM_BUFFER_EDGE = "forwarding_unit_mem_wb_buffer";
 	
+	public static String DATA_MEM_MEM_WB_BUFFER_EDGE = "data_memory_mem_wb_buffer";
+	
+	public static String MEM_WB_BUFFER_MUX5_TOP_EDGE = "mem_wb_buffer_mux5_top";
+	public static String MEM_WB_BUFFER_MUX5_1_EDGE = "mem_wb_buffer_mux5_1";
+	public static String MEM_WB_BUFFER_MUX5_2_EDGE = "mem_wb_buffer_mux5_2";
+	
 	public static String EDGE_ENABLE = "enabled_edges";
 	
 	public static void initializeKeysFromFile()
@@ -593,7 +599,7 @@ public class PLPCPUSnapshot_keys
 				PLPCPUSnapshot_keys.DATA_MEMORY = id;
 				break;
 			}
-			case "if_id_buffer":
+			/*case "if_id_buffer":
 			{
 				PLPCPUSnapshot_keys.IF_ID_INTERMEDIATE = id;
 			}

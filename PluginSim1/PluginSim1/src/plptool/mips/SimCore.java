@@ -618,7 +618,9 @@ public class SimCore extends PLPSimCore {
     	obj = new JSONObject();
 	    obj.put(PLPCPUSnapshot_keys.DATA_MEM_ADDRESS, Long.toHexString(mem_stage.fwd_data_alu_result));    	
 	    if(mem_stage.fwd_data_alu_result != 0)
-	    	edge_obj.put(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_ADDRESS_EDGE, Long.toHexString(mem_stage.fwd_data_alu_result));	        
+	    {
+	    	edge_obj.put(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_ADDRESS_EDGE, Long.toHexString(mem_stage.fwd_data_alu_result));	  
+	    }
     	if(mem_stage.ctl_memwrite != 0){
     		// if Mem Write control signal is active
     		obj.put(PLPCPUSnapshot_keys.DATA_MEM_WRITE, mem_stage.data_mem_store);
@@ -636,10 +638,18 @@ public class SimCore extends PLPSimCore {
     	//MUX to decide mem or register write
     	obj = new JSONObject();
     	if(wb_stage.ctl_memtoreg != 0)
+    	{
     		obj.put(PLPCPUSnapshot_keys.MEM_MUX_VALUE, "1");
+    		edge_obj.putOpt(PLPCPUSnapshot_keys.MEM_WB_BUFFER_MUX5_TOP_EDGE, "Memory to Register");
+    	}
     	else
+    	{
     		obj.put(PLPCPUSnapshot_keys.MEM_MUX_VALUE, "0");
+    	}
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.MEM_MUX, obj);
+    	
+    	edge_obj.put(PLPCPUSnapshot_keys.MEM_WB_BUFFER_MUX5_1_EDGE, String.valueOf(wb_stage.data_memreaddata));
+    	edge_obj.put(PLPCPUSnapshot_keys.MEM_WB_BUFFER_MUX5_2_EDGE, String.valueOf(wb_stage.data_alu_result));
     	
     	
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.EDGE_ENABLE, edge_obj);

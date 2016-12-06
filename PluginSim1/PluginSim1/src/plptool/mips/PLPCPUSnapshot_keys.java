@@ -291,6 +291,11 @@ public class PLPCPUSnapshot_keys
 	public static String REGISTER2_READ = "read data 2";
 	public static String REGISTER_WRITE_DATA = "write data";
 	
+	public static String FORWARDING_UNIT = "forwarding_unit";
+	public static String FORW_RS_EX = "ex_stage_rs";
+	public static String FORW_RT_EX = "ex_stage_rt";
+	public static String FORW_MEM_MEM = "mem->mem";
+	
 	
 	
 	
@@ -452,6 +457,10 @@ public class PLPCPUSnapshot_keys
 	public static String ID_EX_BUFFER_MUX2_2_EDGE = "id_ex_buffer_mux2_2";
 	public static String ID_EX_BUFFER_MUX2_3_EDGE = "id_ex_buffer_mux2_3";
 	public static String ID_EX_BUFFER_ALU_EDGE = "id_ex_buffer_alu";
+	public static String ALU_EX_MEM_BUFFER_EDGE = "alu_ex_mem_buffer";
+	public static String ID_EX_BUFFER_AND_EDGE = "id_ex_buffer_andgate";
+	public static String ID_EX_BUFFER_ALUC_EDGE = "id_ex_buffer_aluc";
+	public static String ID_EX_BUFFER_ALUCONTROL_EDGE = "id_ex_buffer_alu_control";
 	
 	public static String EDGE_ENABLE = "enabled_edges";
 	

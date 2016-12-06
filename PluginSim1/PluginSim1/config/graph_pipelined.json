@@ -404,7 +404,7 @@
 		},
 		"id_ex_buffer_andgate": {
 			"name": "",
-			"id": "ex_mem_buffer_andgate",
+			"id": "id_ex_buffer_andgate",
 			"vertex_id_from": "id_ex_buffer",
 			"vertex_id_to": "and_gate",
 			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.124;exitPerimeter=1;entryX=0;entryY=0.2;entryPerimeter=1;"

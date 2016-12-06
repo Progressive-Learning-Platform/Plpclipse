@@ -461,10 +461,17 @@ public class SimCore extends PLPSimCore {
     	//ALU Control
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_INPUT, String.valueOf(Integer.toBinaryString(MIPSInstr.funct(ex_stage.instruction))));
+    	edge_obj.put(PLPCPUSnapshot_keys.ID_EX_BUFFER_ALUCONTROL_EDGE, Integer.toBinaryString(MIPSInstr.funct(ex_stage.instruction)));
     	if(ex_stage.ctl_aluOp != 0)
+    	{
     		obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_OUTPUT, String.valueOf(Integer.toBinaryString(MIPSInstr.funct(ex_stage.instruction))));
+    		edge_obj.put(PLPCPUSnapshot_keys.ID_EX_BUFFER_ALUC_EDGE, "ALU Operation");
+    		edge_obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_ALU_EDGE, String.valueOf(MIPSInstr.funct(ex_stage.instruction)));
+    	}
     	else
-    		obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_OUTPUT, String.valueOf(Integer.toBinaryString(MIPSInstr.funct(ex_stage.instruction))));
+    	{
+    		obj.put(PLPCPUSnapshot_keys.ALU_CONTROL_OUTPUT, String.valueOf("-"));
+    	}
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_CONTROL, obj);
     	
     	//ALU
@@ -473,20 +480,34 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.ALU_INPUT1, String.valueOf(ex_stage.data_x));
     	obj.put(PLPCPUSnapshot_keys.ALU_INPUT2, String.valueOf(ex_stage.data_y));
     	if(ex_stage.internal_alu_out == 1)
+    	{
     		obj.put(PLPCPUSnapshot_keys.ALU_ZERO, "1");
+    		edge_obj.put(PLPCPUSnapshot_keys.ALU_AND_GATE_EDGE, "1");
+    	}
     	else
+    	{
     		obj.put(PLPCPUSnapshot_keys.ALU_ZERO, "0");
+    		edge_obj.put(PLPCPUSnapshot_keys.ALU_AND_GATE_EDGE, "0");
+    	}
     	obj.put(PLPCPUSnapshot_keys.ALU_OP_TYPE, String.valueOf(Integer.toBinaryString(MIPSInstr.funct(ex_stage.instruction))));
     	obj.put(PLPCPUSnapshot_keys.ALU_RESULT, String.valueOf(ex_stage.internal_alu_out));
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU, obj);
     	
+    	edge_obj.put(PLPCPUSnapshot_keys.ALU_EX_MEM_BUFFER_EDGE, String.valueOf(ex_stage.internal_alu_out));
     	
     	//AND Gate for branch
+    	
     	obj = new JSONObject();
     	if(ex_stage.ctl_branch != 0)
+    	{
     		obj.put(PLPCPUSnapshot_keys.AND_GATE_INPUT1, "1");
+    		edge_obj.put(PLPCPUSnapshot_keys.ID_EX_BUFFER_AND_EDGE, "1");
+    	}
     	else
+    	{
     		obj.put(PLPCPUSnapshot_keys.AND_GATE_INPUT1, "0");
+    		edge_obj.put(PLPCPUSnapshot_keys.ID_EX_BUFFER_AND_EDGE, "0");
+    	}
     	if(ex_stage.internal_alu_out == 1)
     		obj.put(PLPCPUSnapshot_keys.AND_GATE_INPUT2, "1");
     	else
@@ -625,6 +646,30 @@ public class SimCore extends PLPSimCore {
     	else
     		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_SIGN_EDGE);*/
     	/* Edges stretched from IF_ID_Buffer - End */
+    	
+    	//Forwarding
+    	obj = new JSONObject();
+    	if(ex_stage.ctl_forwardX != 0)
+    	{
+    		if(ex_stage.ctl_forwardX == 1)
+    			obj.put(PLPCPUSnapshot_keys.FORW_RS_EX, "EX->EX");
+    		else
+    			obj.put(PLPCPUSnapshot_keys.FORW_RS_EX, "MEM->EX");
+    		
+    	}
+    	if(ex_stage.ctl_forwardY != 0)
+    	{
+    		if(ex_stage.ctl_forwardY == 1)
+    			obj.put(PLPCPUSnapshot_keys.FORW_RT_EX, "EX->EX");
+    		else
+    			obj.put(PLPCPUSnapshot_keys.FORW_RT_EX, "MEM->EX");
+    	}
+    	
+    	if(mem_stage.ctl_fwd_mem_mem == 1)
+    		obj.put(PLPCPUSnapshot_keys.FORW_MEM_MEM, "true");
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.FORWARDING_UNIT, obj);
+    	
+    	
     	
     	obj = (JSONObject)cpuSnapShotmap.get(PLPCPUSnapshot_keys.ID_EX_INTERMEDIATE);
     	obj.put(PLPCPUSnapshot_keys.ID_EX_INSTRUCTION, Long.toHexString(id_stage.instruction));
@@ -2301,6 +2346,8 @@ public class SimCore extends PLPSimCore {
                     MIPSInstr.rt(instruction) != 0 && mem_mem) ? 1 : 0;
             sim_flags |= (ctl_fwd_mem_mem == 1 ? PLP_SIM_FWD_MEM_MEM : 0);
             data_mem_store = (ctl_fwd_mem_mem == 1) ? wb_stage.data_regwrite : data_memwritedata;
+            
+            
 
             wb_reg.i_instruction = instruction;
             wb_reg.i_instrAddr = instrAddr;

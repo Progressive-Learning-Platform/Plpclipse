@@ -609,6 +609,13 @@
 			"vertex_id_to": "mem_wb_buffer",
 			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.664;entryPerimeter=1;"
 		},
+		"ex_mem_buffer_mem_wb_buffer" :{
+			"name": "",
+			"id": "ex_mem_buffer_mem_wb_buffer",
+			"vertex_id_from": "ex_mem_buffer",
+			"vertex_id_to": "mem_wb_buffer",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.274;exitPerimeter=1;entryX=0;entryY=0.2;entryPerimeter=1;"
+		},
 		"ex_mem_buffer_forwarding_unit" :{
 			"name": "",
 			"id": "ex_mem_buffer_forwarding_unit",

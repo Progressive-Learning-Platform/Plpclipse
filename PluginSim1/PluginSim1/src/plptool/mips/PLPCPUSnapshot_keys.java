@@ -430,6 +430,8 @@ public class PLPCPUSnapshot_keys
 	/* Edges specific in ID Stage */
 	public static String IF_ID_SHIFT_PC_EDGE = "if_id_buffer_shift1";
 	//public static String SHIFT1_MUX4_EDGE = "shift1_mux4";
+	public static String IF_ID_ADD2_EDGE = "if_id_buffer_add2";
+	public static String ADD2_ID_EX_EDGE = "add2_id_ex_buffer";
 	public static String IF_ID_CONTROL_EDGE = "if_id_buffer_control";
 	public static String CONTROL_ID_EX_EDGE_1 = "control_id_ex_buffer";
 	public static String CONTROL_ID_EX_EDGE_2 = "control_id_ex_buffer2";

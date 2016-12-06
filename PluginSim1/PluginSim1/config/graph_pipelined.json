@@ -75,17 +75,17 @@
 		"control": {
 			"name": "Control",
 			"id": "control",
-			"pos_x": 250,
-			"pos_y": 300,
+			"pos_x": 220,
+			"pos_y": 280,
 			"width": 60,
 			"height": 100,
 			"shape": "shape=ellipse;perimeter=ellipsePerimeter;"
 		},
 		"mux1": {
-			"name": "Mux\n1",
+			"name": "Mux",
 			"id": "mux1",
-			"pos_x": 250,
-			"pos_y": 420,
+			"pos_x": 310,
+			"pos_y": 240,
 			"width": 20,
 			"height": 40,
 			"shape": "shape=mux"
@@ -94,7 +94,7 @@
 			"name": "Sign\nExtend",
 			"id": "sign_extend",
 			"pos_x": 210,
-			"pos_y": 200,
+			"pos_y": 160,
 			"width": 40,
 			"height": 60,
 			"shape": "shape=ellipse;perimeter=ellipsePerimeter;"
@@ -102,8 +102,8 @@
 		"bne": {
 			"name": "BNE",
 			"id": "bne",
-			"pos_x": 300,
-			"pos_y": 235,
+			"pos_x": 320,
+			"pos_y": 400,
 			"width": 40,
 			"height": 40,
 			"shape": ""
@@ -112,7 +112,7 @@
 		"registers": {
 			"name": "Registers",
 			"id": "registers",
-			"pos_x": 300,
+			"pos_x": 220,
 			"pos_y": 420,
 			"width": 80,
 			"height": 100,
@@ -122,13 +122,13 @@
 			"name": "\nShift left 2",
 			"id": "shift2",
 			"pos_x": 280,
-			"pos_y": 160,
+			"pos_y": 120,
 			"width": 20,
 			"height": 40,
 			"shape": "shape=ellipse;perimeter=ellipsePerimeter;"
 		},
 		"mux2": {
-			"name": "Mux\n2",
+			"name": "Mux",
 			"id": "mux2",
 			"pos_x": 435,
 			"pos_y": 320,
@@ -158,7 +158,7 @@
 			"name": "Add",
 			"id": "add2",
 			"pos_x": 330,
-			"pos_y": 70,
+			"pos_y": 60,
 			"width": 60,
 			"height": 80,
 			"shape": "shape=add"
@@ -168,21 +168,21 @@
 			"id": "alu",
 			"pos_x": 475,
 			"pos_y": 240,
-			"width": 40,
+			"width": 60,
 			"height": 80,
 			"shape": "shape=add"
 		},
 		"mux3": {
-			"name": "Mux\n3",
+			"name": "Mux",
 			"id": "mux3",
 			"pos_x": 620,
-			"pos_y": 50,
+			"pos_y": 45,
 			"width": 20,
 			"height": 40,
 			"shape": "shape=mux"
 		},
 		"mux4": {
-			"name": "Mux\n4",
+			"name": "Mux",
 			"id": "mux4",
 			"pos_x": 660,
 			"pos_y": 20,
@@ -193,8 +193,8 @@
 		"and_gate": {
 			"name": "AND",
 			"id": "and_gate",
-			"pos_x": 520,
-			"pos_y": 110,
+			"pos_x": 540,
+			"pos_y": 80,
 			"width": 20,
 			"height": 20,
 			"shape": "shape=triangle;perimeter=trianglePerimeter;"
@@ -209,7 +209,7 @@
 			"shape": ""
 		},
 		"mux5": {
-			"name": "Mux\n5",
+			"name": "Mux",
 			"id": "mux5",
 			"pos_x": 740,
 			"pos_y": 300,
@@ -259,28 +259,28 @@
 			"id": "if_id_buffer_control",
 			"vertex_id_from": "if_id_buffer",
 			"vertex_id_to": "control",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.625;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.575;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
 		},
 		"if_id_buffer_mux1_upper": {
 			"name": "",
 			"id": "if_id_buffer_mux1_upper",
 			"vertex_id_from": "if_id_buffer",
 			"vertex_id_to": "mux1",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.83;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.38;exitPerimeter=1;entryX=0;entryY=0.3;entryPerimeter=1;"
 		},
 		"if_id_buffer_mux1_lower": {
 			"name": "",
 			"id": "if_id_buffer_mux1_lower",
 			"vertex_id_from": "if_id_buffer",
 			"vertex_id_to": "mux1",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.87;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.42;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
 		},
 		"if_id_buffer_sign": {
 			"name": "",
 			"id": "if_id_buffer_sign",
 			"vertex_id_from": "if_id_buffer",
 			"vertex_id_to": "sign_extend",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.325;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.225;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;"
 		},
 		"if_id_buffer_registers_left": {
 			"name": "",
@@ -308,98 +308,99 @@
 			"id": "control_id_ex_buffer",
 			"vertex_id_from": "control",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.525;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.475;entryPerimeter=1;"
 		},
 		"control_mux1": {
 			"name": "",
 			"id": "control_mux1",
 			"vertex_id_from": "control",
 			"vertex_id_to": "mux1",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=0.5;exitY=0.9;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=1;exitY=0;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;",
+			"way_points": [[320, 290]]
 		},
 		"control_bne": {
 			"name": "",
 			"id": "control_bne",
 			"vertex_id_from": "control",
 			"vertex_id_to": "bne",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=0.5;exitY=0.1;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=1;exitY=0.9;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;"
 		},
 		"control_id_ex_buffer2": {
 			"name": "",
 			"id": "control_id_ex_buffer2",
 			"vertex_id_from": "control",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.550;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.500;entryPerimeter=1;"
 		},
 		"if_id_buffer_id_ex_buffer": {
 			"name": "",
 			"id": "if_id_buffer_id_ex_buffer",
 			"vertex_id_from": "if_id_buffer",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.45;exitPerimeter=1;entryX=0;entryY=0.45;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.35;exitPerimeter=1;entryX=0;entryY=0.35;entryPerimeter=1;"
 		},
-		"if_id_buffer_bne_1": {
+		"registers_bne_1": {
 			"name": "",
-			"id": "if_id_buffer_bne_1",
-			"vertex_id_from": "if_id_buffer",
+			"id": "registers_bne_1",
+			"vertex_id_from": "registers",
 			"vertex_id_to": "bne",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.41;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
 		},
-		"if_id_buffer_bne_2": {
+		"registers_bne_2": {
 			"name": "",
-			"id": "if_id_buffer_bne_2",
-			"vertex_id_from": "if_id_buffer",
+			"id": "registers_bne_1",
+			"vertex_id_from": "registers",
 			"vertex_id_to": "bne",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.43;exitPerimeter=1;entryX=0;entryY=0.9;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.9;entryPerimeter=1;"
 		},
 		"bne_id_ex_buffer": {
 			"name": "",
 			"id": "bne_id_ex_buffer",
 			"vertex_id_from": "bne",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.40;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.8;entryPerimeter=1;"
 		},
 		"control_id_ex_buffer3": {
 			"name": "",
 			"id": "control_id_ex_buffer3",
 			"vertex_id_from": "control",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.3;exitPerimeter=1;entryX=0;entryY=0.575;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.3;exitPerimeter=1;entryX=0;entryY=0.525;entryPerimeter=1;"
 		},
 		"control_id_ex_buffer4": {
 			"name": "",
 			"id": "control_id_ex_buffer4",
 			"vertex_id_from": "control",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.4;exitPerimeter=1;entryX=0;entryY=0.600;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.4;exitPerimeter=1;entryX=0;entryY=0.550;entryPerimeter=1;"
 		},
 		"control_id_ex_buffer5": {
 			"name": "",
 			"id": "control_id_ex_buffer5",
 			"vertex_id_from": "control",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.625;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.575;entryPerimeter=1;"
 		},
 		"control_id_ex_buffer6": {
 			"name": "",
 			"id": "control_id_ex_buffer6",
 			"vertex_id_from": "control",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.6;exitPerimeter=1;entryX=0;entryY=0.650;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.6;exitPerimeter=1;entryX=0;entryY=0.600;entryPerimeter=1;"
 		},
 		"control_id_ex_buffer7": {
 			"name": "",
 			"id": "control_id_ex_buffer7",
 			"vertex_id_from": "control",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.7;exitPerimeter=1;entryX=0;entryY=0.675;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.7;exitPerimeter=1;entryX=0;entryY=0.625;entryPerimeter=1;"
 		},
 		"control_id_ex_buffer8": {
 			"name": "",
 			"id": "control_id_ex_buffer8",
 			"vertex_id_from": "control",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.8;exitPerimeter=1;entryX=0;entryY=0.700;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.8;exitPerimeter=1;entryX=0;entryY=0.650;entryPerimeter=1;"
 		},
 		"id_ex_buffer_andgate": {
 			"name": "",
@@ -492,26 +493,26 @@
 			"vertex_id_to": "alu",
 			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=0.9;exitY=0;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;"
 		},
-		"mux1_registers" :{
+		"mux1_id_ex_buffer" :{
 			"name": "",
 			"id": "mux1_registers",
 			"vertex_id_from": "mux1",
-			"vertex_id_to": "registers",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.2;entryPerimeter=1;"
+			"vertex_id_to": "id_ex_buffer",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.4;entryPerimeter=1;"
 		},
 		"registers_id_ex_buffer_1" :{
 			"name": "",
 			"id": "registers_id_ex_buffer_1",
 			"vertex_id_from": "registers",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.25;exitPerimeter=1;entryX=0;entryY=0.85;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.3;exitPerimeter=1;entryX=0;entryY=0.875;entryPerimeter=1;"
 		},
 		"registers_id_ex_buffer_2" :{
 			"name": "",
 			"id": "registers_id_ex_buffer_2",
 			"vertex_id_from": "registers",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.75;exitPerimeter=1;entryX=0;entryY=0.95;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.7;exitPerimeter=1;entryX=0;entryY=0.975;entryPerimeter=1;"
 		},
 		"mux3_mux4" :{
 			"name": "",
@@ -532,7 +533,7 @@
 			"id": "sign_extend_id_ex_buffer",
 			"vertex_id_from": "sign_extend",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.325;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.225;entryPerimeter=1;"
 		},
 		"id_ex_buffer_alu" :{
 			"name": "",
@@ -568,7 +569,7 @@
 			"id": "shift2_add2",
 			"vertex_id_from": "shift2",
 			"vertex_id_to": "add2",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.6;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.8;entryPerimeter=1;"
 		},
 		"ex_mem_buffer_mux3" :{
 			"name": "",
@@ -582,22 +583,15 @@
 			"id": "alu_and_gate",
 			"vertex_id_from": "alu",
 			"vertex_id_to": "and_gate",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.146;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.2;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;"
 		},
 		"and_gate_mux3" :{
 			"name": "",
 			"id": "and_gate_mux3",
 			"vertex_id_from": "and_gate",
 			"vertex_id_to": "mux3",
-			"style":"edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;"
-		},
-		"mux5_registers" :{
-			"name": "",
-			"id": "mux5_registers",
-			"vertex_id_from": "mux5",
-			"vertex_id_to": "registers",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=0.5;exitY=0.9;exitPerimeter=1;entryX=0.5;entryY=0.95;entryPerimeter=1;",
-			"way_points": [[740,575]]			
+			"style":"edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;",
+			"way_points": [[630, 90]]
 		},
 		"mux4_pc" :{
 			"name": "",
@@ -648,7 +642,7 @@
 			"id": "add2_ex_mem_buffer",
 			"vertex_id_from": "add2",
 			"vertex_id_to": "id_ex_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.114;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0;entryPerimeter=1;"
 		},
 		"alu_ex_mem_buffer" :{
 			"name": "",
@@ -698,6 +692,22 @@
 			"vertex_id_from": "id_ex_buffer",
 			"vertex_id_to": "mux2",
 			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=1;exitY=0.72;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;"
+		},
+		"mem_wb_buffer_registers" :{
+			"name": "",
+			"id": "mem_wb_buffer_registers",
+			"vertex_id_from": "mem_wb_buffer",
+			"vertex_id_to": "registers",
+			"style": "exitX=1;exitY=0.8;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;",
+			"way_points": [[720,420], [720,565], [260,565]]
+		},
+		"mux5_registers" :{
+			"name": "",
+			"id": "mux5_registers",
+			"vertex_id_from": "mux5",
+			"vertex_id_to": "registers",
+			"style": "exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.9;entryPerimeter=1;",
+			"way_points": [[770,320], [770,570], [200,570], [200,510]]
 		}
 	}
 }

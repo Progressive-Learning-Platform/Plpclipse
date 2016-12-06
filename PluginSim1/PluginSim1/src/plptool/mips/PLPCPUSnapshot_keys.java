@@ -379,6 +379,7 @@ public class PLPCPUSnapshot_keys
 	public static String CONTROL_EDGE = "im_control";
 	public static String IM_MUX1_LOWER_EDGE = "im_mux1_lower";
 	public static String IM_MUX1_UPPER_EDGE = "im_mux1_upper";
+	//public static String IF_ID_MUX1_LOWER_EDGE = "if_id_buffer_mux1_upper";
 	public static String IM_REGISTER_READ_RIGHT_EDGE = "im_register_read_right";
 	public static String IM_REGISTER_READ_LEFT_EDGE = "im_register_read_left";
 	public static String IM_SIGN_EDGE = "im_sign";
@@ -428,17 +429,29 @@ public class PLPCPUSnapshot_keys
 	public static String CONTROL_ID_EX_EDGE_1 = "control_id_ex_buffer";
 	public static String CONTROL_ID_EX_EDGE_2 = "control_id_ex_buffer2";
 	public static String CONTROL_ID_EX_EDGE_3 = "control_id_ex_buffer3";
+	public static String CONTROL_ID_EX_EDGE_4 = "control_id_ex_buffer4";
+	public static String CONTROL_ID_EX_EDGE_5 = "control_id_ex_buffer5";
+	public static String CONTROL_ID_EX_EDGE_6 = "control_id_ex_buffer6";
+	public static String CONTROL_ID_EX_EDGE_7 = "control_id_ex_buffer7";
+	public static String CONTROL_ID_EX_EDGE_8 = "control_id_ex_buffer8";
 	public static String IF_ID_ID_EX_EDGE = "if_id_buffer_id_ex_buffer";
-	public static String IF_ID_MUX1_UPPER_EDGE = "im_mux1_upper";
-	public static String IF_ID_MUX1_LOWER_EDGE = "im_mux1_lower";
+	public static String IF_ID_MUX1_UPPER_EDGE = "if_id_buffer_mux1_upper";
+	public static String IF_ID_MUX1_LOWER_EDGE = "if_id_buffer_mux1_lower";
 	//public static String MUX1_REGISTERS_EDGE = "mux1_registers";
+	public static String IF_ID_BUFFER_REGISTERS_LEFT = "if_id_buffer_registers_left";
+	public static String IF_ID_BUFFER_REGISTERS_RIGHT = "if_id_buffer_registers_right";
 	public static String REGISTERS_ID_EX_EDGE_1 = "registers_id_ex_buffer_1";
 	public static String REGISTERS_ID_EX_EDGE_2 = "registers_id_ex_buffer_2";
 	public static String ID_EX_REGISTERS_EDGE = "id_ex_buffer_registers";
 	public static String ID_EX_MUX1_EDGE = "id_ex_buffer_mux1";
-	public static String IF_ID_SIGN_EDGE = "im_sign";
+	public static String IF_ID_SIGN_EDGE = "if_id_buffer_sign";
 	public static String SIGN_EXTEND_ID_EX_EDGE = "sign_extend_id_ex_buffer";
-	
+	public static String SIGN_EXTEND_SHIFT2_ID_EDGE = "sign_extend_shift2";
+	public static String CONTROL_BNE = "control_bne";
+	public static String ID_EX_BUFFER_MUX2_EDGE = "id_ex_buffer_mux2";
+	public static String ID_EX_BUFFER_MUX2_2_EDGE = "id_ex_buffer_mux2_2";
+	public static String ID_EX_BUFFER_MUX2_3_EDGE = "id_ex_buffer_mux2_3";
+	public static String ID_EX_BUFFER_ALU_EDGE = "id_ex_buffer_alu";
 	
 	public static String EDGE_ENABLE = "enabled_edges";
 	

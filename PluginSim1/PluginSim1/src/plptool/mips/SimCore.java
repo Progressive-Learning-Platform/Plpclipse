@@ -318,8 +318,8 @@ public class SimCore extends PLPSimCore {
     	
     	//Register File
     	obj = new JSONObject();
-    	obj.put(PLPCPUSnapshot_keys.REGISTER1, String.valueOf(id_stage.rs));
-    	obj.put(PLPCPUSnapshot_keys.REGISTER2, String.valueOf(id_stage.rt));
+    	obj.put(PLPCPUSnapshot_keys.REGISTER1, Long.toBinaryString(id_stage.rs));
+    	obj.put(PLPCPUSnapshot_keys.REGISTER2, Long.toBinaryString(id_stage.rt));
     	if(wb_stage.ctl_regwrite == 1 && wb_stage.ctl_dest_reg_addr != 0)
     	{
     		obj.put(PLPCPUSnapshot_keys.REGISTER_WRITE, String.valueOf(wb_stage.ctl_dest_reg_addr));
@@ -328,6 +328,20 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.REGISTER1_READ, String.valueOf(ex_stage.i_data_rs));
     	obj.put(PLPCPUSnapshot_keys.REGISTER2_READ, String.valueOf(ex_stage.i_data_rt));
     	/* Edges stretched from Register File - Begin */
+    	edge_obj.put(PLPCPUSnapshot_keys.IF_ID_MUX1_LOWER_EDGE, Long.toBinaryString(id_stage.rt));
+    	edge_obj.put(PLPCPUSnapshot_keys.IF_ID_MUX1_UPPER_EDGE, Long.toBinaryString(id_stage.rd));
+    	if(ex_stage.i_ctl_regDst != 0)
+    	{
+    		edge_obj.put(PLPCPUSnapshot_keys.MUX1_REGISTERS_EDGE, Long.toBinaryString(id_stage.rd));
+    	}
+    	else
+    	{
+    		edge_obj.put(PLPCPUSnapshot_keys.MUX1_REGISTERS_EDGE, Long.toBinaryString(id_stage.rt));
+    		
+    	}
+    	
+    	edge_obj.put(PLPCPUSnapshot_keys.IF_ID_BUFFER_REGISTERS_LEFT, Long.toBinaryString(id_stage.rt));
+    	edge_obj.put(PLPCPUSnapshot_keys.IF_ID_BUFFER_REGISTERS_RIGHT, Long.toBinaryString(id_stage.rs));
     	
     	/* Edges stretched from Register File - End */
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTERS, obj);
@@ -335,7 +349,10 @@ public class SimCore extends PLPSimCore {
     	//Sign extend immediate value
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_INPUT, String.valueOf(id_stage.imm_field));
+    	edge_obj.put(PLPCPUSnapshot_keys.IF_ID_SIGN_EDGE, Long.toBinaryString(id_stage.imm_field));
     	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_OUTPUT, String.valueOf(ex_stage.i_data_imm_signExtended));
+    	edge_obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_ID_EX_EDGE, Long.toBinaryString(ex_stage.i_data_imm_signExtended));
+    	edge_obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_SHIFT2_ID_EDGE, Long.toBinaryString(ex_stage.i_data_imm_signExtended));
     	/* Edge stretched from Sign_Extend */
     	/*if (id_stage.imm_field != 0)
 			edge_obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_ID_EX_EDGE, String.valueOf(id_stage.ex_reg.i_data_imm_signExtended));
@@ -345,32 +362,33 @@ public class SimCore extends PLPSimCore {
     	
     	//Control
     	obj = new JSONObject();
+    	edge_obj.put(PLPCPUSnapshot_keys.IF_ID_CONTROL_EDGE, Long.toBinaryString(id_stage.opcode));
    	
     	String control_signals = "";
     	if(ex_stage.i_ctl_aluOp != 0)
     	{
     		control_signals = "ALU Operation,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ALU_CONTROL_EDGE, "ALU Operation");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_1, "ALU Operation");
     	}
     	if(ex_stage.i_ctl_aluSrc != 0)
     	{
     		control_signals += "ALU Source,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX2_EDGE, "ALU Source");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_2, "ALU Source");
     	}
     	if(ex_stage.i_ctl_jump != 0)
     	{
     		control_signals += "Jump,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX4_EDGE, "Jump");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_3, "Jump");
     	}
     	if(ex_stage.i_fwd_ctl_memread != 0)
     	{
     		control_signals += "Memory Read,";
-    		edge_obj.put(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_MEM_READ_EDGE, "Memory Read");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_4, "Memory Read");
     	}
     	if(ex_stage.i_fwd_ctl_memtoreg != 0)
     	{
     		control_signals += "Memory to Register,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_MUX5_EDGE, "Memory to Register");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_5, "Memory to Register");
     	}
     	if(ex_stage.i_ctl_regDst != 0)
     	{
@@ -380,17 +398,17 @@ public class SimCore extends PLPSimCore {
     	if(ex_stage.i_fwd_ctl_memwrite != 0)
     	{
     		control_signals += "Memory Write,";
-    		edge_obj.put(PLPCPUSnapshot_keys.EX_MEM_BUFFER_DATA_MEMORY_MEM_WRITE_EDGE, "Memory Write");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_7, "Memory Write");
     	}
     	if(ex_stage.i_fwd_ctl_regwrite != 0)
     	{
     		control_signals += "Register Write,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_REGISTERS_EDGE, "Register Write");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ID_EX_EDGE_8, "Register Write");
     	}
     	if(ex_stage.i_ctl_branch != 0)
     	{
     		control_signals += "Branch,";
-    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_ANDGATE_EDGE, "BRANCH");
+    		edge_obj.put(PLPCPUSnapshot_keys.CONTROL_BNE, "BRANCH");
     	}
     	
     	obj.put(PLPCPUSnapshot_keys.CONTROL_SIGNALS, control_signals);
@@ -425,10 +443,19 @@ public class SimCore extends PLPSimCore {
         
     	//ALU MUX
     	obj = new JSONObject();
+    	edge_obj.put(PLPCPUSnapshot_keys.ID_EX_BUFFER_MUX2_EDGE, String.valueOf(ex_stage.data_eff_y));
+    	edge_obj.put(PLPCPUSnapshot_keys.ID_EX_BUFFER_MUX2_2_EDGE, String.valueOf(ex_stage.data_imm_signExtended));
     	if(ex_stage.ctl_aluSrc != 0)
+    	{
     		obj.put(PLPCPUSnapshot_keys.ALU_MUX_VALUE, "1");
+    		edge_obj.put(PLPCPUSnapshot_keys.ID_EX_BUFFER_MUX2_3_EDGE, "ALU Source");
+    		edge_obj.put(PLPCPUSnapshot_keys.MUX2_ALU_EDGE, String.valueOf(ex_stage.data_imm_signExtended));
+    	}
     	else
+    	{
     		obj.put(PLPCPUSnapshot_keys.ALU_MUX_VALUE, "0");
+    		edge_obj.put(PLPCPUSnapshot_keys.MUX2_ALU_EDGE, String.valueOf(ex_stage.data_eff_y));
+    	}
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.ALU_MUX, obj);
     	
     	//ALU Control
@@ -442,6 +469,7 @@ public class SimCore extends PLPSimCore {
     	
     	//ALU
     	obj = new JSONObject();
+    	edge_obj.put(PLPCPUSnapshot_keys.ID_EX_BUFFER_ALU_EDGE, String.valueOf(ex_stage.data_x));
     	obj.put(PLPCPUSnapshot_keys.ALU_INPUT1, String.valueOf(ex_stage.data_x));
     	obj.put(PLPCPUSnapshot_keys.ALU_INPUT2, String.valueOf(ex_stage.data_y));
     	if(ex_stage.internal_alu_out == 1)
@@ -1612,6 +1640,9 @@ public class SimCore extends PLPSimCore {
         public long rt;
         public long rd;
         public long imm_field;
+        public byte opcode;
+        public long jaddr;
+        public byte funct;
         
 
         public id(ex ex_reg, MemModule regfile) {
@@ -1655,8 +1686,8 @@ public class SimCore extends PLPSimCore {
 
             if(!bubble) id_count++;
 
-            byte opcode      = (byte) MIPSInstr.opcode(instruction);
-            byte funct       = (byte) MIPSInstr.funct(instruction);
+            opcode      = (byte) MIPSInstr.opcode(instruction);
+            funct       = (byte) MIPSInstr.funct(instruction);
 
             long addr_rt = MIPSInstr.rt(instruction); // rt
             long addr_rs = MIPSInstr.rs(instruction); // rs

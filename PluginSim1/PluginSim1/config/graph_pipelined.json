@@ -64,7 +64,7 @@
 			"shape": ""
 		},
 		"shift1": {
-			"name": "\nShift Left 2",
+			"name": "Shift Left",
 			"id": "shift1",
 			"pos_x": 220,
 			"pos_y": 20,
@@ -119,7 +119,7 @@
 			"shape": ""
 		},
 		"shift2": {
-			"name": "\nShift left 2",
+			"name": "Shift left",
 			"id": "shift2",
 			"pos_x": 280,
 			"pos_y": 120,
@@ -131,7 +131,7 @@
 			"name": "Mux",
 			"id": "mux2",
 			"pos_x": 435,
-			"pos_y": 320,
+			"pos_y": 300,
 			"width": 20,
 			"height": 40,
 			"shape": "shape=mux"
@@ -203,9 +203,9 @@
 			"name": "Data\nMemory",
 			"id": "data_memory",
 			"pos_x": 600,
-			"pos_y": 320,
+			"pos_y": 300,
 			"width": 60,
-			"height": 90,
+			"height": 100,
 			"shape": ""
 		},
 		"mux5": {
@@ -344,14 +344,14 @@
 			"id": "registers_bne_1",
 			"vertex_id_from": "registers",
 			"vertex_id_to": "bne",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.7;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.1;exitPerimeter=1;entryX=0;entryY=0.75;entryPerimeter=1;"
 		},
 		"registers_bne_2": {
 			"name": "",
 			"id": "registers_bne_2",
 			"vertex_id_from": "registers",
 			"vertex_id_to": "bne",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.9;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.15;exitPerimeter=1;entryX=0;entryY=0.875;entryPerimeter=1;"
 		},
 		"bne_id_ex_buffer": {
 			"name": "",
@@ -428,49 +428,52 @@
 			"id": "mem_wb_buffer_mux5_top",
 			"vertex_id_from": "mem_wb_buffer",
 			"vertex_id_to": "mux5",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=1;exitY=0.4;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.4;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;",
+			"way_points": [[750, 260]]
 		},
 		"ex_mem_buffer_data_left": {
 			"name": "",
 			"id": "ex_mem_buffer_data_left",
 			"vertex_id_from": "ex_mem_buffer",
 			"vertex_id_to": "data_memory",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.662;exitPerimeter=1;entryX=0;entryY=0.35;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.55;exitPerimeter=1;entryX=0;entryY=0.2;entryPerimeter=1;"
 		},
 		"ex_mem_buffer_data_right": {
 			"name": "",
 			"id": "ex_mem_buffer_data_right",
 			"vertex_id_from": "ex_mem_buffer",
 			"vertex_id_to": "data_memory",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.724;exitPerimeter=1;entryX=0;entryY=0.65;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.7;exitPerimeter=1;entryX=0;entryY=0.8;entryPerimeter=1;"
 		},
 		"ex_mem_buffer_data_top": {
 			"name": "",
 			"id": "ex_mem_buffer_data_top",
 			"vertex_id_from": "ex_mem_buffer",
 			"vertex_id_to": "data_memory",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=1;exitY=0.55;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=1;exitY=0.45;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;",
+			"way_points": [[610, 280]]
 		},
 		"ex_mem_buffer_data_bottom": {
 			"name": "",
 			"id": "ex_mem_buffer_data_bottom",
 			"vertex_id_from": "ex_mem_buffer",
 			"vertex_id_to": "data_memory",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=1;exitY=0.84;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=1;exitY=0.8;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;",
+			"way_points": [[610, 420]]
 		},
 		"id_ex_buffer_mux2" :{
 			"name": "",
 			"id": "id_ex_buffer_mux2",
 			"vertex_id_from": "id_ex_buffer",
 			"vertex_id_to": "mux2",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.614;exitPerimeter=1;entryX=0;entryY=0.25;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.525;exitPerimeter=1;entryX=0;entryY=0.25;entryPerimeter=1;"
 		},
 		"id_ex_buffer_mux2_2" :{
 			"name": "",
 			"id": "id_ex_buffer_mux2_2",
 			"vertex_id_from": "id_ex_buffer",
 			"vertex_id_to": "mux2",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.66;exitPerimeter=1;entryX=0;entryY=0.75;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.575;exitPerimeter=1;entryX=0;entryY=0.75;entryPerimeter=1;"
 		},
 		"mux2_alu" :{
 			"name": "",
@@ -540,14 +543,14 @@
 			"id": "id_ex_buffer_alu",
 			"vertex_id_from": "id_ex_buffer",
 			"vertex_id_to": "alu",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.26;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.4;exitPerimeter=1;entryX=0;entryY=0.25;entryPerimeter=1;"
 		},
 		"add1_mux3" :{
 			"name": "",
 			"id": "add1_mux3",
 			"vertex_id_from": "add1",
 			"vertex_id_to": "mux3",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.35;entryPerimeter=1;",
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.3;exitPerimeter=1;entryX=0;entryY=0.35;entryPerimeter=1;",
 			"way_points": [[151,160],[151,84]]
 		},
 		"add1_if_id_buffer" :{
@@ -555,7 +558,7 @@
 			"id": "add1_if_id_buffer",
 			"vertex_id_from": "add1",
 			"vertex_id_to": "if_id_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.3;exitPerimeter=1;entryX=0;entryY=0.06;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.1;entryPerimeter=1;"
 		},
 		"shift1_mux4" :{
 			"name": "",
@@ -607,14 +610,14 @@
 			"id": "data_memory_mem_wb_buffer",
 			"vertex_id_from": "data_memory",
 			"vertex_id_to": "mem_wb_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.664;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.625;entryPerimeter=1;"
 		},
 		"ex_mem_buffer_mem_wb_buffer" :{
 			"name": "",
 			"id": "ex_mem_buffer_mem_wb_buffer",
 			"vertex_id_from": "ex_mem_buffer",
 			"vertex_id_to": "mem_wb_buffer",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.274;exitPerimeter=1;entryX=0;entryY=0.2;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.2;entryPerimeter=1;"
 		},
 		"ex_mem_buffer_forwarding_unit" :{
 			"name": "",
@@ -670,7 +673,8 @@
 			"id": "id_ex_buffer_mux2_3",
 			"vertex_id_from": "id_ex_buffer",
 			"vertex_id_to": "mux2",
-			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=1;exitY=0.72;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;"
+			"style": "edgeStyle=elbowEdgeStyle;elbow=vertical;exitX=1;exitY=0.72;exitPerimeter=1;entryX=0.5;entryY=1;entryPerimeter=1;",
+			"way_points": [[440, 390]]
 		},
 		"mem_wb_buffer_registers" :{
 			"name": "",

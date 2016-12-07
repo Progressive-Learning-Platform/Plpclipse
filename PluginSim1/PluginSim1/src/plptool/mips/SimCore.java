@@ -390,7 +390,7 @@ public class SimCore extends PLPSimCore {
     	obj.put(PLPCPUSnapshot_keys.BNE_SOURCE_1, String.valueOf(id_stage.ex_reg.i_data_rs));
     	obj.put(PLPCPUSnapshot_keys.BNE_SOURCE_2, String.valueOf(id_stage.ex_reg.i_data_rt));
     	if (id_stage.i_instruction != 0 && ex_stage.i_ctl_branch != 0) {
-    		//edge_obj.put(PLPCPUSnapshot_keys.REGISTERS_BNE_EDGE_1, String.valueOf(id_stage.ex_reg.i_data_rs));
+    		edge_obj.put(PLPCPUSnapshot_keys.REGISTERS_BNE_EDGE_1, String.valueOf(id_stage.ex_reg.i_data_rs));
     		edge_obj.put(PLPCPUSnapshot_keys.REGISTERS_BNE_EDGE_2, String.valueOf(id_stage.ex_reg.i_data_rt));
     		// Set output to 1 if NOT EQUAL, else 0
     		if (id_stage.ex_reg.i_data_rs != id_stage.ex_reg.i_data_rt)

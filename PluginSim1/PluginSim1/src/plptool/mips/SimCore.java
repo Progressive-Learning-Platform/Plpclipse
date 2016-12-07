@@ -385,6 +385,26 @@ public class SimCore extends PLPSimCore {
     	}
     	cpuSnapShotmap.put(PLPCPUSnapshot_keys.REGISTERS, obj);
     	
+    	// BNE Unit
+    	obj = new JSONObject();
+    	obj.put(PLPCPUSnapshot_keys.BNE_SOURCE_1, String.valueOf(id_stage.ex_reg.i_data_rs));
+    	obj.put(PLPCPUSnapshot_keys.BNE_SOURCE_2, String.valueOf(id_stage.ex_reg.i_data_rt));
+    	if (id_stage.i_instruction != 0 && ex_stage.i_ctl_branch != 0) {
+    		//edge_obj.put(PLPCPUSnapshot_keys.REGISTERS_BNE_EDGE_1, String.valueOf(id_stage.ex_reg.i_data_rs));
+    		edge_obj.put(PLPCPUSnapshot_keys.REGISTERS_BNE_EDGE_2, String.valueOf(id_stage.ex_reg.i_data_rt));
+    		// Set output to 1 if NOT EQUAL, else 0
+    		if (id_stage.ex_reg.i_data_rs != id_stage.ex_reg.i_data_rt)
+    			edge_obj.put(PLPCPUSnapshot_keys.BNE_ID_EX_EDGE, String.valueOf(1));
+    		else
+    			edge_obj.put(PLPCPUSnapshot_keys.BNE_ID_EX_EDGE, String.valueOf(0));
+    	}
+    	else {
+    		edge_obj.remove(PLPCPUSnapshot_keys.REGISTERS_BNE_EDGE_1);
+    		edge_obj.remove(PLPCPUSnapshot_keys.REGISTERS_BNE_EDGE_2);
+    		edge_obj.remove(PLPCPUSnapshot_keys.BNE_ID_EX_EDGE);
+    	}
+    	cpuSnapShotmap.put(PLPCPUSnapshot_keys.BNE_UNIT, obj);
+    	
     	//Sign extend immediate value
     	obj = new JSONObject();
     	obj.put(PLPCPUSnapshot_keys.SIGN_EXTEND_INPUT, String.valueOf(id_stage.imm_field));
@@ -753,11 +773,16 @@ public class SimCore extends PLPSimCore {
     	
     	// IF_ID_Buffer to Control
     	if (id_stage.instruction != 0) {
-			if (toBin_opcode == "000000")
+			if (toBin_opcode != "000000")
 				edge_obj.put(PLPCPUSnapshot_keys.IF_ID_CONTROL_EDGE, ("Opcode: " + toBin_opcode));
-			else
+			// Opcode == "000000" then show funct as well
+			if (toBin_opcode.charAt(0) == '0' && toBin_opcode.charAt(1) == '0' && 
+				toBin_opcode.charAt(2) == '0' && toBin_opcode.charAt(3) == '0' &&
+				toBin_opcode.charAt(4) == '0' && toBin_opcode.charAt(5) == '0')
+			{
 				edge_obj.put(PLPCPUSnapshot_keys.IF_ID_CONTROL_EDGE, 
 							("Opcode: " + toBin_opcode + "/Funct: " + toBin_funct));
+			}				
 		}
     	else
     		edge_obj.remove(PLPCPUSnapshot_keys.IF_ID_CONTROL_EDGE);

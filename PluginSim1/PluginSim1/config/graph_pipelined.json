@@ -348,7 +348,7 @@
 		},
 		"registers_bne_2": {
 			"name": "",
-			"id": "registers_bne_1",
+			"id": "registers_bne_2",
 			"vertex_id_from": "registers",
 			"vertex_id_to": "bne",
 			"style": "edgeStyle=elbowEdgeStyle;elbow=horizontal;exitX=1;exitY=0.2;exitPerimeter=1;entryX=0;entryY=0.9;entryPerimeter=1;"

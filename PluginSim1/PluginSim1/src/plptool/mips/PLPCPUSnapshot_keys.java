@@ -297,7 +297,9 @@ public class PLPCPUSnapshot_keys
 	public static String FORW_MEM_MEM = "mem->mem";
 	
 	
-	
+	public static String BNE_UNIT = "bne";
+	public static String BNE_SOURCE_1 = "bne source 1";
+	public static String BNE_SOURCE_2 = "bne source 2";
 	
 	/**
 	 * This key's value will give the content of the intermediate pipeline buffer for IF and ID Stage
@@ -449,6 +451,9 @@ public class PLPCPUSnapshot_keys
 	public static String IF_ID_BUFFER_REGISTERS_RIGHT = "if_id_buffer_registers_right";
 	public static String REGISTERS_ID_EX_EDGE_1 = "registers_id_ex_buffer_1";
 	public static String REGISTERS_ID_EX_EDGE_2 = "registers_id_ex_buffer_2";
+	public static String REGISTERS_BNE_EDGE_1 = "registers_bne_1";
+	public static String REGISTERS_BNE_EDGE_2 = "registers_bne_2";
+	public static String BNE_ID_EX_EDGE = "bne_id_ex_buffer";
 	public static String ID_EX_REGISTERS_EDGE = "id_ex_buffer_registers";
 	public static String ID_EX_MUX1_EDGE = "id_ex_buffer_mux1";
 	public static String IF_ID_SIGN_EDGE = "if_id_buffer_sign";

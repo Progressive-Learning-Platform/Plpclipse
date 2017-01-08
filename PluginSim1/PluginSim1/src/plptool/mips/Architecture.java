@@ -1,5 +1,5 @@
 /*
-    Copyright 2011-2014 David Fritz, Brian Gordon, Wira Mulia
+   Copyright 2011-2014 David Fritz, Brian Gordon, Wira Mulia
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,9 +20,16 @@ package plptool.mips;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
 import javax.swing.JMenuItem;
+
+import org.json.JSONException;
+
 import plptool.*;
 import plptool.gui.ProjectDriver;
+import plptool.visualizer.PLPVisualizer;
+
 import java.io.File;
 
 /**
@@ -40,7 +47,6 @@ public class Architecture extends PLPArchitecture {
     private SyntaxHighlightSupport syntaxHighlightSupport;
     private javax.swing.JMenuItem menuExportVerilogHex;
     private javax.swing.JCheckBoxMenuItem menuNexysBoard;
-    
     public Architecture(int archID, ProjectDriver plp) {
         super(archID, "plpmips", plp);
         hasAssembler = true;
@@ -172,6 +178,22 @@ public class Architecture extends PLPArchitecture {
                 }
             });
 
+            final javax.swing.JMenuItem plpVisualizer = new javax.swing.JMenuItem();
+            plpVisualizer.setText("PLP Datapath Visualizer");
+            plpVisualizer.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    try {
+                    	PLPVisualizer frame = PLPVisualizer.getInstance(Config.simFunctional);
+                	frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                	frame.setSize(800, 600);
+                	frame.setVisible(true);
+		    } catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			}
+                }
+            });
+        
             final javax.swing.JMenuItem menuForgetMemoryVisualizer = new javax.swing.JMenuItem();
             menuForgetMemoryVisualizer.setText("Remove Memory Visualizers from Project");
             menuForgetMemoryVisualizer.addActionListener(new java.awt.event.ActionListener() {
@@ -239,6 +261,7 @@ public class Architecture extends PLPArchitecture {
             plp.g_dev.addSimToolItem(menuMemoryVisualizer);
             plp.g_dev.addSimToolItem(menuForgetMemoryVisualizer);
             plp.g_dev.addSimToolItem(menuBusMonitor);
+            plp.g_dev.addSimToolItem(plpVisualizer);
             
             //Disable for 4.1 release
             if(Constants.debugLevel >= 2) {

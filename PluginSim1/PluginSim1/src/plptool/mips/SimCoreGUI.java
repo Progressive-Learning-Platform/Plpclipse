@@ -33,7 +33,9 @@ import javax.swing.text.html.*;
 import java.awt.event.FocusListener;
 import java.awt.event.FocusEvent;
 import java.util.ArrayList;
+import org.json.JSONObject;
 import plptool.PLPToolbox;
+import plptool.mips.communication.Messenger;
 import plptool.mips.visualizer.*;
 import plptool.Config;
 
@@ -776,8 +778,44 @@ public class SimCoreGUI extends plptool.PLPSimCoreGUI {
             cpuVisualizer.update();
 
         updateProgramMemoryTablePC();
+        
+        updateCPUVisualizer();
     }
-
+    
+    /**
+     * This function will send the cpu snapshot information to the CPU Visualizer GUI module.
+     * It uses SimCore's CPUSnapShot JSON object.
+     * Once all the JSON object has all the necessary value, it will be passed using RabbitIQ connection
+     * component
+     * @param - 
+     * @return -
+     * @see SimCore
+     */
+    public void updateCPUVisualizer()
+    {
+        try
+        {
+            JSONObject cpusnapshot = ((SimCore)sim).getCPUSnapshot();
+            
+            JSONObject main = new JSONObject();
+            main.put(PLPCPUSnapshot_keys.EDGE_ENABLE, cpusnapshot.get(PLPCPUSnapshot_keys.EDGE_ENABLE));
+            cpusnapshot.remove(PLPCPUSnapshot_keys.EDGE_ENABLE);
+            main.put("vertices_values", cpusnapshot);
+            
+            Messenger messenger = Messenger.getInstance();
+            messenger.sentMessage(main.toString());
+        }
+        catch(Exception exp)
+        {
+            
+        }
+        finally
+        {
+            
+        }
+        
+        
+    }
     /**
      * Attach a memory visualization frame
      *

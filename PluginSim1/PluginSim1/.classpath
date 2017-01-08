@@ -17,5 +17,8 @@
 	<classpathentry kind="lib" path="lib/swing-app-framework/swing-worker-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/RXTXcomm.jar"/>
 	<classpathentry kind="lib" path="lib/swingx-0.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/activemq-all-5.14.1.jar"/>
+	<classpathentry kind="lib" path="lib/jgraphx.jar"/>
+	<classpathentry kind="lib" path="lib/json-20160810.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

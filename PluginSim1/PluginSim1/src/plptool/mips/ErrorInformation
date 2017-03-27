@@ -1,0 +1,71 @@
+{
+	"ErrorSystemType": "1",
+	
+	"ErrorMessageSystem" : {
+  	"INVALID_LABEL_ERROR": {
+  		"DUPLICATE_LABEL_ERROR":{
+  			"Description":"This error is caused due to multiple usage of same label. A name once used for label cannot be used to create one more label.",
+  			"Links":"http://progressive-learning-platform.github.io/instructions.html#control-flow-operations",
+  			"Examples":"BEFORE CORRECTION: main:\naddu $t1, $t2, $t3\nj main\nmain:\nsubu $t1,$t2,$t3\n\nAFTER CORRECTION: main:\naddu $t1, $t2, $t3\nj main\n"
+  		},
+  		"INVALID_TARGET_ERROR":{
+  			"Description":"Here the label mentioned in the instruction is not yet defined in the program. Please define the the label before using it in the instruction",
+  			"Links":"http://progressive-learning-platform.github.io/instructions.html#control-flow-operations",
+  			"Examples":"BEFORE CORRECTION: j add\naddition:\naddu $t1, $t2, $t3\n\nAFTER CORRECTION: j addition\naddition:\naddu $t1,$t2,$t3\nBEFORE CORRECTION: beq $s0, $0, add\naddition:\naddu $t1, $t2, $t3\n\nAFTER CORRECTION: beq $s0, $0, addition\naddition:\naddu $t1,$t2,$t3\n"
+  		}
+  		
+  	},
+  	"INVALID_TOKEN_ERROR":{
+  		"INVALID_INSTRUCTION_ERROR":{
+  			"Description":"This error is caused due to wrong instruction name. PLP does not have an instruction as mentioned in the code.",
+  			"Links":"http://progressive-learning-platform.github.io/instructions.html#operations",
+  			"Examples":"BEFORE CORRECTION: sub $t1, $t2, $t3\nAFTER CORRECTION: subu $t1, $t2, $t3\n\nBEFORE CORRECTION: add $t1, $t2, 34\nAFTER CORRECTION: addiu $t1, $t2, 34"
+  		},
+  		"INVALID_LABEL_DECLARATION_ERROR":{
+  			"Description":"This error is caused due to missing colon \":\" after label name.",
+  			"Links":"http://progressive-learning-platform.github.io/instructions.html#labels",
+  			"Examples":"BEFORE CORRECTION: addition\naddu $t1,$t2,$t3\n\nAFTER CORRECTION: addition:\naddu $t1, $t2, $t3"
+  		}
+  	},
+  	"INVALID_NUMBER_OF_TOKENS_ERROR": {
+  		"MISSING_TOKENS_ERROR":{
+  			"Description":"This error is caused due to incomplete instruction.",
+  			"Links":"http://progressive-learning-platform.github.io/instructions.html#operations",
+  			"Examples":""
+  		},
+  		"EXTRA_TOKENS_ERROR":{
+  			"Description":"This error is caused due to extra operands are provided with the instruction.",
+  			"Links":"http://progressive-learning-platform.github.io/instructions.html#operations",
+  			"Examples":""
+  		},
+  		"NOT_MATCHING_ERROR":{
+  			"Description":"",
+  			"Links":"",
+  			"Examples":""
+  		}
+  	},
+  	"INVALID_OPERAND_ERROR": {
+  		"NOT_REGISTER_ERROR" : {
+  			"Description":"Register used is not recognized by the PLP.",
+  			"Links":"http://progressive-learning-platform.github.io/instructions.html#registers-names-and-conventions",
+  			"Examples":"BEFORE CORRECTION: addu $t1, $t2, $a4\nAFTER CORRECTION: addu $t1, $t2, $a3"
+  		},
+  		"NOT_NUMBER_ERROR" : {
+  			"Description":"Expected a number in the instruction. But found something else.",
+  			"Links":"http://progressive-learning-platform.github.io/instructions.html",
+  			"Examples":"BEFORE CORRECTION: addiu $t1, $t2, $t3\nAFTER CORRECTION: addiu $t1, $t2, 40\n\nBEFORE CORRECTION:li $a1, $t3\nAFTER CORRECTION: li $a1, 200"
+  		},
+  		"NOT_STRING_ERROR" : {
+  			"Description":"",
+  			"Links":"",
+  			"Examples":""
+  		},
+  		"INVALID_ADDRESS" :{
+  			"Description":"",
+  			"Links":"",
+  			"Examples":""
+  		}
+  	}
+  	
+  }
+}

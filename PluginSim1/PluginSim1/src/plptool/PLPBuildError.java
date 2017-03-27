@@ -27,6 +27,29 @@ package plptool;
  * @author Wira
  */
 public class PLPBuildError {
+	
+	public static final int INVALID_LABEL_ERROR = 1;
+	public static final int DUPLICATE_LABEL_ERROR = 1;
+	public static final int INVALID_TARGET_ERROR = 2;
+	
+	public static final int INVALID_TOKEN_ERROR = 2;
+	public static final int INVALID_INSTRUCTION_ERROR = 1;
+	public static final int INVALID_LABEL_DECLARATION_ERROR = 2;
+	
+	public static final int INVALID_NUMBER_OF_TOKENS_ERROR = 3;
+	public static final int MISSING_TOKENS_ERROR = 1;
+	public static final int EXTRA_TOKENS_ERROR = 2;
+	public static final int NOT_MATCHING_ERROR = 3;
+	
+	public static final int INVALID_OPERAND_ERROR = 4;
+	public static final int NOT_REGISTER_ERROR = 1;
+	public static final int NOT_NUMBER_ERROR = 2;
+	public static final int NOT_STRING_ERROR = 3;
+	public static final int INVALID_ADDRESS = 4;
+	
+	
+	
+	
     private int sourceFileIndex;
     private int sourceLineNumber;
     private String errorMessage;

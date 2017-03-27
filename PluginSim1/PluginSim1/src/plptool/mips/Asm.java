@@ -346,8 +346,10 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals(".include")) {
                 if(asmTokens.length != 2) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) +"): " +
-                                     "Directive syntax error for .include";
+                   
+                   errMsg = getErrorMessage(curActiveFile, i, "Directive syntax error for .include", ".include assembler directive needs file to be included", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[0]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) +"): " +
+                                     "Directive syntax error for .include";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -391,8 +393,9 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals(".org")) {
                 if(asmTokens.length != 2) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) +"): " +
-                                     "Directive syntax error for .org";
+                   errMsg = getErrorMessage(curActiveFile, i, "Directive syntax error for .org", ".org assembler directive needs an address", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[0]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) +"): " +
+                                     "Directive syntax error for .org";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -410,8 +413,9 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals(".text")) {
                 if(asmTokens.length < 1 || asmTokens.length > 2) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) +"): " +
-                                     "Directive syntax error for .text";
+                   errMsg = getErrorMessage(curActiveFile, i, "Directive syntax error for .text", ".text assembler directive needs an address", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[0]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) +"): " +
+                                     "Directive syntax error for .text";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else if(curRegion != 1) {
@@ -433,9 +437,9 @@ public class Asm extends plptool.PLPAsm {
                     }
 
                     if(curAddr < 0) {
-                        error++; Msg.E("preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                     "Starting address for .text is not defined.",
-                                     Constants.PLP_ASM_MEM_REGION_START_NOT_INIT, this);
+                        error++; 
+                        errMsg = getErrorMessage(curActiveFile, i, "Starting address for .text is not defined", "Starting address for .text is not defined.", PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.INVALID_ADDRESS, asmTokens[1]);
+                        Msg.E(errMsg, Constants.PLP_ASM_MEM_REGION_START_NOT_INIT, this);
                     }
 
                     Msg.D("curAddr is now " + String.format("0x%08x", curAddr), 5, this);
@@ -446,8 +450,9 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals(".data")) {
                 if(asmTokens.length < 1 || asmTokens.length > 2) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) +"): " +
-                                     "Directive syntax error for .data";
+                   errMsg = getErrorMessage(curActiveFile, i, "Directive syntax error for .data", ".data assembler directive needs an address", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[0]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) +"): " +
+                                     "Directive syntax error for .data";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else if(curRegion != 2) {
@@ -468,9 +473,9 @@ public class Asm extends plptool.PLPAsm {
                     }
 
                     if(curAddr < 0) {
-                        error++; Msg.E("preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                     "Starting address for .data is not defined.",
-                                     Constants.PLP_ASM_MEM_REGION_START_NOT_INIT, this);
+                    	errMsg = getErrorMessage(curActiveFile, i, "Starting address for .data is not defined", "Starting address for .data is not defined.", PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.INVALID_ADDRESS, asmTokens[1]);
+                        error++; 
+                        Msg.E(errMsg,  Constants.PLP_ASM_MEM_REGION_START_NOT_INIT, this);
                     }
 
                     Msg.D("curAddr is now " + String.format("0x%08x", curAddr), 5, this);
@@ -482,8 +487,9 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals(".word")) {
                 if(asmTokens.length != 2) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) +"): " +
-                                     "Directive syntax error for .word";
+                   errMsg = getErrorMessage(curActiveFile, i, "Directive syntax error for .word", ".word assembler directive needs a number", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[0]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) +"): " +
+                                     "Directive syntax error for .word";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -499,8 +505,9 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals(".space")) {
                 if(asmTokens.length != 2) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) +"): " +
-                                     "Directive syntax error for .space";
+                   errMsg = getErrorMessage(curActiveFile, i, "Directive syntax error for .space", ".space assembler directive needs a number", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[0]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) +"): " +
+                                     "Directive syntax error for .space";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -521,22 +528,32 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].contains(".equ")) {
                 if(asmTokens.length != 3) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) +"): " +
-                                     "Directive syntax error for .equ";
+                   if(asmTokens.length == 2)
+                   {
+                	   errMsg = getErrorMessage(curActiveFile, i, "Directive syntax error for .equ", ".equ assembler directive needs a value for that label", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[1]);
+                   }
+                   else
+                   {
+                	   errMsg = getErrorMessage(curActiveFile, i, "Directive syntax error for .equ", ".equ assembler directive needs a label and value", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[0]);
+                   }
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) +"): " +
+                                     "Directive syntax error for .equ";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else if(symTable.containsKey(asmTokens[1])) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                      "symbol \"" + asmTokens[1] + "\" is already defined.";
+                   errMsg = getErrorMessage(curActiveFile, i, "symbol \""+asmTokens[1]+"\" is already defined", "label \""+asmTokens[1]+"\" is already defined", PLPBuildError.INVALID_LABEL_ERROR, PLPBuildError.DUPLICATE_LABEL_ERROR, asmTokens[1]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
+                                      "symbol \"" + asmTokens[1] + "\" is already defined.";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DUPLICATE_LABEL, this);
                    addBuildError(index, i, errMsg);                    
                 } else {
                     long val = sanitize32bits(asmTokens[2]);
                     if(val < 0) {
                         error++;
-                        errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                      "Unable to process the value \"" + asmTokens[2] + "\"";
+                        errMsg = getErrorMessage(curActiveFile, i, "Unable to process the value \"" + asmTokens[2] + "\"", ".equ expects a number for the value. Unable to process the value as number - \" "+asmTokens[2]+"\"", PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_NUMBER_ERROR, asmTokens[2]);
+                        /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
+                                      "Unable to process the value \"" + asmTokens[2] + "\"";*/
                         Msg.E(errMsg, Constants.PLP_NUMBER_ERROR, this);
                         addBuildError(index, i, errMsg);
                     } else {
@@ -550,8 +567,9 @@ public class Asm extends plptool.PLPAsm {
                     asmTokens[0].equals(".asciiw")) {
                 if(asmTokens.length < 2) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) +"): " +
-                                     "Directive syntax error";
+                   errMsg = getErrorMessage(curActiveFile, i, "Directive syntax error", asmTokens[0]+" assembler directive needs a string", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[0]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) +"): " +
+                                     "Directive syntax error";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -566,8 +584,9 @@ public class Asm extends plptool.PLPAsm {
 
                         if(tString[1].charAt(tString[1].length() - 1) != '\"') {
                             error++; 
-                            errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): "
-                                              + "Invalid string literal.";
+                            errMsg = getErrorMessage(curActiveFile, i, "Invalid string literal.", asmTokens[0]+" assembler directive needs a string.", PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_STRING_ERROR, asmTokens[0]);
+                            /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): "
+                                              + "Invalid string literal.";*/
                             Msg.E(errMsg, Constants.PLP_ASM_INVALID_STRING, this);
                             addBuildError(index, i, errMsg);
                         }
@@ -669,8 +688,9 @@ public class Asm extends plptool.PLPAsm {
                 tempLabel = asmTokens[0].substring(0, asmTokens[0].length() - 1);
                 if(symTable.containsKey(tempLabel)) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                      "symbol \"" + asmTokens[1] + "\" is already defined.";
+                   errMsg = getErrorMessage(curActiveFile, i, "symbol \"" + asmTokens[1] + "\" is already defined.", "label \"" + asmTokens[1] + "\" is already defined.", PLPBuildError.INVALID_LABEL_ERROR, PLPBuildError.DUPLICATE_LABEL_ERROR, asmTokens[1]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
+                                      "symbol \"" + asmTokens[1] + "\" is already defined.";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DUPLICATE_LABEL, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -685,8 +705,9 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals("nop")) {
                 if(asmTokens.length != 1) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                     "Pseudo-op syntax error.";
+                   errMsg = getErrorMessage(curActiveFile, i, "Pseudo-op syntax error.", "nop should not be followed by another operands", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.EXTRA_TOKENS_ERROR, asmTokens[1]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
+                                     "Pseudo-op syntax error.";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -700,8 +721,16 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals("move")) {
                 if(asmTokens.length != 3) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                     "Pseudo-op syntax error.";
+                   if(asmTokens.length == 2)
+                   {
+                	   errMsg = getErrorMessage(curActiveFile, i, "Pseudo-op syntax error.", "move should have source register", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[1]);
+                   }
+                   else
+                   {
+                	   errMsg = getErrorMessage(curActiveFile, i, "Pseudo-op syntax error.", "move should have destination and source register", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[0]);
+                   }
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
+                                     "Pseudo-op syntax error.";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -715,8 +744,9 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals("b")) {
                 if(asmTokens.length != 2) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                     "Pseudo-op syntax error.";
+                   errMsg = getErrorMessage(curActiveFile, i, "Pseudo-op syntax error.", "branch always should have a target label", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[0]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
+                                     "Pseudo-op syntax error.";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -730,8 +760,9 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals("li")) {
                 if(asmTokens.length != 3) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                     "Pseudo-op syntax error.";
+                   errMsg = getErrorMessage(curActiveFile, i, "Pseudo-op syntax error.", "load immediate needs a register and an immediate value or label", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[0]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
+                                     "Pseudo-op syntax error.";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -747,8 +778,9 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals("lwm")) {
                 if(asmTokens.length != 3) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                     "Pseudo-op syntax error.";
+                   errMsg = getErrorMessage(curActiveFile, i, "Pseudo-op syntax error.", "load from memory needs a register and a memory address", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[0]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
+                                     "Pseudo-op syntax error.";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -766,8 +798,9 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals("swm")) {
                 if(asmTokens.length != 3) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                     "Pseudo-op syntax error.";
+                   errMsg = getErrorMessage(curActiveFile, i, "Pseudo-op syntax error.", "store to memory needs a register and a memory address", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[0]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
+                                     "Pseudo-op syntax error.";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -787,8 +820,9 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals("push")) {
                 if(asmTokens.length != 2) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                     "Pseudo-op syntax error.";
+                   errMsg = getErrorMessage(curActiveFile, i, "Pseudo-op syntax error.", "push needs a register whose value will be pushed", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[0]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
+                                     "Pseudo-op syntax error.";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -806,8 +840,9 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals("pop")) {
                 if(asmTokens.length != 2) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                     "Pseudo-op syntax error.";
+                   errMsg = getErrorMessage(curActiveFile, i, "Pseudo-op syntax error.", "pop needs a register to which value needs to be loaded", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[0]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
+                                     "Pseudo-op syntax error.";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -823,8 +858,9 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals("call")) {
                 if(asmTokens.length != 2) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                     "Pseudo-op syntax error.";
+                   errMsg = getErrorMessage(curActiveFile, i, "Pseudo-op syntax error.", "call needs a label", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, asmTokens[0]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
+                                     "Pseudo-op syntax error.";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -866,8 +902,9 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals("return")) {
                 if(asmTokens.length != 1) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                     "Pseudo-op syntax error.";
+                   errMsg = getErrorMessage(curActiveFile, i, "Pseudo-op syntax error.", "return does not need any extra operands", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.EXTRA_TOKENS_ERROR, asmTokens[1]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
+                                     "Pseudo-op syntax error.";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -910,8 +947,9 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals("save")) {
                 if(asmTokens.length != 1) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                     "Pseudo-op syntax error.";
+                   errMsg = getErrorMessage(curActiveFile, i, "Pseudo-op syntax error.", "save does not need any extra operands", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.EXTRA_TOKENS_ERROR, asmTokens[1]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
+                                     "Pseudo-op syntax error.";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -958,8 +996,9 @@ public class Asm extends plptool.PLPAsm {
             else if(asmTokens[0].equals("restore")) {
                 if(asmTokens.length != 1) {
                    error++;
-                   errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
-                                     "Pseudo-op syntax error.";
+                   errMsg = getErrorMessage(curActiveFile, i, "Pseudo-op syntax error.", "restore does not need any extra operands", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.EXTRA_TOKENS_ERROR, asmTokens[1]);
+                   /*errMsg = "preprocess(" + formatHyperLink(curActiveFile, i) + "): " +
+                                     "Pseudo-op syntax error.";*/
                    Msg.E(errMsg, Constants.PLP_ASM_DIRECTIVE_SYNTAX_ERROR, this);
                    addBuildError(index, i, errMsg);
                 } else {
@@ -1007,8 +1046,16 @@ public class Asm extends plptool.PLPAsm {
             else {
                 if(instrMap.containsKey(asmTokens[0]) == false) {
                     error ++;
-                    errMsg ="preprocess(" + formatHyperLink(curActiveFile, i) +"): "
-                                       + "Unable to process token " + asmTokens[0]; 
+                    if(asmTokens.length != 1)
+                    {
+                    	errMsg = getErrorMessage(curActiveFile, i, "Unable to process token " + asmTokens[0], asmTokens[0]+" - instruction is not defined in PLP. Unable to process the instruction",PLPBuildError.INVALID_TOKEN_ERROR, PLPBuildError.INVALID_INSTRUCTION_ERROR, asmTokens[0] );
+                    }
+                    else
+                    {
+                    	errMsg = getErrorMessage(curActiveFile, i, "Unable to process token " + asmTokens[0], asmTokens[0]+" - may need a \":\" at the end to declare it as label",PLPBuildError.INVALID_TOKEN_ERROR, PLPBuildError.INVALID_LABEL_DECLARATION_ERROR, asmTokens[0] );
+                    }
+                    /*errMsg ="preprocess(" + formatHyperLink(curActiveFile, i) +"): "
+                                       + "Unable to process token " + asmTokens[0];*/ 
                     Msg.E(errMsg, Constants.PLP_ASM_INVALID_TOKEN, this);
                     addBuildError(index, i, errMsg);
                 }
@@ -1153,7 +1200,20 @@ public class Asm extends plptool.PLPAsm {
                        !regs.containsKey(asmTokens[2]) ||
                        !regs.containsKey(asmTokens[3])) {
                         error++;
-                        errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid register(s)";
+                        //TODO: pin point the error
+                        if(!regs.containsKey(asmTokens[1]))
+                        {
+                        	errMsg = getErrorMessage(filePath, lineNumber, "Invalid register(s)", asmTokens[0]+" is expecting a register but got something else "+ asmTokens[1], PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_REGISTER_ERROR, asmTokens[1]);
+                        }
+                        else if(!regs.containsKey(asmTokens[2]))
+                        {
+                        	errMsg = getErrorMessage(filePath, lineNumber, "Invalid register(s)", asmTokens[0]+" is expecting a register but got something else "+ asmTokens[2], PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_REGISTER_ERROR, asmTokens[2]);
+                        }
+                        else
+                        {
+                        	errMsg = getErrorMessage(filePath, lineNumber, "Invalid register(s)", asmTokens[0]+" is expecting a register but got something else "+ asmTokens[3], PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_REGISTER_ERROR, asmTokens[3]);
+                        }
+                        //errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid register(s)";
                         Msg.E(errMsg, Constants.PLP_ASM_INVALID_REGISTER, this);
                         addBuildError(fileIndex, lineNumber, errMsg);
                     } else {
@@ -1171,7 +1231,15 @@ public class Asm extends plptool.PLPAsm {
                     } else if(!regs.containsKey(asmTokens[1]) ||
                        !regs.containsKey(asmTokens[2])) {
                         error++;
-                        errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid register(s)";
+                        if(!regs.containsKey(asmTokens[1]))
+                        {
+                        	errMsg = getErrorMessage(filePath, lineNumber, "Invalid register(s)", asmTokens[0]+" is expecting a register but got something else "+ asmTokens[1], PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_REGISTER_ERROR, asmTokens[1]);
+                        }
+                        else
+                        {
+                        	errMsg = getErrorMessage(filePath, lineNumber, "Invalid register(s)", asmTokens[0]+" is expecting a register but got something else "+ asmTokens[2], PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_REGISTER_ERROR, asmTokens[2]);
+                        }
+                        //errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid register(s)";
                         Msg.E(errMsg, Constants.PLP_ASM_INVALID_REGISTER, this);
                         addBuildError(fileIndex, lineNumber, errMsg);
                     } else {
@@ -1188,7 +1256,8 @@ public class Asm extends plptool.PLPAsm {
                         error++;
                     } else if(!regs.containsKey(asmTokens[1]))  {
                         error++;
-                        errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid register(s)";
+                        errMsg = getErrorMessage(filePath, lineNumber, "Invalid register(s)", asmTokens[0]+" is expecting a register but got something else "+ asmTokens[1], PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_REGISTER_ERROR, asmTokens[1]);
+                        //errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid register(s)";
                         Msg.E(errMsg, Constants.PLP_ASM_INVALID_REGISTER, this);
                         addBuildError(fileIndex, lineNumber, errMsg);
                     } else {
@@ -1203,12 +1272,19 @@ public class Asm extends plptool.PLPAsm {
                         error++;
                     } else if(!regs.containsKey(asmTokens[1]))  {
                         error++;
-                        errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid register(s)";
+                        //errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid register(s)";
+                        errMsg = getErrorMessage(filePath, lineNumber, "Invalid register(s)", asmTokens[0]+" is expecting a register but got something else "+ asmTokens[1], PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_REGISTER_ERROR, asmTokens[1]);
+                        Msg.E(errMsg, Constants.PLP_ASM_INVALID_REGISTER, this);
+                        addBuildError(fileIndex, lineNumber, errMsg);
+                    } else if(!regs.containsKey(asmTokens[2])){
+                    	error++;
+                    	errMsg = getErrorMessage(filePath, lineNumber, "Invalid register(s)", asmTokens[0]+" is expecting a register but got something else "+ asmTokens[2], PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_REGISTER_ERROR, asmTokens[2]);
                         Msg.E(errMsg, Constants.PLP_ASM_INVALID_REGISTER, this);
                         addBuildError(fileIndex, lineNumber, errMsg);
                     } else if(!symTable.containsKey(asmTokens[3]))  {
                         error++;
-                        errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid branch target \"" + asmTokens[3] + "\"";
+                        errMsg = getErrorMessage(filePath, lineNumber, "Invalid branch target \"" + asmTokens[3] + "\"", asmTokens[3]+" is not declared. Use a label in branch instruction which is already declared", PLPBuildError.INVALID_LABEL_ERROR, PLPBuildError.INVALID_TARGET_ERROR, asmTokens[1]);
+                        //errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid branch target \"" + asmTokens[3] + "\"";
                         Msg.E(errMsg, Constants.PLP_ASM_INVALID_BRANCH_TARGET, this);
                         addBuildError(fileIndex, lineNumber, errMsg);
                     } else {
@@ -1228,7 +1304,15 @@ public class Asm extends plptool.PLPAsm {
                     } else if(!regs.containsKey(asmTokens[1]) ||
                        !regs.containsKey(asmTokens[2])) {
                         error++;
-                        errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid register(s)";
+                        if(!regs.containsKey(asmTokens[1]))
+                        {
+                        	errMsg = getErrorMessage(filePath, lineNumber, "Invalid register(s)", asmTokens[0]+" is expecting a register but got something else "+ asmTokens[1], PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_REGISTER_ERROR, asmTokens[1]);
+                        }
+                        else
+                        {
+                        	errMsg = getErrorMessage(filePath, lineNumber, "Invalid register(s)", asmTokens[0]+" is expecting a register but got something else "+ asmTokens[2], PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_REGISTER_ERROR, asmTokens[2]);
+                        }
+                        //errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid register(s)";
                         Msg.E(errMsg, Constants.PLP_ASM_INVALID_REGISTER, this);
                         addBuildError(fileIndex, lineNumber, errMsg);
                     } else {
@@ -1245,7 +1329,8 @@ public class Asm extends plptool.PLPAsm {
                         error++;
                     } else if(!regs.containsKey(asmTokens[1]))  {
                         error++;
-                        errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid register(s)";
+                        errMsg = getErrorMessage(filePath, lineNumber, "Invalid register(s)", asmTokens[0]+" is expecting a register but got something else "+ asmTokens[1], PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_REGISTER_ERROR, asmTokens[1]);
+                        //errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid register(s)";
                         Msg.E(errMsg, Constants.PLP_ASM_INVALID_REGISTER, this);
                         addBuildError(fileIndex, lineNumber, errMsg);
                     } else {
@@ -1262,7 +1347,16 @@ public class Asm extends plptool.PLPAsm {
                     }  else if(!regs.containsKey(asmTokens[1]) ||
                        !regs.containsKey(asmTokens[3])) {
                         error++;
-                        errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid register(s)";
+                        if(!regs.containsKey(asmTokens[1]))
+                        {
+                        	errMsg = getErrorMessage(filePath, lineNumber, "Invalid register(s)", asmTokens[0]+" is expecting a register but got something else "+ asmTokens[1], PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_REGISTER_ERROR, asmTokens[1]);
+                        }
+                        else
+                        {
+                        	errMsg = getErrorMessage(filePath, lineNumber, "Invalid register(s)", asmTokens[0]+" is expecting a register but got something else "+ asmTokens[3], PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_REGISTER_ERROR, asmTokens[3]);
+                        }
+                        
+                        //errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid register(s)";
                         Msg.E(errMsg, Constants.PLP_ASM_INVALID_REGISTER, this);
                         addBuildError(fileIndex, lineNumber, errMsg);
                     } else {
@@ -1279,7 +1373,8 @@ public class Asm extends plptool.PLPAsm {
                         error++;
                     } else if(!symTable.containsKey(asmTokens[1]))  {
                         error++;
-                        errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid jump target \"" + asmTokens[1] + "\"";
+                        errMsg = getErrorMessage(filePath, lineNumber, "Invalid jump target \"" + asmTokens[1] + "\"", "j instruction is expecting a declared label. But "+ asmTokens[1] +" is not yet declared anywhere", PLPBuildError.INVALID_LABEL_ERROR, PLPBuildError.INVALID_TARGET_ERROR, asmTokens[1]);
+                        //errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid jump target \"" + asmTokens[1] + "\"";
                         Msg.E(errMsg, Constants.PLP_ASM_INVALID_BRANCH_TARGET, this);
                         addBuildError(fileIndex, lineNumber, errMsg);
                     } else {
@@ -1295,7 +1390,15 @@ public class Asm extends plptool.PLPAsm {
                     } else if(!regs.containsKey(asmTokens[1]) ||
                        !regs.containsKey(asmTokens[2])) {
                         error++;
-                        errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid register(s)";
+                        if(!regs.containsKey(asmTokens[1]))
+                        {
+                        	errMsg = getErrorMessage(filePath, lineNumber, "Invalid register(s)", asmTokens[0]+" is expecting a register but got something else "+ asmTokens[1], PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_REGISTER_ERROR, asmTokens[1]);
+                        }
+                        else
+                        {
+                        	errMsg = getErrorMessage(filePath, lineNumber, "Invalid register(s)", asmTokens[0]+" is expecting a register but got something else "+ asmTokens[2], PLPBuildError.INVALID_OPERAND_ERROR, PLPBuildError.NOT_REGISTER_ERROR, asmTokens[2]);
+                        }
+                        //errMsg = "assemble(" + formatHyperLink(filePath, lineNumber) + "): Invalid register(s)";
                         Msg.E(errMsg, Constants.PLP_ASM_INVALID_REGISTER, this);
                         addBuildError(fileIndex, lineNumber, errMsg);
                     } else {
@@ -1585,5 +1688,111 @@ public class Asm extends plptool.PLPAsm {
      */
     @Override public String toString() {
         return "Asm";
+    }
+    
+    private String getErrorMessage(String currentFile, int lineNumber,String existingMessage, String customMessage, int errorType, int suberrorType, String errorToken)
+    {
+    	String errorMsg = "";
+    	int errorSystem = 1;
+    	String location = formatHyperLink(currentFile, lineNumber);
+    	
+    	if(errorSystem == 1)
+    	{
+    		return location +": "+ existingMessage;
+    	}
+    	switch(errorType)
+    	{
+	    	case PLPBuildError.INVALID_LABEL_ERROR:
+	    	{
+	    		switch(suberrorType)
+	    		{
+		    		case PLPBuildError.DUPLICATE_LABEL_ERROR:
+		    		{
+		    			break;
+		    		}
+		    		case PLPBuildError.INVALID_TARGET_ERROR:
+		    		{
+		    			break;
+		    		}
+		    		default:
+		    		{
+		    			break;
+		    		}
+	    		}
+	    		
+	    		break;
+	    	}
+	    	case PLPBuildError.INVALID_TOKEN_ERROR:
+	    	{
+	    		switch(suberrorType)
+	    		{
+		    		case PLPBuildError.INVALID_INSTRUCTION_ERROR:
+		    		{
+		    			break;
+		    		}
+		    		case PLPBuildError.INVALID_LABEL_DECLARATION_ERROR:
+		    		{
+		    			break;
+		    		}
+		    		default:
+		    		{
+		    			break;
+		    		}
+	    		}
+	    		break;
+	    	}
+	    	case PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR:
+	    	{
+	    		switch(suberrorType)
+	    		{
+		    		case PLPBuildError.MISSING_TOKENS_ERROR:
+		    		{
+		    			
+		    			break;
+		    		}
+		    		case PLPBuildError.EXTRA_TOKENS_ERROR:
+		    		{
+		    			break;
+		    		}
+		    		case PLPBuildError.NOT_MATCHING_ERROR:
+		    		{
+		    			break;
+		    		}
+		    		default:
+		    		{
+		    			break;
+		    		}
+	    		}
+	    		
+	    		break;
+	    	}
+	    	case PLPBuildError.INVALID_OPERAND_ERROR:
+	    	{
+	    		switch(suberrorType)
+	    		{
+		    		case PLPBuildError.NOT_REGISTER_ERROR:
+		    		{
+		    			break;
+		    		}
+		    		case PLPBuildError.NOT_NUMBER_ERROR:
+		    		{
+		    			break;
+		    		}
+		    		default:
+		    		{
+		    			break;
+		    		}
+	    		}
+	    		
+	    		break;
+	    	}
+	    	default:
+	    	{
+	    		
+	    		break;
+	    	}
+    	}
+    	
+    	return errorMsg;
     }
 }

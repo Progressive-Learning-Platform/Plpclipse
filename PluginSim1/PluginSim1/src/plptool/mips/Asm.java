@@ -18,9 +18,16 @@
 
 package plptool.mips;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Optional;
+
+import org.apache.commons.io.FileUtils;
+import org.json.JSONObject;
+
 import plptool.PLPAsmSource;
 import plptool.Msg;
 import plptool.Constants;
@@ -52,6 +59,7 @@ public class Asm extends plptool.PLPAsm {
     private static HashMap<String, Byte>        opcode;
     private static HashMap<String, Byte>        funct;
     private static HashMap<String, Byte>        regs;
+    private HashMap<String, String> plpErrorSettings;
 
     /**
      * Current active region being populated
@@ -87,6 +95,8 @@ public class Asm extends plptool.PLPAsm {
         bytesSpace = 0;
 
         defineArch();
+        plpErrorSettings = new HashMap<>();
+        loadFromFile(new File("C:\\D_Drive\\Coding\\Plpclipse\\PluginSim1\\PluginSim1\\src\\plptool\\mips\\ErrorInformation"));
     }
 
     public Asm (ArrayList<PLPAsmSource> asms) {
@@ -108,6 +118,8 @@ public class Asm extends plptool.PLPAsm {
         bytesSpace = 0;
 
         defineArch();
+        plpErrorSettings = new HashMap<>();
+        loadFromFile(new File("C:\\D_Drive\\Coding\\Plpclipse\\PluginSim1\\PluginSim1\\src\\plptool\\mips\\ErrorInformation"));
     }
 
     /**
@@ -1690,28 +1702,46 @@ public class Asm extends plptool.PLPAsm {
         return "Asm";
     }
     
+    private String formatLinks(String link) {
+        return "<font color=blue><u><a href=\"" + link + "\">" +
+                link + "</a></u></font>";
+    }
+    
+    private String formatExamples(String examples)
+    {
+    	return "<font color=green><u><p>"+examples+"</p></u></font>";
+    }
+    
     private String getErrorMessage(String currentFile, int lineNumber,String existingMessage, String customMessage, int errorType, int suberrorType, String errorToken)
     {
     	String errorMsg = "";
-    	int errorSystem = 1;
+    	int errorSystem = Integer.parseInt(getSetting(PLPBuildError.ErrorSystemTypeKey).get());
     	String location = formatHyperLink(currentFile, lineNumber);
+    	String description = "";
+    	String links = "";
+    	String examples = "";
+    	ArrayList keys = new ArrayList();
     	
     	if(errorSystem == 1)
     	{
     		return location +": "+ existingMessage;
     	}
+    	keys.add(PLPBuildError.ErrorMessagingSystemKey);
     	switch(errorType)
     	{
 	    	case PLPBuildError.INVALID_LABEL_ERROR:
 	    	{
+	    		keys.add(PLPBuildError.ERROR_INVALID_LABEL);
 	    		switch(suberrorType)
 	    		{
 		    		case PLPBuildError.DUPLICATE_LABEL_ERROR:
 		    		{
+		    			keys.add(PLPBuildError.ERROR_DUPLICATE_LABEL);
 		    			break;
 		    		}
 		    		case PLPBuildError.INVALID_TARGET_ERROR:
 		    		{
+		    			keys.add(PLPBuildError.ERROR_INVALID_TARGET);
 		    			break;
 		    		}
 		    		default:
@@ -1724,38 +1754,45 @@ public class Asm extends plptool.PLPAsm {
 	    	}
 	    	case PLPBuildError.INVALID_TOKEN_ERROR:
 	    	{
+	    		keys.add(PLPBuildError.ERROR_INVALID_TOKEN);
 	    		switch(suberrorType)
 	    		{
 		    		case PLPBuildError.INVALID_INSTRUCTION_ERROR:
 		    		{
+		    			keys.add(PLPBuildError.ERROR_INVALID_INSTRUCTION);
 		    			break;
 		    		}
 		    		case PLPBuildError.INVALID_LABEL_DECLARATION_ERROR:
 		    		{
+		    			keys.add(PLPBuildError.ERROR_INVALID_LABEL);
 		    			break;
 		    		}
 		    		default:
 		    		{
-		    			break;
+		    			
+						break;
 		    		}
 	    		}
 	    		break;
 	    	}
 	    	case PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR:
 	    	{
+	    		keys.add(PLPBuildError.ERROR_INVALID_NUMBER_OF_TOKENS);
 	    		switch(suberrorType)
 	    		{
 		    		case PLPBuildError.MISSING_TOKENS_ERROR:
 		    		{
-		    			
+		    			keys.add(PLPBuildError.ERROR_MISSING_TOKENS);
 		    			break;
 		    		}
 		    		case PLPBuildError.EXTRA_TOKENS_ERROR:
 		    		{
+		    			keys.add(PLPBuildError.ERROR_EXTRA_TOKENS);
 		    			break;
 		    		}
 		    		case PLPBuildError.NOT_MATCHING_ERROR:
 		    		{
+		    			keys.add(PLPBuildError.ERROR_NOT_MATCHING);
 		    			break;
 		    		}
 		    		default:
@@ -1768,14 +1805,27 @@ public class Asm extends plptool.PLPAsm {
 	    	}
 	    	case PLPBuildError.INVALID_OPERAND_ERROR:
 	    	{
+	    		keys.add(PLPBuildError.ERROR_INVALID_OPERAND);
 	    		switch(suberrorType)
 	    		{
 		    		case PLPBuildError.NOT_REGISTER_ERROR:
 		    		{
+		    			keys.add(PLPBuildError.ERROR_NOT_REGISTER);
 		    			break;
 		    		}
 		    		case PLPBuildError.NOT_NUMBER_ERROR:
 		    		{
+		    			keys.add(PLPBuildError.ERROR_NOT_NUMBER);
+		    			break;
+		    		}
+		    		case PLPBuildError.NOT_STRING_ERROR:
+		    		{
+		    			keys.add(PLPBuildError.ERROR_NOT_STRING);
+		    			break;
+		    		}
+		    		case PLPBuildError.INVALID_ADDRESS:
+		    		{
+		    			keys.add(PLPBuildError.ERROR_INVALID_ADDRESS);
 		    			break;
 		    		}
 		    		default:
@@ -1793,6 +1843,84 @@ public class Asm extends plptool.PLPAsm {
 	    	}
     	}
     	
+    	keys.add(PLPBuildError.DescriptionKey);
+    	description = getSetting(getKeyName(keys)).get();
+    	keys.remove(PLPBuildError.DescriptionKey);
+    	keys.add(PLPBuildError.LinksKey);
+    	links = getSetting(getKeyName(keys)).get();
+    	keys.remove(PLPBuildError.LinksKey);
+    	keys.add(PLPBuildError.ExamplesKey);
+    	examples = getSetting(getKeyName(keys)).get();
+    	keys.remove(PLPBuildError.ExamplesKey);
+    	
+    	errorMsg = location + description + links + examples;
+    	
     	return errorMsg;
     }
+    
+    private boolean loadFromFile( File file )
+	{
+
+		try
+		{
+			String fileContents = FileUtils.readFileToString(file);
+			JSONObject jsonFile = new JSONObject(fileContents);
+
+			parseJSONSettings(jsonFile, "");
+
+			
+		}
+		catch ( IOException e )
+		{
+			
+			return false;
+		}
+		return true;
+	}
+    
+    private void parseJSONSettings( JSONObject jsonSettings, String basePath )
+	{
+		for ( String key : JSONObject.getNames(jsonSettings) )
+		{
+			Object value = jsonSettings.get(key);
+			if ( value instanceof String )
+			{
+				plpErrorSettings.put(bindPath(basePath, key), (String) value);
+			} else
+			{
+				parseJSONSettings(jsonSettings.getJSONObject(key), bindPath(basePath, key));
+			}
+		}
+	}
+    
+    private String bindPath( String basePath, String currentPath )
+	{
+		if ( basePath.isEmpty() )
+			return currentPath.replace(" ", "_").toUpperCase();
+
+		String combinedPath = basePath + "_" + currentPath.replace(" ", "_");
+		return combinedPath.toUpperCase();
+	}
+    
+    private String getKeyName(ArrayList lst)
+	{
+		String key = "";
+		for(Object str:lst)
+		{
+			String k = (String)str;
+			key += ("_"+k);
+		}
+		
+		key = key.replaceFirst("_", "");
+		
+		return key;
+	}
+    
+    private Optional<String> getSetting( String key )
+	{
+		if ( plpErrorSettings.containsKey(key) )
+			return Optional.of(plpErrorSettings.get(key));
+
+		return Optional.empty();
+	}
 }

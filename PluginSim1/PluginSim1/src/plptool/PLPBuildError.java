@@ -48,6 +48,30 @@ public class PLPBuildError {
 	public static final int INVALID_ADDRESS = 4;
 	
 	
+	public static final String ErrorMessagingSystemKey = "ERRORMESSAGESYSTEM";
+	public static final String DescriptionKey = "DESCRIPTION";
+	public static final String LinksKey = "LINKS";
+	public static final String ExamplesKey = "EXAMPLES";
+	public static final String ErrorSystemTypeKey = "ERRORSYSTEMTYPE";
+	
+	public static final String ERROR_INVALID_LABEL = "INVALID_LABEL_ERROR";
+	public static final String ERROR_DUPLICATE_LABEL = "DUPLICATE_LABEL_ERROR";
+	public static final String ERROR_INVALID_TARGET = "INVALID_TARGET_ERROR";
+	public static final String ERROR_INVALID_TOKEN = "INVALID_TOKEN_ERROR";
+	public static final String ERROR_INVALID_INSTRUCTION = "INVALID_INSTRUCTION_ERROR";
+	public static final String ERROR_INVALID_LABEL_DECLARATION = "INVALID_LABEL_DECLARATION_ERROR";
+	public static final String ERROR_INVALID_NUMBER_OF_TOKENS = "INVALID_NUMBER_OF_TOKENS_ERROR";
+	public static final String ERROR_EXTRA_TOKENS = "EXTRA_TOKENS_ERROR";
+	public static final String ERROR_MISSING_TOKENS = "MISSING_TOKENS_ERROR";
+	public static final String ERROR_NOT_MATCHING = "NOT_MATCHING_ERROR";
+	public static final String ERROR_INVALID_OPERAND = "INVALID_OPERAND_ERROR";
+	public static final String ERROR_NOT_REGISTER = "NOT_REGISTER_ERROR";
+	public static final String ERROR_NOT_NUMBER = "NOT_NUMBER_ERROR";
+	public static final String ERROR_NOT_STRING = "NOT_STRING_ERROR";
+	public static final String ERROR_INVALID_ADDRESS = "INVALID_ADDRESS";
+
+	
+	
 	
 	
     private int sourceFileIndex;

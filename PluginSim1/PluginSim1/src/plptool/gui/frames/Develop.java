@@ -28,7 +28,9 @@ import javax.swing.event.HyperlinkEvent.EventType;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.HTMLDocument;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -3886,9 +3888,25 @@ class OutputHyperlinkListener implements HyperlinkListener {
 
     public void hyperlinkUpdate(HyperlinkEvent hev) {
         if (hev.getEventType() == EventType.ACTIVATED) {
-            String tokens[] = hev.getDescription().split("::");
-            int line = Integer.parseInt(tokens[1]);
-            plp.g_dev.gotoLocation(tokens[0], line);
+        	if(hev.getDescription().contains("::"))
+        	{
+        		String tokens[] = hev.getDescription().split("::");
+        		int line = Integer.parseInt(tokens[1]);
+        		plp.g_dev.gotoLocation(tokens[0], line);
+        	}
+        	else
+        	{
+        		System.out.println(hev.getDescription());
+        		try {
+					Desktop.getDesktop().browse(new URI(hev.getDescription()));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
         }
     }
 }

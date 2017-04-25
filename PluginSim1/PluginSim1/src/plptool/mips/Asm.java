@@ -1648,11 +1648,17 @@ public class Asm extends plptool.PLPAsm {
         if(iObj.length != length) {
             int fileIndex = asmFileMap[asmLineNum];
             int lineNumber = lineNumMap[asmLineNum];
-            String msg = "assemble(" + formatHyperLink(
+            String errMsg = "";
+            if(iObj.length < length)
+            	errMsg = getErrorMessage(sourceList.get(fileIndex).getAsmFilePath(), lineNumber, "Invalid number of operands", "Instruction was expecting "+Integer.toString(length - 1)+" operands. But got less than expected", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.MISSING_TOKENS_ERROR, iObj[0].toString());
+            else
+            	errMsg = getErrorMessage(sourceList.get(fileIndex).getAsmFilePath(), lineNumber, "Invalid number of operands", "Instruction was expecting "+Integer.toString(length - 1)+" operands. But got more than expected", PLPBuildError.INVALID_NUMBER_OF_TOKENS_ERROR, PLPBuildError.EXTRA_TOKENS_ERROR, iObj[0].toString());
+            /*String msg = "assemble(" + formatHyperLink(
                     sourceList.get(fileIndex).getAsmFilePath(), lineNumber)
-                    + "): Invalid number of operands";
-            Msg.E(msg, Constants.PLP_ASM_INVALID_NUMBER_OF_OPERANDS, this);
-            errorList.add(new PLPBuildError(fileIndex, lineNumber, msg));
+                    + "): Invalid number of operands";*/
+            
+            Msg.E(errMsg, Constants.PLP_ASM_INVALID_NUMBER_OF_OPERANDS, this);
+            errorList.add(new PLPBuildError(fileIndex, lineNumber, errMsg));
             return false;
         }
         return true;
@@ -1719,7 +1725,9 @@ public class Asm extends plptool.PLPAsm {
     	String location = formatHyperLink(currentFile, lineNumber);
     	String description = "";
     	String links = "";
-    	String examples = "";
+    	String examples_before = "";
+    	String examples_after = "";
+    	String examples;
     	ArrayList keys = new ArrayList();
     	
     	if(errorSystem == 1)
@@ -1764,7 +1772,7 @@ public class Asm extends plptool.PLPAsm {
 		    		}
 		    		case PLPBuildError.INVALID_LABEL_DECLARATION_ERROR:
 		    		{
-		    			keys.add(PLPBuildError.ERROR_INVALID_LABEL);
+		    			keys.add(PLPBuildError.ERROR_INVALID_LABEL_DECLARATION);
 		    			break;
 		    		}
 		    		default:
@@ -1850,10 +1858,41 @@ public class Asm extends plptool.PLPAsm {
     	links = getSetting(getKeyName(keys)).get();
     	keys.remove(PLPBuildError.LinksKey);
     	keys.add(PLPBuildError.ExamplesKey);
-    	examples = getSetting(getKeyName(keys)).get();
+    	keys.add(PLPBuildError.BeforeCorrectionKey);
+    	examples_before = getSetting(getKeyName(keys)).get();
+    	keys.remove(PLPBuildError.BeforeCorrectionKey);
+    	keys.add(PLPBuildError.AfterCorrectionKey);
+    	examples_after = getSetting(getKeyName(keys)).get();
+    	keys.remove(PLPBuildError.AfterCorrectionKey);
+    	//examples = getSetting(getKeyName(keys)).get();
     	keys.remove(PLPBuildError.ExamplesKey);
     	
-    	errorMsg = location + description + links + examples;
+    	//errorMsg = location + description + links + examples;
+    	links = "<p>Please refer following link for more information <font color=red><a href=\"" + links+"\">"+links+"</a></font></p>";
+    	examples = "<p><ul><li><font color=red>BEFORE CORRECTION</font><br/><p>"+examples_before+"</p></li><li><font color=green>AFTER CORRECTION</font><br/><p>"+examples_after+"</p></li></ul>";
+    	
+    	errorMsg = location+ " ";
+    	if(customMessage.length() > 0)
+		 {
+			 description = description + customMessage; 
+			 //description+"<br />";
+		 }
+    	if(errorToken.length() > 0)
+    	{
+    		description = description + ".Error occurred around word - \""+ errorToken + "\"";
+    	}
+    	
+    	description += "<br/>";
+    	errorMsg += description;
+    	if(errorSystem == 2)
+    	{
+    		 
+    		errorMsg += links;
+    	}
+    	else
+    	{
+    		errorMsg += examples;
+    	}
     	
     	return errorMsg;
     }

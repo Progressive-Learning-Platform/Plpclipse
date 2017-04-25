@@ -52,6 +52,8 @@ public class PLPBuildError {
 	public static final String DescriptionKey = "DESCRIPTION";
 	public static final String LinksKey = "LINKS";
 	public static final String ExamplesKey = "EXAMPLES";
+	public static final String BeforeCorrectionKey = "BEFORE_CORRECTION";
+	public static final String AfterCorrectionKey = "AFTER_CORRECTION";
 	public static final String ErrorSystemTypeKey = "ERRORSYSTEMTYPE";
 	
 	public static final String ERROR_INVALID_LABEL = "INVALID_LABEL_ERROR";

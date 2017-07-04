@@ -96,7 +96,8 @@ public class Asm extends plptool.PLPAsm {
 
         defineArch();
         plpErrorSettings = new HashMap<>();
-        loadFromFile(new File("C:\\D_Drive\\Coding\\Plpclipse\\PluginSim1\\PluginSim1\\src\\plptool\\mips\\ErrorInformation"));
+        loadFromFile(new File("ErrorInformation"));
+        //loadFromFile(new File("C:\\D_Drive\\Coding\\Plpclipse\\PluginSim1\\PluginSim1\\src\\plptool\\mips\\ErrorInformation"));
     }
 
     public Asm (ArrayList<PLPAsmSource> asms) {
@@ -119,7 +120,8 @@ public class Asm extends plptool.PLPAsm {
 
         defineArch();
         plpErrorSettings = new HashMap<>();
-        loadFromFile(new File("C:\\D_Drive\\Coding\\Plpclipse\\PluginSim1\\PluginSim1\\src\\plptool\\mips\\ErrorInformation"));
+        loadFromFile(new File("ErrorInformation"));
+        //loadFromFile(new File("C:\\D_Drive\\Coding\\Plpclipse\\PluginSim1\\PluginSim1\\src\\plptool\\mips\\ErrorInformation"));
     }
 
     /**
@@ -1868,7 +1870,7 @@ public class Asm extends plptool.PLPAsm {
     	keys.remove(PLPBuildError.ExamplesKey);
     	
     	//errorMsg = location + description + links + examples;
-    	links = "<p>Please refer following link for more information <font color=red><a href=\"" + links+"\">"+links+"</a></font></p>";
+    	links = "<p>Please refer following link for more information <font color=blue><u><a href=\"" + links+"\">"+links+"</a></u></font></p>";
     	examples = "<p><ul><li><font color=red>BEFORE CORRECTION</font><br/><p>"+examples_before+"</p></li><li><font color=green>AFTER CORRECTION</font><br/><p>"+examples_after+"</p></li></ul>";
     	
     	errorMsg = location+ " ";

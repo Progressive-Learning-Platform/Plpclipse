@@ -97,7 +97,8 @@ public class Asm extends plptool.PLPAsm {
 
         defineArch();
         plpErrorSettings = new HashMap<>();
-        loadFromFile(new File("settings/ErrorInformation"));
+
+        loadFromFile(new File("PluginSim1/settings/ErrorInformation"));
        
         //loadFromFile(new File("C:\\D_Drive\\Coding\\Plpclipse\\PluginSim1\\PluginSim1\\src\\plptool\\mips\\ErrorInformation"));
     }
@@ -122,7 +123,7 @@ public class Asm extends plptool.PLPAsm {
 
         defineArch();
         plpErrorSettings = new HashMap<>();
-        loadFromFile(new File("settings/ErrorInformation"));
+        loadFromFile(new File("PluginSim1/settings/ErrorInformation"));
         //loadFromFile(new File("C:\\D_Drive\\Coding\\Plpclipse\\PluginSim1\\PluginSim1\\src\\plptool\\mips\\ErrorInformation"));
     }
 
@@ -293,7 +294,7 @@ public class Asm extends plptool.PLPAsm {
      * populate the symbol table.
      *
      * @return Returns 0 on completion, error code otherwise
-     * @param asmIndex asm source index to preprocess
+     * @param Index asm source index to preprocess
      */
     public int preprocess(int index) {
         int i = 0, j = 0;

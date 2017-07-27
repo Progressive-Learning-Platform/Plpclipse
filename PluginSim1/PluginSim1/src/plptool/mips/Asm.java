@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.Optional;
 
 import org.apache.commons.io.FileUtils;
+import org.jdesktop.application.Application;
 import org.json.JSONObject;
 
 import plptool.PLPAsmSource;
@@ -96,7 +97,8 @@ public class Asm extends plptool.PLPAsm {
 
         defineArch();
         plpErrorSettings = new HashMap<>();
-        loadFromFile(new File("ErrorInformation"));
+        loadFromFile(new File("settings/ErrorInformation"));
+       
         //loadFromFile(new File("C:\\D_Drive\\Coding\\Plpclipse\\PluginSim1\\PluginSim1\\src\\plptool\\mips\\ErrorInformation"));
     }
 
@@ -120,7 +122,7 @@ public class Asm extends plptool.PLPAsm {
 
         defineArch();
         plpErrorSettings = new HashMap<>();
-        loadFromFile(new File("ErrorInformation"));
+        loadFromFile(new File("settings/ErrorInformation"));
         //loadFromFile(new File("C:\\D_Drive\\Coding\\Plpclipse\\PluginSim1\\PluginSim1\\src\\plptool\\mips\\ErrorInformation"));
     }
 

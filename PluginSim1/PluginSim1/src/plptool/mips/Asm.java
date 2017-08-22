@@ -1712,17 +1712,39 @@ public class Asm extends plptool.PLPAsm {
     @Override public String toString() {
         return "Asm";
     }
-    
+
+    /***
+     * Given a http link, it will add the HTML padding to display in the console
+     * @param link HTTP link
+     * @return HTML formated link string
+     */
     private String formatLinks(String link) {
         return "<font color=blue><u><a href=\"" + link + "\">" +
                 link + "</a></u></font>";
     }
-    
+
+    /***
+     * Given an example code, HTML color and formating tags are added so that it can be displayed
+     * @param examples sample code received which needs to be formated
+     * @return HTML padded sample code string
+     */
     private String formatExamples(String examples)
     {
     	return "<font color=green><u><p>"+examples+"</p></u></font>";
     }
-    
+
+    /***
+     * This module collects the necessary information from the ErrorInformation repository
+     * It forms the key needed for accessing the JSON file
+     * @param currentFile The asm file which caused the error
+     * @param lineNumber The line number in which error was discovered
+     * @param existingMessage The existing error message which was displayed for Default type
+     * @param customMessage The message to be added to the general description
+     * @param errorType The main group type of the error
+     * @param suberrorType The id of the subgroup
+     * @param errorToken The word which caused the error
+     * @return complete error string which needs to be displayed on console
+     */
     private String getErrorMessage(String currentFile, int lineNumber,String existingMessage, String customMessage, int errorType, int suberrorType, String errorToken)
     {
     	String errorMsg = "";
